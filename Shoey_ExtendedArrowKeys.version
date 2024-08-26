@@ -1,0 +1,12 @@
+{
+  "masterVersionFile": "https://raw.githubusercontent.com/MildlyFootwear/starsector-BetterSaves/master/Shoey_BetterSaves.version",
+
+  "modName": "BetterSaves",
+  "modVersion":
+    {
+      "major": 0,
+      "minor": 1,
+      "patch": 0
+    },
+  "modThreadId": "30536",
+}

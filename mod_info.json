@@ -1,0 +1,22 @@
+{
+    "id":"ShoeyExtendedArrowKeys",
+	"name":"Extended Arrow Keys",
+	"author":"Shoey",
+    "utility":"true",
+    "version": { "major":"0", "minor": "1", "patch": "0" },
+	"description":"Gives the arrow keys more uses.",
+    "gameVersion": "0.97a-RC11",
+  	"jars":["jars/ExtendedArrowKeys.jar"],
+  	"modPlugin":"Shoey.ExtendedArrowKeys.MainPlugin",
+	"dependencies":
+	[
+		{
+			"id": "lw_lazylib",
+			"name": "LazyLib",
+		},
+		{
+			"id": "lunalib",
+			"name": "LunaLib",
+		},
+	]
+}
