@@ -30,7 +30,6 @@ public class EveryFrameScript extends BaseEveryFrameCombatPlugin {
     List<Integer> keystopress = new ArrayList<>();
     List<Integer> keystounpress = new ArrayList<>();
     int[] breakkeys = {Keyboard.KEY_LSHIFT, Keyboard.KEY_RSHIFT, Keyboard.KEY_LMENU, Keyboard.KEY_RMENU, Keyboard.KEY_LCONTROL, Keyboard.KEY_RCONTROL};
-
     boolean cal;
     float winX;
     float winY;
@@ -61,55 +60,15 @@ public class EveryFrameScript extends BaseEveryFrameCombatPlugin {
             shipsSelectedGroup.clear();
         } else if (GameState.TITLE == Global.getCurrentState())
         {
-            if (!Global.getSettings().fileExistsInCommon("ExtendedArrowsMainMenu"))
-            {
-                cal = true;
-            }
+
         }
         time = 0;
     }
 
     public void advance(float amount, List<InputEventAPI> events) {
-        if (GameState.TITLE == Global.getCurrentState() && false)
+        if (GameState.TITLE == Global.getCurrentState())
         {
-            time += amount;
-            if (cal)
-            {
-                for (InputEventAPI event : events)
-                {
-                    if (event.isConsumed() || event.getEventType() != InputEventType.KEY_DOWN) {
-                        continue;
-                    }
-                    int key = event.getEventValue();
-                    if (key == Keyboard.KEY_DOWN)
-                    {
-                        updatePos();
-                        if (buttonX == 0)
-                            buttonX = (int) mouX;
-                        buttonY.add((int) mouY);
-                        thislog.info("Set button "+buttonY.size()+ " position to "+mouY);
-                        if (buttonY.size() == 4) {
-                            cal = false;
-                        }
-                    }
-                }
-            } else {
-                for (InputEventAPI event : events)
-                {
-                    if (event.isConsumed() || event.getEventType() != InputEventType.KEY_DOWN) {
-                        continue;
-                    }
-                    int key = event.getEventValue();
-                    if (key == Keyboard.KEY_DOWN)
-                    {
-                        if (MMButton == buttonY.size()-1)
-                            MMButton = 0;
-                        else
-                            MMButton++;
-                        T1000.mouseMove(0, 0);
-                    }
-                }
-            }
+
         } else if (GameState.COMBAT == Global.getCurrentState())
         {
             if (!keystopress.isEmpty() || !keystounpress.isEmpty())
@@ -120,7 +79,7 @@ public class EveryFrameScript extends BaseEveryFrameCombatPlugin {
                 {
                     for (int key : keystopress) {
                         T1000.keyPress(key);
-                        thislog.info("Pressing " + key);
+                        thislog.debug("Pressing " + key);
                         keystounpress.add(key);
                         time = 0;
                     }
@@ -128,7 +87,7 @@ public class EveryFrameScript extends BaseEveryFrameCombatPlugin {
                 } else {
                     for (int key : keystounpress) {
                         T1000.keyRelease(key);
-                        thislog.info("Unpressing " + key);
+                        thislog.debug("Unpressing " + key);
                     }
                     keystounpress.clear();
                 }
@@ -136,7 +95,7 @@ public class EveryFrameScript extends BaseEveryFrameCombatPlugin {
             playingShip = engine.getPlayerShip();
             if (!shipsSelectedGroup.containsKey(playingShip) && playingShip != null) {
                 shipsSelectedGroup.put(playingShip, 1);
-                thislog.info("Setting group 1 for "+playingShip.getName());
+                thislog.debug("Setting group 1 for "+playingShip.getName());
             }
             if (playingShip != lastPlayingShip)
             {
@@ -151,7 +110,7 @@ public class EveryFrameScript extends BaseEveryFrameCombatPlugin {
             for (int key : breakkeys)
             {
                 if (Keyboard.isKeyDown(key)) {
-                    thislog.info(Keyboard.getKeyName(key) + " is pressed, returning.");
+                    thislog.debug(Keyboard.getKeyName(key) + " is pressed, returning.");
                     return;
                 }
             }
@@ -170,9 +129,9 @@ public class EveryFrameScript extends BaseEveryFrameCombatPlugin {
                     } else {
                         current++;
                     }
-                    thislog.info("Pressing "+current+" for "+playingShip.getName());
+                    thislog.debug("Pressing "+current+" for "+playingShip.getName());
                     shipsSelectedGroup.put(playingShip, current);
-                    thislog.info("Setting group "+current+" for "+playingShip.getName());
+                    thislog.debug("Setting group "+current+" for "+playingShip.getName());
                     int keytopress = KeyEvent.getExtendedKeyCodeForChar(Integer.toString(current).charAt(0));
                     keystounpress.add(keytopress);
                     time = 0;
@@ -189,9 +148,9 @@ public class EveryFrameScript extends BaseEveryFrameCombatPlugin {
                         current--;
                     }
                     shipsSelectedGroup.put(playingShip, current);
-                    thislog.info("Setting group "+current+" for "+playingShip.getName());
+                    thislog.debug("Setting group "+current+" for "+playingShip.getName());
                     int keytopress = KeyEvent.getExtendedKeyCodeForChar(Integer.toString(current).charAt(0));
-                    thislog.info("Pressing "+keytopress+" for "+playingShip.getName());
+                    thislog.debug("Pressing "+keytopress+" for "+playingShip.getName());
                     keystounpress.add(keytopress);
                     time = 0;
                     event.consume();
@@ -201,7 +160,7 @@ public class EveryFrameScript extends BaseEveryFrameCombatPlugin {
                     int keytopress = KeyEvent.getExtendedKeyCodeForChar(shipsSelectedGroup.get(playingShip).toString().charAt(0));
                     keystounpress.add(keytopress);
                     time = 0;
-                    thislog.info("Alternating weapon group "+ shipsSelectedGroup.get(playingShip).toString());
+                    thislog.debug("Alternating weapon group "+ shipsSelectedGroup.get(playingShip).toString());
                     event.consume();
                     T1000.keyPress(keytopress);
                 } else if (key == Keyboard.KEY_RIGHT)
@@ -210,7 +169,7 @@ public class EveryFrameScript extends BaseEveryFrameCombatPlugin {
                     keystounpress.add(17);
                     keystopress.add(keytopress);
                     time = 0;
-                    thislog.info("Toggling autofire for weapon group "+ shipsSelectedGroup.get(playingShip).toString());
+                    thislog.debug("Toggling autofire for weapon group "+ shipsSelectedGroup.get(playingShip).toString());
                     event.consume();
                     T1000.keyPress(17);
 
