@@ -1,6 +1,6 @@
 {
     "plugins":
     {
-        "ShoeyExtendedArrowKeysEveryCombatFrame":"Shoey.ExtendedArrowKeys.EveryFrameScript"
+        "ShoeyExtendedArrowKeysEveryCombatFrame":"Shoey.ExtendedArrowKeys.EveryCombatFrameScript"
     },
 }

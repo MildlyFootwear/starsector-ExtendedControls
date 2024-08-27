@@ -20,7 +20,7 @@ import java.util.Map;
 import static Shoey.ExtendedArrowKeys.MainPlugin.*;
 
 
-public class EveryFrameScript extends BaseEveryFrameCombatPlugin {
+public class EveryCombatFrameScript extends BaseEveryFrameCombatPlugin {
 
     Logger thislog = Global.getLogger(this.getClass());
     CombatEngineAPI engine;
