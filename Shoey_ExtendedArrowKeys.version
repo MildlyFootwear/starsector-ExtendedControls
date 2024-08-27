@@ -1,5 +1,5 @@
 {
-  "masterVersionFile": "https://raw.githubusercontent.com/MildlyFootwear/starsector-BetterSaves/master/Shoey_BetterSaves.version",
+  "masterVersionFile": "https://raw.githubusercontent.com/MildlyFootwear/starsector-ExtendedArrowKeys/master/Shoey_ExtendedArrowKeys.version",
 
   "modName": "BetterSaves",
   "modVersion":
@@ -8,5 +8,4 @@
       "minor": 1,
       "patch": 0
     },
-  "modThreadId": "30536",
 }
