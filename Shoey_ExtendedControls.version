@@ -1,0 +1,11 @@
+{
+  "masterVersionFile": "https://raw.githubusercontent.com/MildlyFootwear/starsector-ExtendedControls/master/Shoey_ExtendedControls.version",
+
+  "modName": "ExtendedControls",
+  "modVersion":
+    {
+      "major": 0,
+      "minor": 1,
+      "patch": 0
+    },
+}
