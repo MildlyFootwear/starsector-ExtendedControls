@@ -1,11 +1,9 @@
-package Shoey.ExtendedArrowKeys;
+package Shoey.ExtendedControls;
 import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.BaseModPlugin;
 import org.apache.log4j.Logger;
-import org.lwjgl.input.Keyboard;
 
 import java.awt.*;
-import java.util.Map;
 
 
 public class MainPlugin extends BaseModPlugin {
@@ -22,4 +20,9 @@ public class MainPlugin extends BaseModPlugin {
         }
     }
 
+    @Override
+    public void onGameLoad(boolean newGame) {
+        super.onGameLoad(newGame);
+
+    }
 }

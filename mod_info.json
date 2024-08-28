@@ -1,13 +1,13 @@
 {
-    "id":"ShoeyExtendedArrowKeys",
-	"name":"Extended Arrow Keys",
+    "id":"ShoeyExtendedControls",
+	"name":"Extended Controls",
 	"author":"Shoey",
     "utility":"true",
     "version": { "major":"0", "minor": "1", "patch": "0" },
 	"description":"Gives the arrow keys more uses.",
     "gameVersion": "0.97a-RC11",
-  	"jars":["jars/ExtendedArrowKeys.jar"],
-  	"modPlugin":"Shoey.ExtendedArrowKeys.MainPlugin",
+  	"jars":["jars/ExtendedControls.jar"],
+  	"modPlugin":"Shoey.ExtendedControls.MainPlugin",
 	"dependencies":
 	[
 		{

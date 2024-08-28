@@ -1,4 +1,4 @@
-package Shoey.ExtendedArrowKeys;
+package Shoey.ExtendedControls;
 
 import org.lwjgl.input.Keyboard;
 

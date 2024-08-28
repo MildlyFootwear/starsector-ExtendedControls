@@ -2,7 +2,7 @@
   <artifact type="jar" build-on-make="true" name="Create .jar">
     <output-path>$PROJECT_DIR$/jars</output-path>
     <root id="archive" name="ExtendedArrowKeys.jar">
-      <element id="module-output" name="ExtendedArrowKeys" />
+      <element id="module-output" name="ExtendedControls" />
     </root>
   </artifact>
 </component>

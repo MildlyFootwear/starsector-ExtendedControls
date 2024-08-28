@@ -1,4 +1,4 @@
-package Shoey.ExtendedArrowKeys;
+package Shoey.ExtendedControls;
 
 import com.fs.starfarer.api.SettingsAPI;
 import com.fs.starfarer.api.combat.*;
@@ -17,7 +17,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static Shoey.ExtendedArrowKeys.MainPlugin.*;
+import static Shoey.ExtendedControls.MainPlugin.*;
 
 
 public class EveryCombatFrameScript extends BaseEveryFrameCombatPlugin {
@@ -66,10 +66,7 @@ public class EveryCombatFrameScript extends BaseEveryFrameCombatPlugin {
     }
 
     public void advance(float amount, List<InputEventAPI> events) {
-        if (GameState.TITLE == Global.getCurrentState())
-        {
-
-        } else if (GameState.COMBAT == Global.getCurrentState())
+        if (GameState.COMBAT == Global.getCurrentState())
         {
             if (!keystopress.isEmpty() || !keystounpress.isEmpty())
                 time += amount;

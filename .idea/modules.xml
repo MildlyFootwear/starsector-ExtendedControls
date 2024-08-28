@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/ExtendedArrowKeys.iml" filepath="$PROJECT_DIR$/ExtendedArrowKeys.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ExtendedControls.iml" filepath="$PROJECT_DIR$/ExtendedControls.iml" />
     </modules>
   </component>
 </project>
