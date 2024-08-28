@@ -3,6 +3,7 @@ package Shoey.ExtendedControls;
 import com.fs.starfarer.api.SettingsAPI;
 import com.fs.starfarer.api.combat.*;
 import com.fs.starfarer.api.input.InputEventType;
+import lunalib.lunaSettings.LunaSettings;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 
@@ -30,37 +31,24 @@ public class EveryCombatFrameScript extends BaseEveryFrameCombatPlugin {
     List<Integer> keystopress = new ArrayList<>();
     List<Integer> keystounpress = new ArrayList<>();
     int[] breakkeys = {Keyboard.KEY_LSHIFT, Keyboard.KEY_RSHIFT, Keyboard.KEY_LMENU, Keyboard.KEY_RMENU, Keyboard.KEY_LCONTROL, Keyboard.KEY_RCONTROL};
-    boolean cal;
-    float winX;
-    float winY;
-    float posX;
-    float posY;
-    float mouX;
-    float mouY ;
-    float screenScale;
-    int buttonX = 0;
-    List<Integer> buttonY = new ArrayList<>();
-    int MMButton = 0;
+
+    public static int WeapForward;
+    public static int WeapBackward;
+    public static int WeapTogAutofire;
+    public static int WeapAlt;
 
     float time = 0;
-
-    public void updatePos()
-    {
-        SettingsAPI settings = Global.getSettings();
-        winX = settings.getScreenWidth();
-        winY = settings.getScreenHeight();
-        mouX = settings.getMouseX();
-        mouY = winY - settings.getMouseY();
-    }
 
     public void init(CombatEngineAPI engine) {
         this.engine = engine;
         thislog.setLevel(Level.INFO);
         if (GameState.COMBAT == Global.getCurrentState()) {
             shipsSelectedGroup.clear();
-        } else if (GameState.TITLE == Global.getCurrentState())
-        {
-
+            WeapForward = LunaSettings.getInt("ShoeyExtendedControls","ExtendedControls_WGDOWN");
+            WeapBackward = LunaSettings.getInt("ShoeyExtendedControls","ExtendedControls_WGUP");
+            WeapTogAutofire = LunaSettings.getInt("ShoeyExtendedControls","ExtendedControls_TogAF");
+            WeapAlt = LunaSettings.getInt("ShoeyExtendedControls","ExtendedControls_ALT");
+            thislog.info("WeapForward: "+Keyboard.getKeyName(WeapForward)+", WeapBackward: "+Keyboard.getKeyName(WeapBackward) + ", WeapTogAutofire: "+Keyboard.getKeyName(WeapTogAutofire)+", WeapAlt: "+Keyboard.getKeyName(WeapAlt));
         }
         time = 0;
     }
@@ -116,7 +104,7 @@ public class EveryCombatFrameScript extends BaseEveryFrameCombatPlugin {
                     continue;
                 }
                 int key = event.getEventValue();
-                if (key == Keyboard.KEY_DOWN)
+                if (key == WeapForward)
                 {
                     java.util.List<WeaponGroupAPI> temp = playingShip.getWeaponGroupsCopy();
                     int current = shipsSelectedGroup.get(playingShip);
@@ -134,7 +122,7 @@ public class EveryCombatFrameScript extends BaseEveryFrameCombatPlugin {
                     time = 0;
                     event.consume();
                     T1000.keyPress(keytopress);
-                } else if (key == Keyboard.KEY_UP)
+                } else if (key == WeapBackward)
                 {
                     java.util.List<WeaponGroupAPI> temp = playingShip.getWeaponGroupsCopy();
                     int current = shipsSelectedGroup.get(playingShip);
@@ -152,7 +140,7 @@ public class EveryCombatFrameScript extends BaseEveryFrameCombatPlugin {
                     time = 0;
                     event.consume();
                     T1000.keyPress(keytopress);
-                } else if (key == Keyboard.KEY_LEFT)
+                } else if (key == WeapAlt)
                 {
                     int keytopress = KeyEvent.getExtendedKeyCodeForChar(shipsSelectedGroup.get(playingShip).toString().charAt(0));
                     keystounpress.add(keytopress);
@@ -160,7 +148,7 @@ public class EveryCombatFrameScript extends BaseEveryFrameCombatPlugin {
                     thislog.debug("Alternating weapon group "+ shipsSelectedGroup.get(playingShip).toString());
                     event.consume();
                     T1000.keyPress(keytopress);
-                } else if (key == Keyboard.KEY_RIGHT)
+                } else if (key == WeapTogAutofire)
                 {
                     int keytopress = KeyEvent.getExtendedKeyCodeForChar(shipsSelectedGroup.get(playingShip).toString().charAt(0));
                     keystounpress.add(17);
@@ -169,7 +157,6 @@ public class EveryCombatFrameScript extends BaseEveryFrameCombatPlugin {
                     thislog.debug("Toggling autofire for weapon group "+ shipsSelectedGroup.get(playingShip).toString());
                     event.consume();
                     T1000.keyPress(17);
-
                 }
             }
         }

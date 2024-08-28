@@ -1,2 +1,7 @@
 fieldID,fieldName,fieldType,defaultValue,secondaryValue,fieldDescription,minValue,maxValue,tab
-ExtendedArrows_Scaling,System Scaling,Double,1,,"If you've set Java or Starsector to application controlled scaling, you will need to adjust this to your system's scaling in order for cursor controls to work properly.",1,5,
+ExtendedControls_WGDOWN,Cycle Weapon Group Forward,Keycode,208,,,,,Combat
+ExtendedControls_WGUP,Cycle Weapon Group Backward,Keycode,200,,,,,Combat
+ExtendedControls_TogAF,Toggle Autofire,Keycode,205,,,,,Combat
+ExtendedControls_ALT,Alternate Weapon,Keycode,203,,,,,Combat
+ExtendedControls_CampaignUILeft,Navigate Left in Campaign Menu,Keycode,203,,"Navigate left in the core campaign menu; open the Character tab from Fleet, open Cargo from Map.",,,Campaign
+ExtendedControls_CampaignUIRight,Navigate Right in Campaign Menu,Keycode,205,,"Navigate right in the core campaign menu; open the Refit tab from fleet, open Intel from Map.",,,Campaign
