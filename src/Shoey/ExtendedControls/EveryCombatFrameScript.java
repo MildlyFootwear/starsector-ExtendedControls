@@ -55,6 +55,8 @@ public class EveryCombatFrameScript extends BaseEveryFrameCombatPlugin {
     public void advance(float amount, List<InputEventAPI> events) {
         if (GameState.COMBAT == Global.getCurrentState())
         {
+            if (engine.getCombatUI().isShowingCommandUI() || engine.getCombatUI().isShowingDeploymentDialog())
+                return;
             if (!keystopress.isEmpty() || !keystounpress.isEmpty())
                 time += amount;
             if (time > 0.05)

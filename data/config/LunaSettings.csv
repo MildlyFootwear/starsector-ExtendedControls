@@ -3,5 +3,10 @@ ExtendedControls_WGDOWN,Cycle Weapon Group Forward,Keycode,208,,,,,Combat
 ExtendedControls_WGUP,Cycle Weapon Group Backward,Keycode,200,,,,,Combat
 ExtendedControls_TogAF,Toggle Autofire,Keycode,205,,,,,Combat
 ExtendedControls_ALT,Alternate Weapon,Keycode,203,,,,,Combat
+ExtendedControls_CoreHeader,Core UI,Header,Core UI,,,,,Campaign
 ExtendedControls_CampaignUILeft,Navigate Left in Campaign Menu,Keycode,203,,"Navigate left in the core campaign menu; open the Character tab from Fleet, open Cargo from Map.",,,Campaign
 ExtendedControls_CampaignUIRight,Navigate Right in Campaign Menu,Keycode,205,,"Navigate right in the core campaign menu; open the Refit tab from fleet, open Intel from Map.",,,Campaign
+ExtendedControls_InteractHeader,Interaction,Header,Interaction,,,,,Campaign
+ExtendedControls_InteractUIUp,Navigate Up in Interact Dialog,Keycode,200,,,,,Campaign
+ExtendedControls_InteractUIDown,Navigate Down in Interact Dialog,Keycode,208,,,,,Campaign
+ExtendedControls_InteractUIConfirm,Confirm Dialog Choice,Keycode,28,,,,,Campaign

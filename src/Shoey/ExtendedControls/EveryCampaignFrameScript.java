@@ -7,9 +7,15 @@ import com.fs.starfarer.api.campaign.CampaignUIAPI;
 import com.fs.starfarer.api.campaign.CoreUITabId;
 import com.fs.starfarer.api.campaign.InteractionDialogAPI;
 import com.fs.starfarer.api.campaign.SectorAPI;
+import com.fs.starfarer.api.input.InputEventAPI;
+import com.fs.starfarer.api.ui.PositionAPI;
+import com.fs.starfarer.api.ui.UIComponentAPI;
+import com.fs.starfarer.api.ui.UIPanelAPI;
+import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.lwjgl.input.Keyboard;
 
+import java.awt.event.KeyEvent;
 import java.util.*;
 import java.util.List;
 
@@ -22,6 +28,8 @@ public class EveryCampaignFrameScript implements EveryFrameScript {
     SectorAPI sector;
     CampaignUIAPI cUI;
     InteractionDialogAPI intDialog;
+    int DialogOption = 1;
+
     @Override
     public boolean isDone() {
         return false;
@@ -50,25 +58,47 @@ public class EveryCampaignFrameScript implements EveryFrameScript {
             if (Keyboard.isKeyDown(key))
                 aKeyPressed = true;
 
+        sector = Global.getSector();
+        cUI = sector.getCampaignUI();
+
+        if (intDialog != cUI.getCurrentInteractionDialog())
+        {
+            intDialog = cUI.getCurrentInteractionDialog();
+            if (intDialog == null) {
+                thislog.info("Cleared interaction");
+                DialogOption = 1;
+            } else {
+                thislog.info("Updated interaction");
+            }
+        }
+
         if (aKeyPressed)
         {
-            sector = Global.getSector();
-            cUI = sector.getCampaignUI();
-
+            thislog.setLevel(Level.ALL);
             String cUITabName = null;
             try {cUITabName = cUI.getCurrentCoreTab().name();} catch (Exception e) { }
 
             if (cUITabName == null)
             {
                 List options;
-                if (intDialog != cUI.getCurrentInteractionDialog())
+                if (intDialog != null)
                 {
-                    intDialog = cUI.getCurrentInteractionDialog();
-                    if (intDialog == null)
-                        thislog.info("Cleared interaction");
-                    else {
-                        thislog.info("Updated interaction");
-                        options = intDialog.getOptionPanel().getSavedOptionList();
+                    options = intDialog.getOptionPanel().getSavedOptionList();
+                    if (Keyboard.isKeyDown(InteractUIDown) && !lastKeyState.get(InteractUIDown))
+                    {
+                        if (DialogOption < options.size())
+                            DialogOption++;
+                        thislog.debug("Selected option "+DialogOption);
+
+                    } else if (Keyboard.isKeyDown(InteractUIUp) && !lastKeyState.get(InteractUIUp)) {
+                        if (DialogOption > 1)
+                            DialogOption--;
+                        thislog.debug("Selected option "+DialogOption);
+
+                    } else if (Keyboard.isKeyDown(InteractUIConfirm) && !lastKeyState.get(InteractUIConfirm)) {
+                        T1000.keyPress(KeyEvent.getExtendedKeyCodeForChar(Integer.toString(DialogOption).charAt(0)));
+                        T1000.keyRelease(KeyEvent.getExtendedKeyCodeForChar(Integer.toString(DialogOption).charAt(0)));
+                        thislog.debug("Confirmed option "+DialogOption);
                     }
                 }
 
@@ -126,10 +156,6 @@ public class EveryCampaignFrameScript implements EveryFrameScript {
                 }
             }
         }
-
-
-
-
         for (int key : campaignListeningToKeys)
         {
             lastKeyState.put(key, Keyboard.isKeyDown(key));

@@ -18,15 +18,23 @@ public class MainPlugin extends BaseModPlugin {
     public static List<Integer> campaignListeningToKeys = new ArrayList<>();
     public static int CampaignUILeft;
     public static int CampaignUIRight;
-
+    public static int InteractUIUp;
+    public static int InteractUIDown;
+    public static int InteractUIConfirm;
 
     public static void updateCampaignBinds()
     {
         campaignListeningToKeys.clear();
         CampaignUILeft = LunaSettings.getInt("ShoeyExtendedControls","ExtendedControls_CampaignUILeft");
         CampaignUIRight = LunaSettings.getInt("ShoeyExtendedControls","ExtendedControls_CampaignUIRight");
+        InteractUIUp = LunaSettings.getInt("ShoeyExtendedControls","ExtendedControls_InteractUIUp");
+        InteractUIDown = LunaSettings.getInt("ShoeyExtendedControls","ExtendedControls_InteractUIDown");
+        InteractUIConfirm = LunaSettings.getInt("ShoeyExtendedControls","ExtendedControls_InteractUIConfirm");
         campaignListeningToKeys.add(CampaignUILeft);
         campaignListeningToKeys.add(CampaignUIRight);
+        campaignListeningToKeys.add(InteractUIUp);
+        campaignListeningToKeys.add(InteractUIDown);
+        campaignListeningToKeys.add(InteractUIConfirm);
     }
 
     @Override
