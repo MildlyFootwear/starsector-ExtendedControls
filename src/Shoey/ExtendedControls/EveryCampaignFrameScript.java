@@ -7,16 +7,9 @@ import com.fs.starfarer.api.campaign.CampaignUIAPI;
 import com.fs.starfarer.api.campaign.CoreUITabId;
 import com.fs.starfarer.api.campaign.InteractionDialogAPI;
 import com.fs.starfarer.api.campaign.SectorAPI;
-import com.fs.starfarer.api.campaign.rules.MemoryAPI;
-import com.fs.starfarer.api.impl.campaign.FleetInteractionDialogPluginImpl;
 import org.apache.log4j.Logger;
 import org.lwjgl.input.Keyboard;
 
-import java.awt.*;
-import java.awt.event.KeyEvent;
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.MethodHandles;
-import java.lang.invoke.MethodType;
 import java.util.*;
 import java.util.List;
 
@@ -24,7 +17,7 @@ import static Shoey.ExtendedControls.MainPlugin.*;
 
 public class EveryCampaignFrameScript implements EveryFrameScript {
 
-    Map<Integer, Boolean> lastKeyState = new HashMap<Integer, Boolean>();
+    Map<Integer, Boolean> lastKeyState = new HashMap<>();
     private Logger thislog = Global.getLogger(this.getClass());
     SectorAPI sector;
     CampaignUIAPI cUI;
@@ -75,6 +68,7 @@ public class EveryCampaignFrameScript implements EveryFrameScript {
                         thislog.info("Cleared interaction");
                     else {
                         thislog.info("Updated interaction");
+                        options = intDialog.getOptionPanel().getSavedOptionList();
                     }
                 }
 

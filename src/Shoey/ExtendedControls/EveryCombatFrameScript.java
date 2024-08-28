@@ -1,6 +1,5 @@
 package Shoey.ExtendedControls;
 
-import com.fs.starfarer.api.SettingsAPI;
 import com.fs.starfarer.api.combat.*;
 import com.fs.starfarer.api.input.InputEventType;
 import lunalib.lunaSettings.LunaSettings;
@@ -25,7 +24,7 @@ public class EveryCombatFrameScript extends BaseEveryFrameCombatPlugin {
 
     Logger thislog = Global.getLogger(this.getClass());
     CombatEngineAPI engine;
-    Map<ShipAPI, Integer> shipsSelectedGroup = new HashMap<ShipAPI, Integer>();
+    Map<ShipAPI, Integer> shipsSelectedGroup = new HashMap<>();
     ShipAPI playingShip;
     ShipAPI lastPlayingShip;
     List<Integer> keystopress = new ArrayList<>();
@@ -124,7 +123,6 @@ public class EveryCombatFrameScript extends BaseEveryFrameCombatPlugin {
                     T1000.keyPress(keytopress);
                 } else if (key == WeapBackward)
                 {
-                    java.util.List<WeaponGroupAPI> temp = playingShip.getWeaponGroupsCopy();
                     int current = shipsSelectedGroup.get(playingShip);
                     if (current == 1) {
                         event.consume();
