@@ -7,6 +7,7 @@ import com.fs.starfarer.api.campaign.CampaignUIAPI;
 import com.fs.starfarer.api.campaign.CoreUITabId;
 import com.fs.starfarer.api.campaign.InteractionDialogAPI;
 import com.fs.starfarer.api.campaign.SectorAPI;
+import com.fs.starfarer.api.campaign.rules.MemoryAPI;
 import com.fs.starfarer.api.input.InputEventAPI;
 import com.fs.starfarer.api.ui.PositionAPI;
 import com.fs.starfarer.api.ui.UIComponentAPI;
@@ -25,10 +26,10 @@ public class EveryCampaignFrameScript implements EveryFrameScript {
 
     Map<Integer, Boolean> lastKeyState = new HashMap<>();
     private Logger thislog = Global.getLogger(this.getClass());
-    SectorAPI sector;
+    static SectorAPI sector;
     CampaignUIAPI cUI;
     InteractionDialogAPI intDialog;
-    int DialogOption = 1;
+    static int DialogOption = 1;
 
     @Override
     public boolean isDone() {
@@ -52,11 +53,6 @@ public class EveryCampaignFrameScript implements EveryFrameScript {
                 lastKeyState.put(key, false);
         }
 
-        boolean aKeyPressed = false;
-
-        for (int key : campaignListeningToKeys)
-            if (Keyboard.isKeyDown(key))
-                aKeyPressed = true;
 
         sector = Global.getSector();
         cUI = sector.getCampaignUI();
@@ -72,6 +68,12 @@ public class EveryCampaignFrameScript implements EveryFrameScript {
             }
         }
 
+        boolean aKeyPressed = false;
+
+        for (int key : campaignListeningToKeys)
+            if (Keyboard.isKeyDown(key))
+                aKeyPressed = true;
+
         if (aKeyPressed)
         {
             thislog.setLevel(Level.ALL);
@@ -83,6 +85,7 @@ public class EveryCampaignFrameScript implements EveryFrameScript {
                 List options;
                 if (intDialog != null)
                 {
+
                     options = intDialog.getOptionPanel().getSavedOptionList();
                     if (Keyboard.isKeyDown(InteractUIDown) && !lastKeyState.get(InteractUIDown))
                     {
@@ -105,51 +108,51 @@ public class EveryCampaignFrameScript implements EveryFrameScript {
             } else {
                 if (Keyboard.isKeyDown(CampaignUIRight) && !lastKeyState.get(CampaignUIRight))
                 {
-                    switch (cUITabName) {
-                        case "CHARACTER":
+                    switch (cUI.getCurrentCoreTab()) {
+                        case CHARACTER:
                             cUI.showCoreUITab(CoreUITabId.FLEET);
                             break;
-                        case "FLEET":
+                        case FLEET:
                             cUI.showCoreUITab(CoreUITabId.REFIT);
                             break;
-                        case "REFIT":
+                        case REFIT:
                             cUI.showCoreUITab(CoreUITabId.CARGO);
                             break;
-                        case "CARGO":
+                        case CARGO:
                             cUI.showCoreUITab(CoreUITabId.MAP);
                             break;
-                        case "MAP":
+                        case MAP:
                             cUI.showCoreUITab(CoreUITabId.INTEL);
                             break;
-                        case "INTEL":
+                        case INTEL:
                             cUI.showCoreUITab(CoreUITabId.OUTPOSTS);
                             break;
-                        case "OUTPOSTS":
+                        case OUTPOSTS:
                             cUI.showCoreUITab(CoreUITabId.CHARACTER);
                             break;
                     }
                 } else if (Keyboard.isKeyDown(CampaignUILeft) && !lastKeyState.get(CampaignUILeft))
                 {
-                    switch (cUITabName) {
-                        case "CHARACTER":
+                    switch (cUI.getCurrentCoreTab()) {
+                        case CHARACTER:
                             cUI.showCoreUITab(CoreUITabId.OUTPOSTS);
                             break;
-                        case "FLEET":
+                        case FLEET:
                             cUI.showCoreUITab(CoreUITabId.CHARACTER);
                             break;
-                        case "REFIT":
+                        case REFIT:
                             cUI.showCoreUITab(CoreUITabId.FLEET);
                             break;
-                        case "CARGO":
+                        case CARGO:
                             cUI.showCoreUITab(CoreUITabId.REFIT);
                             break;
-                        case "MAP":
+                        case MAP:
                             cUI.showCoreUITab(CoreUITabId.CARGO);
                             break;
-                        case "INTEL":
+                        case INTEL:
                             cUI.showCoreUITab(CoreUITabId.MAP);
                             break;
-                        case "OUTPOSTS":
+                        case OUTPOSTS:
                             cUI.showCoreUITab(CoreUITabId.INTEL);
                             break;
                     }

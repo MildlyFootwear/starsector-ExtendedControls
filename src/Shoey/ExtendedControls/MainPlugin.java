@@ -22,19 +22,21 @@ public class MainPlugin extends BaseModPlugin {
     public static int InteractUIDown;
     public static int InteractUIConfirm;
 
+    static int putCampaignBind(String s)
+    {
+        int i = LunaSettings.getInt("ShoeyExtendedControls", s);
+        campaignListeningToKeys.add(i);
+        return i;
+    }
+    
     public static void updateCampaignBinds()
     {
         campaignListeningToKeys.clear();
-        CampaignUILeft = LunaSettings.getInt("ShoeyExtendedControls","ExtendedControls_CampaignUILeft");
-        CampaignUIRight = LunaSettings.getInt("ShoeyExtendedControls","ExtendedControls_CampaignUIRight");
-        InteractUIUp = LunaSettings.getInt("ShoeyExtendedControls","ExtendedControls_InteractUIUp");
-        InteractUIDown = LunaSettings.getInt("ShoeyExtendedControls","ExtendedControls_InteractUIDown");
-        InteractUIConfirm = LunaSettings.getInt("ShoeyExtendedControls","ExtendedControls_InteractUIConfirm");
-        campaignListeningToKeys.add(CampaignUILeft);
-        campaignListeningToKeys.add(CampaignUIRight);
-        campaignListeningToKeys.add(InteractUIUp);
-        campaignListeningToKeys.add(InteractUIDown);
-        campaignListeningToKeys.add(InteractUIConfirm);
+        CampaignUILeft = putCampaignBind("ExtendedControls_CampaignUILeft");
+        CampaignUIRight = putCampaignBind("ExtendedControls_CampaignUIRight");
+        InteractUIUp = putCampaignBind("ExtendedControls_InteractUIUp");
+        InteractUIDown = putCampaignBind("ExtendedControls_InteractUIDown");
+        InteractUIConfirm = putCampaignBind("ExtendedControls_InteractUIConfirm");
     }
 
     @Override
