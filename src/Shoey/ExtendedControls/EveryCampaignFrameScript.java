@@ -3,33 +3,20 @@ package Shoey.ExtendedControls;
 import com.fs.starfarer.api.EveryFrameScript;
 import com.fs.starfarer.api.GameState;
 import com.fs.starfarer.api.Global;
-import com.fs.starfarer.api.campaign.CampaignUIAPI;
 import com.fs.starfarer.api.campaign.CoreUITabId;
-import com.fs.starfarer.api.campaign.InteractionDialogAPI;
-import com.fs.starfarer.api.campaign.SectorAPI;
-import com.fs.starfarer.api.campaign.rules.MemoryAPI;
-import com.fs.starfarer.api.input.InputEventAPI;
-import com.fs.starfarer.api.ui.PositionAPI;
-import com.fs.starfarer.api.ui.UIComponentAPI;
-import com.fs.starfarer.api.ui.UIPanelAPI;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.lwjgl.input.Keyboard;
 
-import java.awt.event.KeyEvent;
 import java.util.*;
-import java.util.List;
 
 import static Shoey.ExtendedControls.MainPlugin.*;
 
 public class EveryCampaignFrameScript implements EveryFrameScript {
 
     Map<Integer, Boolean> lastKeyState = new HashMap<>();
-    private Logger thislog = Global.getLogger(this.getClass());
-    static SectorAPI sector;
-    CampaignUIAPI cUI;
-    InteractionDialogAPI intDialog;
-    static int DialogOption = 1;
+    private Logger log = Global.getLogger(this.getClass());
+    float displayTimer = 0;
 
     @Override
     public boolean isDone() {
@@ -44,6 +31,9 @@ public class EveryCampaignFrameScript implements EveryFrameScript {
     @Override
     public void advance(float amount) {
 
+        if (displayTimer != 0)
+            displayTimer += amount;
+
         if (Global.getCurrentState() != GameState.CAMPAIGN)
             return;
 
@@ -56,16 +46,23 @@ public class EveryCampaignFrameScript implements EveryFrameScript {
 
         sector = Global.getSector();
         cUI = sector.getCampaignUI();
-
-        if (intDialog != cUI.getCurrentInteractionDialog())
-        {
-            intDialog = cUI.getCurrentInteractionDialog();
-            if (intDialog == null) {
-                thislog.info("Cleared interaction");
-                DialogOption = 1;
-            } else {
-                thislog.info("Updated interaction");
+        if (HandlingInteract) {
+            if (intDialog != cUI.getCurrentInteractionDialog()) {
+                intDialog = cUI.getCurrentInteractionDialog();
+                if (intDialog == null) {
+                    if (debugLogging)
+                        log.setLevel(Level.DEBUG);
+                    else
+                        log.setLevel(Level.INFO);
+                    log.debug("Cleared interaction");
+                    DialogOptionCount = 0;
+                    DialogOption = 1;
+                } else {
+                    log.debug("Updated interaction");
+                }
             }
+            if (intDialog != null)
+                DialogOptionCount = intDialog.getOptionPanel().getSavedOptionList().size();
         }
 
         boolean aKeyPressed = false;
@@ -76,36 +73,20 @@ public class EveryCampaignFrameScript implements EveryFrameScript {
 
         if (aKeyPressed)
         {
-            thislog.setLevel(Level.ALL);
+            log.setLevel(Level.ALL);
             String cUITabName = null;
             try {cUITabName = cUI.getCurrentCoreTab().name();} catch (Exception e) { }
 
-            if (cUITabName == null)
+            if (debugLogging)
+                log.setLevel(Level.DEBUG);
+            else
+                log.setLevel(Level.INFO);
+
+            if (cUI.isShowingDialog() && DialogOptionCount != 0 && HandlingInteract)
             {
-                List options;
-                if (intDialog != null)
-                {
 
-                    options = intDialog.getOptionPanel().getSavedOptionList();
-                    if (Keyboard.isKeyDown(InteractUIDown) && !lastKeyState.get(InteractUIDown))
-                    {
-                        if (DialogOption < options.size())
-                            DialogOption++;
-                        thislog.debug("Selected option "+DialogOption);
-
-                    } else if (Keyboard.isKeyDown(InteractUIUp) && !lastKeyState.get(InteractUIUp)) {
-                        if (DialogOption > 1)
-                            DialogOption--;
-                        thislog.debug("Selected option "+DialogOption);
-
-                    } else if (Keyboard.isKeyDown(InteractUIConfirm) && !lastKeyState.get(InteractUIConfirm)) {
-                        T1000.keyPress(KeyEvent.getExtendedKeyCodeForChar(Integer.toString(DialogOption).charAt(0)));
-                        T1000.keyRelease(KeyEvent.getExtendedKeyCodeForChar(Integer.toString(DialogOption).charAt(0)));
-                        thislog.debug("Confirmed option "+DialogOption);
-                    }
-                }
-
-            } else {
+            } else if (cUITabName != null) {
+                log.debug("Processing keys with "+cUITabName);
                 if (Keyboard.isKeyDown(CampaignUIRight) && !lastKeyState.get(CampaignUIRight))
                 {
                     switch (cUI.getCurrentCoreTab()) {

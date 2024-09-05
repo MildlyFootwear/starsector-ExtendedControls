@@ -7,6 +7,9 @@ ExtendedControls_CoreHeader,Core UI,Header,Core UI,,,,,Campaign
 ExtendedControls_CampaignUILeft,Navigate Left in Campaign Menu,Keycode,203,,"Navigate left in the core campaign menu; open the Character tab from Fleet, open Cargo from Map.",,,Campaign
 ExtendedControls_CampaignUIRight,Navigate Right in Campaign Menu,Keycode,205,,"Navigate right in the core campaign menu; open the Refit tab from fleet, open Intel from Map.",,,Campaign
 ExtendedControls_InteractHeader,Interaction,Header,Interaction,,,,,Campaign
+ExtendedControls_HandlingInteract,Enabled,Boolean,TRUE,,,,,Campaign
 ExtendedControls_InteractUIUp,Navigate Up in Interact Dialog,Keycode,200,,,,,Campaign
 ExtendedControls_InteractUIDown,Navigate Down in Interact Dialog,Keycode,208,,,,,Campaign
 ExtendedControls_InteractUIConfirm,Confirm Dialog Choice,Keycode,28,,,,,Campaign
+ExtendedControls_InteractUIToggleIndicator,Toggle Indicator,Keycode,29,,"If the interact option indicator is being shown when it shouldn't, this key can be used to temporarily disable it.",,,Campaign
+ExtendedControls_Debugging,Debug,Boolean,FALSE,,Debug logging.,,,Debug
