@@ -24,21 +24,31 @@ public class MainPlugin extends BaseModPlugin {
     public static boolean debugLogging;
 
     public static List<Integer> campaignListeningToKeys = new ArrayList<>();
-    public static int CampaignUILeft;
-    public static int CampaignUIRight;
+    public static int CampaignCoreUILeft;
+    public static int CampaignCoreUIRight;
 
     public static boolean HandlingInteract;
-    public static int InteractUIUp;
-    public static int InteractUIDown;
-    public static int InteractUIConfirm;
-    public static int InteractUIToggleIndicator;
-    public static boolean InteractUIRenderIndicator = true;
+    public static int CampaignInteractUIUp;
+    public static int CampaignInteractUIDown;
+    public static int CampaignInteractUIConfirm;
+    public static int CampaignInteractUIToggleIndicator;
+    public static boolean CampaignInteractUIRenderIndicator = true;
+
+    public static boolean HandlingHotbar;
+    public static boolean CampaignHotbarFadeReset;
+    public static int CampaignHotbarLeft;
+    public static int CampaignHotbarRight;
+    public static int CampaignHotbarConfirm;
+    public static int CampaignHotbarFadeTimer;
+    public static int CampaignHotbarOption = 1;
+    public static float CampaignHotbarRenderIndicatorTimer = 0;
+    public static boolean CampaignHotbarRenderIndicator = true;
 
     public static SectorAPI sector = null;
     public static CampaignUIAPI cUI = null;
     public static InteractionDialogAPI intDialog = null;
-    public static int DialogOption = 1;
-    public static int DialogOptionCount = 0;
+    public static int CampaignInteractOption = 1;
+    public static int CampaignInteractOptionCount = 0;
 
 
     static int putCampaignBind(String s)
@@ -50,15 +60,22 @@ public class MainPlugin extends BaseModPlugin {
     
     public static void updateLunaSettings()
     {
+        debugLogging = LunaSettings.getBoolean("ShoeyExtendedControls", "Debugging");
         campaignListeningToKeys.clear();
-        CampaignUILeft = putCampaignBind("ExtendedControls_CampaignUILeft");
-        CampaignUIRight = putCampaignBind("ExtendedControls_CampaignUIRight");
-        InteractUIUp = putCampaignBind("ExtendedControls_InteractUIUp");
-        InteractUIDown = putCampaignBind("ExtendedControls_InteractUIDown");
-        InteractUIConfirm = putCampaignBind("ExtendedControls_InteractUIConfirm");
-        InteractUIToggleIndicator = putCampaignBind("ExtendedControls_InteractUIToggleIndicator");
-        HandlingInteract = LunaSettings.getBoolean("ShoeyExtendedControls", "ExtendedControls_HandlingInteract");
-        debugLogging = LunaSettings.getBoolean("ShoeyExtendedControls", "ExtendedControls_Debugging");
+        CampaignCoreUILeft = putCampaignBind("CampaignUILeft");
+        CampaignCoreUIRight = putCampaignBind("CampaignUIRight");
+        HandlingInteract = LunaSettings.getBoolean("ShoeyExtendedControls", "HandlingInteract");
+        CampaignInteractUIUp = putCampaignBind("CampaignInteractUIUp");
+        CampaignInteractUIDown = putCampaignBind("CampaignInteractUIDown");
+        CampaignInteractUIConfirm = putCampaignBind("CampaignInteractUIConfirm");
+        CampaignInteractUIToggleIndicator = putCampaignBind("CampaignInteractUIToggleIndicator");
+        HandlingHotbar = LunaSettings.getBoolean("ShoeyExtendedControls", "HandlingHotbar");
+        CampaignHotbarLeft = putCampaignBind("CampaignHotbarLeft");
+        CampaignHotbarRight = putCampaignBind("CampaignHotbarRight");
+        CampaignHotbarConfirm = putCampaignBind("CampaignHotbarConfirm");
+        CampaignHotbarFadeTimer = LunaSettings.getInt("ShoeyExtendedControls", "CampaignHotbarFadeTimer");
+        CampaignHotbarFadeReset = LunaSettings.getBoolean("ShoeyExtendedControls", "CampaignHotbarFadeReset");
+
     }
 
     @Override
@@ -94,7 +111,8 @@ public class MainPlugin extends BaseModPlugin {
         sector = Global.getSector();
         cUI = sector.getCampaignUI();
         sector.addTransientScript(new EveryCampaignFrameScript());
-        sector.getListenerManager().addListener(new CampaignUIDialogHandler(), true);
+        sector.getListenerManager().addListener(new CampaignUIInteractHandler(), true);
+        sector.getListenerManager().addListener(new CampaignUIHotbarHandler(), true);
 
     }
 }

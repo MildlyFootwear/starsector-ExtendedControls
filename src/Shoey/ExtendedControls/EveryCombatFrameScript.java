@@ -91,8 +91,10 @@ public class EveryCombatFrameScript extends BaseEveryFrameCombatPlugin {
                 keystounpress.add(keytopress);
                 time = 0;
             }
+
             if (events.size() < 2)
                 return;
+
             for (int key : breakkeys)
             {
                 if (Keyboard.isKeyDown(key)) {

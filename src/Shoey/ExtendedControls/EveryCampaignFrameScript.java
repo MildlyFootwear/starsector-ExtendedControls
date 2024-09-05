@@ -31,11 +31,14 @@ public class EveryCampaignFrameScript implements EveryFrameScript {
     @Override
     public void advance(float amount) {
 
+        if (Global.getCurrentState() != GameState.CAMPAIGN)
+            return;
+
         if (displayTimer != 0)
             displayTimer += amount;
 
-        if (Global.getCurrentState() != GameState.CAMPAIGN)
-            return;
+        if (CampaignHotbarRenderIndicatorTimer != 0)
+            CampaignHotbarRenderIndicatorTimer += amount;
 
         for (int key : campaignListeningToKeys)
         {
@@ -55,14 +58,14 @@ public class EveryCampaignFrameScript implements EveryFrameScript {
                     else
                         log.setLevel(Level.INFO);
                     log.debug("Cleared interaction");
-                    DialogOptionCount = 0;
-                    DialogOption = 1;
+                    CampaignInteractOptionCount = 0;
+                    CampaignInteractOption = 1;
                 } else {
                     log.debug("Updated interaction");
                 }
             }
             if (intDialog != null)
-                DialogOptionCount = intDialog.getOptionPanel().getSavedOptionList().size();
+                CampaignInteractOptionCount = intDialog.getOptionPanel().getSavedOptionList().size();
         }
 
         boolean aKeyPressed = false;
@@ -82,12 +85,12 @@ public class EveryCampaignFrameScript implements EveryFrameScript {
             else
                 log.setLevel(Level.INFO);
 
-            if (cUI.isShowingDialog() && DialogOptionCount != 0 && HandlingInteract)
+            if (cUI.isShowingDialog() && CampaignInteractOptionCount != 0 && HandlingInteract)
             {
 
             } else if (cUITabName != null) {
                 log.debug("Processing keys with "+cUITabName);
-                if (Keyboard.isKeyDown(CampaignUIRight) && !lastKeyState.get(CampaignUIRight))
+                if (Keyboard.isKeyDown(CampaignCoreUIRight) && !lastKeyState.get(CampaignCoreUIRight))
                 {
                     switch (cUI.getCurrentCoreTab()) {
                         case CHARACTER:
@@ -112,7 +115,7 @@ public class EveryCampaignFrameScript implements EveryFrameScript {
                             cUI.showCoreUITab(CoreUITabId.CHARACTER);
                             break;
                     }
-                } else if (Keyboard.isKeyDown(CampaignUILeft) && !lastKeyState.get(CampaignUILeft))
+                } else if (Keyboard.isKeyDown(CampaignCoreUILeft) && !lastKeyState.get(CampaignCoreUILeft))
                 {
                     switch (cUI.getCurrentCoreTab()) {
                         case CHARACTER:
