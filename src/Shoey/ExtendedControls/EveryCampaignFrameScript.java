@@ -76,7 +76,7 @@ public class EveryCampaignFrameScript implements EveryFrameScript {
 
         if (aKeyPressed)
         {
-            log.setLevel(Level.ALL);
+
             String cUITabName = null;
             try {cUITabName = cUI.getCurrentCoreTab().name();} catch (Exception e) { }
 
@@ -85,10 +85,7 @@ public class EveryCampaignFrameScript implements EveryFrameScript {
             else
                 log.setLevel(Level.INFO);
 
-            if (cUI.isShowingDialog() && CampaignInteractOptionCount != 0 && HandlingInteract)
-            {
-
-            } else if (cUITabName != null) {
+            if (cUITabName != null && InteractionChecks() && HotbarChecks()) {
                 log.debug("Processing keys with "+cUITabName);
                 if (Keyboard.isKeyDown(CampaignCoreUIRight) && !lastKeyState.get(CampaignCoreUIRight))
                 {

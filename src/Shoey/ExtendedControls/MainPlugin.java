@@ -78,6 +78,30 @@ public class MainPlugin extends BaseModPlugin {
 
     }
 
+    public static boolean InteractionChecks()
+    {
+        if (cUI == null || !HandlingInteract || CampaignInteractOptionCount == 0 || CampaignInteractOption == 0)
+            return true;
+
+        if (!cUI.isShowingDialog() || cUI.isShowingMenu())
+            return true;
+
+        return false;
+    }
+
+    public static boolean HotbarChecks()
+    {
+        if (cUI == null || !HandlingHotbar)
+            return true;
+
+        if (cUI.isShowingDialog() || cUI.isShowingMenu())
+            return true;
+
+        return false;
+    }
+
+
+
     @Override
     public void onApplicationLoad() throws Exception {
         super.onApplicationLoad();

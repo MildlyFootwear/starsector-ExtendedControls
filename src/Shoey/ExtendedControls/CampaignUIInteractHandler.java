@@ -7,6 +7,7 @@ import com.fs.starfarer.api.combat.ViewportAPI;
 import com.fs.starfarer.api.graphics.SpriteAPI;
 import com.fs.starfarer.api.input.InputEventAPI;
 import com.fs.starfarer.api.input.InputEventType;
+import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.lwjgl.input.Keyboard;
 
@@ -23,10 +24,7 @@ public class CampaignUIInteractHandler implements CampaignUIRenderingListener, C
     @Override
     public void renderInUICoordsAboveUIAndTooltips(ViewportAPI viewport) {
 
-        if (cUI == null || !HandlingInteract || CampaignInteractOptionCount == 0 || CampaignInteractOption == 0)
-            return;
-
-        if (!cUI.isShowingDialog() || cUI.isShowingMenu())
+        if (InteractionChecks())
             return;
 
         if (CampaignInteractOption > CampaignInteractOptionCount)
@@ -61,13 +59,15 @@ public class CampaignUIInteractHandler implements CampaignUIRenderingListener, C
     @Override
     public void processCampaignInputPreCore(List<InputEventAPI> events) {
 
-        if (cUI == null || !HandlingInteract || CampaignInteractOptionCount == 0 || CampaignInteractOption == 0)
-            return;
-
-        if (!cUI.isShowingDialog())
+        if (InteractionChecks())
             return;
 
         log = Global.getLogger(this.getClass());
+
+        if (debugLogging)
+            log.setLevel(Level.DEBUG);
+        else
+            log.setLevel(Level.INFO);
 
         boolean logged = false;
         for (InputEventAPI e : events)

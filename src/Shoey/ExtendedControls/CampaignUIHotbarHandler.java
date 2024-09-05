@@ -7,6 +7,7 @@ import com.fs.starfarer.api.combat.ViewportAPI;
 import com.fs.starfarer.api.graphics.SpriteAPI;
 import com.fs.starfarer.api.input.InputEventAPI;
 import com.fs.starfarer.api.input.InputEventType;
+import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.lwjgl.input.Keyboard;
 
@@ -23,10 +24,7 @@ public class CampaignUIHotbarHandler implements CampaignUIRenderingListener, Cam
     @Override
     public void renderInUICoordsAboveUIAndTooltips(ViewportAPI viewport) {
 
-        if (cUI == null || !HandlingHotbar)
-            return;
-
-        if (cUI.isShowingDialog() || cUI.isShowingMenu())
+        if (HotbarChecks())
             return;
 
         if (CampaignHotbarRenderIndicatorTimer > CampaignHotbarFadeTimer)
@@ -63,13 +61,15 @@ public class CampaignUIHotbarHandler implements CampaignUIRenderingListener, Cam
     @Override
     public void processCampaignInputPreCore(List<InputEventAPI> events) {
 
-        if (cUI == null || !HandlingHotbar)
-            return;
-
-        if (cUI.isShowingDialog() || cUI.isShowingMenu())
+        if (HotbarChecks())
             return;
 
         log = Global.getLogger(this.getClass());
+
+        if (debugLogging)
+            log.setLevel(Level.DEBUG);
+        else
+            log.setLevel(Level.INFO);
 
         if (CampaignHotbarFadeReset && CampaignHotbarRenderIndicatorTimer == 0)
             CampaignHotbarOption = 1;
