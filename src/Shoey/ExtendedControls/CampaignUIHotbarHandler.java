@@ -15,7 +15,7 @@ import java.util.List;
 
 import static Shoey.ExtendedControls.MainPlugin.*;
 
-public class CampaignUIDialogHandler implements CampaignUIRenderingListener, CampaignInputListener {
+public class CampaignUIHotbarHandler implements CampaignUIRenderingListener, CampaignInputListener {
 
     transient SpriteAPI indic = Global.getSettings().getSprite("ui","sortIcon");
     Logger log;
@@ -23,20 +23,22 @@ public class CampaignUIDialogHandler implements CampaignUIRenderingListener, Cam
     @Override
     public void renderInUICoordsAboveUIAndTooltips(ViewportAPI viewport) {
 
-        if (cUI == null || !HandlingInteract || DialogOptionCount == 0 || DialogOption == 0)
+        if (cUI == null || !HandlingHotbar)
             return;
 
-        if (!cUI.isShowingDialog() || cUI.isShowingMenu())
+        if (cUI.isShowingDialog() || cUI.isShowingMenu())
             return;
 
-        if (DialogOption > DialogOptionCount)
-            DialogOption = DialogOptionCount;
+        if (CampaignHotbarRenderIndicatorTimer > CampaignHotbarFadeTimer)
+            CampaignHotbarRenderIndicatorTimer = 0;
 
-        indic.setAngle(90);
-        float x = winWidth / 2 - (465);
-        float y = winHeight / 2 - (178);
-        y -= (DialogOption - 1) * 29;
-        if (InteractUIRenderIndicator)
+        if (CampaignHotbarRenderIndicatorTimer == 0)
+            return;
+
+        float x = 301;
+        float y = 136;
+        x += (CampaignHotbarOption - 1) * 59;
+        if (CampaignHotbarRenderIndicator)
             indic.render(x, y);
 
     }
@@ -61,13 +63,16 @@ public class CampaignUIDialogHandler implements CampaignUIRenderingListener, Cam
     @Override
     public void processCampaignInputPreCore(List<InputEventAPI> events) {
 
-        if (cUI == null || !HandlingInteract || DialogOptionCount == 0 || DialogOption == 0)
+        if (cUI == null || !HandlingHotbar)
             return;
 
-        if (!cUI.isShowingDialog())
+        if (cUI.isShowingDialog() || cUI.isShowingMenu())
             return;
 
         log = Global.getLogger(this.getClass());
+
+        if (CampaignHotbarFadeReset && CampaignHotbarRenderIndicatorTimer == 0)
+            CampaignHotbarOption = 1;
 
         boolean logged = false;
         for (InputEventAPI e : events)
@@ -84,36 +89,41 @@ public class CampaignUIDialogHandler implements CampaignUIRenderingListener, Cam
             if (e.isConsumed() || e.getEventType() != InputEventType.KEY_DOWN)
                 continue;
 
-            if (!InteractUIRenderIndicator)
-            {
-                if (e.getEventValue() == InteractUIToggleIndicator)
-                {
-                    InteractUIRenderIndicator = true;
-                    log.debug("Indicator on");
-                    e.consume();
-                    return;
-                }
-            } else if (e.getEventValue() == InteractUIDown) {
-                if (DialogOption < DialogOptionCount)
-                    DialogOption++;
-                log.debug("Selected option "+DialogOption);
+            if (e.getEventValue() == CampaignHotbarRight) {
+
+                if (CampaignHotbarOption < 10 && CampaignHotbarRenderIndicatorTimer != 0)
+                    CampaignHotbarOption++;
+                log.debug("Selected hotbar "+ CampaignHotbarOption);
                 e.consume();
-            } else if (e.getEventValue() == InteractUIUp) {
-                if (DialogOption > 1)
-                    DialogOption--;
-                log.debug("Selected option "+DialogOption);
+
+            } else if (e.getEventValue() == CampaignHotbarLeft) {
+
+                if (CampaignHotbarOption > 1 && CampaignHotbarRenderIndicatorTimer != 0)
+                    CampaignHotbarOption--;
+                log.debug("Selected hotbar "+ CampaignHotbarOption);
                 e.consume();
-            } else if (e.getEventValue() == InteractUIConfirm) {
-                T1000.keyPress(KeyEvent.getExtendedKeyCodeForChar(Integer.toString(DialogOption).charAt(0)));
-                T1000.keyRelease(KeyEvent.getExtendedKeyCodeForChar(Integer.toString(DialogOption).charAt(0)));
-                log.debug("Confirmed option "+DialogOption);
+
+            } else if (e.getEventValue() == CampaignHotbarConfirm && CampaignHotbarRenderIndicatorTimer != 0) {
+
+                int key;
+                if (CampaignHotbarOption == 10)
+                    key = KeyEvent.getExtendedKeyCodeForChar('0');
+                else
+                    key = KeyEvent.getExtendedKeyCodeForChar(Integer.toString(CampaignHotbarOption).charAt(0));
+
+                T1000.keyPress(key);
+                T1000.keyRelease(key);
+                log.debug("Confirmed hotbar "+ CampaignHotbarOption);
                 e.consume();
-            } else if (e.getEventValue() == InteractUIToggleIndicator)
-            {
-                InteractUIRenderIndicator = false;
-                log.debug("Indicator off");
-                e.consume();
+
             }
+
+            if (e.isConsumed())
+            {
+                CampaignHotbarRenderIndicatorTimer = 0.001f;
+                log.debug("Reset indicator timer");
+            }
+
         }
 
     }
