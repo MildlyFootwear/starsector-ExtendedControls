@@ -10,6 +10,7 @@ import com.fs.starfarer.api.input.InputEventType;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.lwjgl.input.Keyboard;
+import org.lwjgl.input.Mouse;
 
 import java.awt.event.KeyEvent;
 import java.util.List;
@@ -20,7 +21,7 @@ public class CampaignUIInteractHandler implements CampaignUIRenderingListener, C
 
     transient SpriteAPI indic = Global.getSettings().getSprite("ui","sortIcon");
     Logger log;
-
+    boolean LocalRenderToggle = true;
     @Override
     public void renderInUICoordsAboveUIAndTooltips(ViewportAPI viewport) {
 
@@ -34,7 +35,7 @@ public class CampaignUIInteractHandler implements CampaignUIRenderingListener, C
         float x = winWidth / 2 - (465);
         float y = winHeight / 2 - (178);
         y -= (CampaignInteractOption - 1) * 29;
-        if (CampaignInteractUIRenderIndicator)
+        if (CampaignInteractUIRenderIndicator && LocalRenderToggle)
             indic.render(x, y);
 
     }
@@ -70,6 +71,11 @@ public class CampaignUIInteractHandler implements CampaignUIRenderingListener, C
             log.setLevel(Level.INFO);
 
         boolean logged = false;
+
+        for (int i = 0; i < Mouse.getButtonCount(); i++)
+            if (Mouse.isButtonDown(i))
+                LocalRenderToggle = false;
+
         for (InputEventAPI e : events)
         {
 
@@ -91,6 +97,7 @@ public class CampaignUIInteractHandler implements CampaignUIRenderingListener, C
                     CampaignInteractUIRenderIndicator = true;
                     log.debug("Indicator on");
                     e.consume();
+                    LocalRenderToggle = true;
                     return;
                 }
             } else if (e.getEventValue() == CampaignInteractUIDown) {
@@ -114,6 +121,8 @@ public class CampaignUIInteractHandler implements CampaignUIRenderingListener, C
                 log.debug("Indicator off");
                 e.consume();
             }
+            if (e.isConsumed())
+                LocalRenderToggle = true;
         }
 
     }

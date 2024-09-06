@@ -33,11 +33,21 @@ public class CampaignUIHotbarHandler implements CampaignUIRenderingListener, Cam
         if (CampaignHotbarRenderIndicatorTimer == 0)
             return;
 
-        float x = 301;
-        float y = 136;
-        x += (CampaignHotbarOption - 1) * 59;
-        if (CampaignHotbarRenderIndicator)
+        if (CampaignHotbarRenderIndicator) {
+            float x = 270;
+            float y = 103;
+            indic.setAngle(45);
+            indic.setColor(CampaignHotbarIndicatorColor);
+            x += (CampaignHotbarOption - 1) * 59;
             indic.render(x, y);
+            indic.setAngle(-45);
+            indic.render(x+65, y);
+            indic.setAngle(135);
+            indic.render(x, y-65);
+            indic.setAngle(225);
+            indic.render(x+65, y-65);
+        }
+
 
     }
 

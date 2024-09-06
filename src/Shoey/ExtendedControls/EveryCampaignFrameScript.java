@@ -37,7 +37,7 @@ public class EveryCampaignFrameScript implements EveryFrameScript {
         if (displayTimer != 0)
             displayTimer += amount;
 
-        if (CampaignHotbarRenderIndicatorTimer != 0)
+        if (CampaignHotbarRenderIndicatorTimer != 0 && CampaignHotbarFadeEnabled)
             CampaignHotbarRenderIndicatorTimer += amount;
 
         for (int key : campaignListeningToKeys)

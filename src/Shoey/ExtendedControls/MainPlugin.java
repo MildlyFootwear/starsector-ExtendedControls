@@ -39,7 +39,9 @@ public class MainPlugin extends BaseModPlugin {
     public static int CampaignHotbarLeft;
     public static int CampaignHotbarRight;
     public static int CampaignHotbarConfirm;
+    public static boolean CampaignHotbarFadeEnabled;
     public static int CampaignHotbarFadeTimer;
+    public static Color CampaignHotbarIndicatorColor;
     public static int CampaignHotbarOption = 1;
     public static float CampaignHotbarRenderIndicatorTimer = 0;
     public static boolean CampaignHotbarRenderIndicator = true;
@@ -64,17 +66,21 @@ public class MainPlugin extends BaseModPlugin {
         campaignListeningToKeys.clear();
         CampaignCoreUILeft = putCampaignBind("CampaignUILeft");
         CampaignCoreUIRight = putCampaignBind("CampaignUIRight");
+
         HandlingInteract = LunaSettings.getBoolean("ShoeyExtendedControls", "HandlingInteract");
         CampaignInteractUIUp = putCampaignBind("CampaignInteractUIUp");
         CampaignInteractUIDown = putCampaignBind("CampaignInteractUIDown");
         CampaignInteractUIConfirm = putCampaignBind("CampaignInteractUIConfirm");
         CampaignInteractUIToggleIndicator = putCampaignBind("CampaignInteractUIToggleIndicator");
+
         HandlingHotbar = LunaSettings.getBoolean("ShoeyExtendedControls", "HandlingHotbar");
         CampaignHotbarLeft = putCampaignBind("CampaignHotbarLeft");
         CampaignHotbarRight = putCampaignBind("CampaignHotbarRight");
         CampaignHotbarConfirm = putCampaignBind("CampaignHotbarConfirm");
+        CampaignHotbarFadeEnabled = LunaSettings.getBoolean("ShoeyExtendedControls", "CampaignHotbarFadeEnabled");
         CampaignHotbarFadeTimer = LunaSettings.getInt("ShoeyExtendedControls", "CampaignHotbarFadeTimer");
         CampaignHotbarFadeReset = LunaSettings.getBoolean("ShoeyExtendedControls", "CampaignHotbarFadeReset");
+        CampaignHotbarIndicatorColor = LunaSettings.getColor("ShoeyExtendedControls", "CampaignHotbarIndicatorColor");
 
     }
 
