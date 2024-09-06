@@ -35,7 +35,7 @@ public class CampaignUIHotbarHandler implements CampaignUIRenderingListener, Cam
     public void renderInUICoordsAboveUIBelowTooltips(ViewportAPI viewport) {
 
 
-        if (HotbarChecks())
+        if (HotbarCancelChecks())
             return;
 
         if (CampaignHotbarRenderIndicatorTimer > CampaignHotbarFadeTimer)
@@ -69,7 +69,7 @@ public class CampaignUIHotbarHandler implements CampaignUIRenderingListener, Cam
     @Override
     public void processCampaignInputPreCore(List<InputEventAPI> events) {
 
-        if (HotbarChecks())
+        if (HotbarCancelChecks())
             return;
 
         log = Global.getLogger(this.getClass());

@@ -25,7 +25,7 @@ public class CampaignUIInteractHandler implements CampaignUIRenderingListener, C
     @Override
     public void renderInUICoordsAboveUIAndTooltips(ViewportAPI viewport) {
 
-        if (InteractionChecks())
+        if (InteractionCancelChecks())
             return;
 
         if (CampaignInteractOption > CampaignInteractOptionCount)
@@ -60,7 +60,7 @@ public class CampaignUIInteractHandler implements CampaignUIRenderingListener, C
     @Override
     public void processCampaignInputPreCore(List<InputEventAPI> events) {
 
-        if (InteractionChecks())
+        if (InteractionCancelChecks())
             return;
 
         log = Global.getLogger(this.getClass());

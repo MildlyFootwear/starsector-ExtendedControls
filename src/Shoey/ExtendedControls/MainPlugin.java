@@ -84,7 +84,7 @@ public class MainPlugin extends BaseModPlugin {
 
     }
 
-    public static boolean InteractionChecks()
+    public static boolean InteractionCancelChecks()
     {
         if (cUI == null || !HandlingInteract || CampaignInteractOptionCount == 0 || CampaignInteractOption == 0)
             return true;
@@ -95,7 +95,7 @@ public class MainPlugin extends BaseModPlugin {
         return false;
     }
 
-    public static boolean HotbarChecks()
+    public static boolean HotbarCancelChecks()
     {
         if (cUI == null || !HandlingHotbar)
             return true;
