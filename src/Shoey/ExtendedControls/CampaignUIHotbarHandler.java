@@ -24,6 +24,17 @@ public class CampaignUIHotbarHandler implements CampaignUIRenderingListener, Cam
     @Override
     public void renderInUICoordsAboveUIAndTooltips(ViewportAPI viewport) {
 
+    }
+
+    @Override
+    public void renderInUICoordsBelowUI(ViewportAPI viewport) {
+
+    }
+
+    @Override
+    public void renderInUICoordsAboveUIBelowTooltips(ViewportAPI viewport) {
+
+
         if (HotbarChecks())
             return;
 
@@ -47,19 +58,6 @@ public class CampaignUIHotbarHandler implements CampaignUIRenderingListener, Cam
             indic.setAngle(225);
             indic.render(x+65, y-65);
         }
-
-
-    }
-
-    @Override
-    public void renderInUICoordsBelowUI(ViewportAPI viewport) {
-
-    }
-
-    @Override
-    public void renderInUICoordsAboveUIBelowTooltips(ViewportAPI viewport) {
-
-
 
     }
 
