@@ -23,7 +23,6 @@ public class CampaignUIInteractHandler implements CampaignUIRenderingListener, C
     transient SpriteAPI indic = Global.getSettings().getSprite("ui","sortIcon");
     Logger log;
     boolean LocalRenderToggle = false;
-    int lastClick;
     @Override
     public void renderInUICoordsAboveUIAndTooltips(ViewportAPI viewport) {
 
@@ -33,6 +32,7 @@ public class CampaignUIInteractHandler implements CampaignUIRenderingListener, C
         if (CampaignInteractOption > CampaignInteractOptionCount)
             CampaignInteractOption = CampaignInteractOptionCount;
 
+        indic.setColor(CampaignInteractUIIndicatorColor);
         indic.setAngle(90);
         float x = winWidth / 2 - (465);
         float y = winHeight / 2 - (178);

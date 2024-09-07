@@ -32,6 +32,7 @@ public class MainPlugin extends BaseModPlugin {
     public static int CampaignInteractUIDown;
     public static int CampaignInteractUIConfirm;
     public static int CampaignInteractUIToggleIndicator;
+    public static Color CampaignInteractUIIndicatorColor;
     public static boolean CampaignInteractUIRenderIndicator = true;
 
     public static boolean HandlingHotbar;
@@ -72,6 +73,7 @@ public class MainPlugin extends BaseModPlugin {
         CampaignInteractUIDown = putCampaignBind("CampaignInteractUIDown");
         CampaignInteractUIConfirm = putCampaignBind("CampaignInteractUIConfirm");
         CampaignInteractUIToggleIndicator = putCampaignBind("CampaignInteractUIToggleIndicator");
+        CampaignInteractUIIndicatorColor = LunaSettings.getColor("ShoeyExtendedControls", "CampaignInteractUIIndicatorColor");
 
         HandlingHotbar = LunaSettings.getBoolean("ShoeyExtendedControls", "HandlingHotbar");
         CampaignHotbarLeft = putCampaignBind("CampaignHotbarLeft");
