@@ -11,8 +11,8 @@ import com.fs.starfarer.api.input.InputEventType;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.lwjgl.input.Keyboard;
-import org.lwjgl.input.Mouse;
 
+import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.util.List;
 
