@@ -43,10 +43,10 @@ public class EveryCombatFrameScript extends BaseEveryFrameCombatPlugin {
         thislog.setLevel(Level.INFO);
         if (GameState.COMBAT == Global.getCurrentState()) {
             shipsSelectedGroup.clear();
-            WeapForward = LunaSettings.getInt("ShoeyExtendedControls","ExtendedControls_WGDOWN");
-            WeapBackward = LunaSettings.getInt("ShoeyExtendedControls","ExtendedControls_WGUP");
-            WeapTogAutofire = LunaSettings.getInt("ShoeyExtendedControls","ExtendedControls_TogAF");
-            WeapAlt = LunaSettings.getInt("ShoeyExtendedControls","ExtendedControls_ALT");
+            WeapForward = LunaSettings.getInt("ShoeyExtendedControls","WGDOWN");
+            WeapBackward = LunaSettings.getInt("ShoeyExtendedControls","WGUP");
+            WeapTogAutofire = LunaSettings.getInt("ShoeyExtendedControls","TogAF");
+            WeapAlt = LunaSettings.getInt("ShoeyExtendedControls","ALT");
             thislog.info("WeapForward: "+Keyboard.getKeyName(WeapForward)+", WeapBackward: "+Keyboard.getKeyName(WeapBackward) + ", WeapTogAutofire: "+Keyboard.getKeyName(WeapTogAutofire)+", WeapAlt: "+Keyboard.getKeyName(WeapAlt));
         }
         time = 0;
