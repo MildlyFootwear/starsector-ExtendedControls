@@ -22,7 +22,7 @@ import static Shoey.ExtendedControls.MainPlugin.*;
 
 public class EveryCombatFrameScript extends BaseEveryFrameCombatPlugin {
 
-    Logger thislog = Global.getLogger(this.getClass());
+    Logger log = Global.getLogger(this.getClass());
     CombatEngineAPI engine;
     Map<ShipAPI, Integer> shipsSelectedGroup = new HashMap<>();
     ShipAPI playingShip;
@@ -40,14 +40,17 @@ public class EveryCombatFrameScript extends BaseEveryFrameCombatPlugin {
 
     public void init(CombatEngineAPI engine) {
         this.engine = engine;
-        thislog.setLevel(Level.INFO);
+        if (debugLogging)
+            log.setLevel(Level.DEBUG);
+        else
+            log.setLevel(Level.INFO);
         if (GameState.COMBAT == Global.getCurrentState()) {
             shipsSelectedGroup.clear();
             WeapForward = LunaSettings.getInt("ShoeyExtendedControls","WGDOWN");
             WeapBackward = LunaSettings.getInt("ShoeyExtendedControls","WGUP");
             WeapTogAutofire = LunaSettings.getInt("ShoeyExtendedControls","TogAF");
             WeapAlt = LunaSettings.getInt("ShoeyExtendedControls","ALT");
-            thislog.info("WeapForward: "+Keyboard.getKeyName(WeapForward)+", WeapBackward: "+Keyboard.getKeyName(WeapBackward) + ", WeapTogAutofire: "+Keyboard.getKeyName(WeapTogAutofire)+", WeapAlt: "+Keyboard.getKeyName(WeapAlt));
+            log.info("WeapForward: "+Keyboard.getKeyName(WeapForward)+", WeapBackward: "+Keyboard.getKeyName(WeapBackward) + ", WeapTogAutofire: "+Keyboard.getKeyName(WeapTogAutofire)+", WeapAlt: "+Keyboard.getKeyName(WeapAlt));
         }
         time = 0;
     }
@@ -65,7 +68,7 @@ public class EveryCombatFrameScript extends BaseEveryFrameCombatPlugin {
                 {
                     for (int key : keystopress) {
                         T1000.keyPress(key);
-                        thislog.debug("Pressing " + key);
+                        log.debug("Pressing " + key);
                         keystounpress.add(key);
                         time = 0;
                     }
@@ -73,7 +76,7 @@ public class EveryCombatFrameScript extends BaseEveryFrameCombatPlugin {
                 } else {
                     for (int key : keystounpress) {
                         T1000.keyRelease(key);
-                        thislog.debug("Unpressing " + key);
+                        log.debug("Unpressing " + key);
                     }
                     keystounpress.clear();
                 }
@@ -81,7 +84,7 @@ public class EveryCombatFrameScript extends BaseEveryFrameCombatPlugin {
             playingShip = engine.getPlayerShip();
             if (!shipsSelectedGroup.containsKey(playingShip) && playingShip != null) {
                 shipsSelectedGroup.put(playingShip, 1);
-                thislog.debug("Setting group 1 for "+playingShip.getName());
+                log.debug("Setting group 1 for "+playingShip.getName());
             }
             if (playingShip != lastPlayingShip)
             {
@@ -98,7 +101,7 @@ public class EveryCombatFrameScript extends BaseEveryFrameCombatPlugin {
             for (int key : breakkeys)
             {
                 if (Keyboard.isKeyDown(key)) {
-                    thislog.debug(Keyboard.getKeyName(key) + " is pressed, returning.");
+                    log.debug(Keyboard.getKeyName(key) + " is pressed, returning.");
                     return;
                 }
             }
@@ -117,9 +120,9 @@ public class EveryCombatFrameScript extends BaseEveryFrameCombatPlugin {
                     } else {
                         current++;
                     }
-                    thislog.debug("Pressing "+current+" for "+playingShip.getName());
+                    log.debug("Pressing "+current+" for "+playingShip.getName());
                     shipsSelectedGroup.put(playingShip, current);
-                    thislog.debug("Setting group "+current+" for "+playingShip.getName());
+                    log.debug("Setting group "+current+" for "+playingShip.getName());
                     int keytopress = KeyEvent.getExtendedKeyCodeForChar(Integer.toString(current).charAt(0));
                     keystounpress.add(keytopress);
                     time = 0;
@@ -135,9 +138,9 @@ public class EveryCombatFrameScript extends BaseEveryFrameCombatPlugin {
                         current--;
                     }
                     shipsSelectedGroup.put(playingShip, current);
-                    thislog.debug("Setting group "+current+" for "+playingShip.getName());
+                    log.debug("Setting group "+current+" for "+playingShip.getName());
                     int keytopress = KeyEvent.getExtendedKeyCodeForChar(Integer.toString(current).charAt(0));
-                    thislog.debug("Pressing "+keytopress+" for "+playingShip.getName());
+                    log.debug("Pressing "+keytopress+" for "+playingShip.getName());
                     keystounpress.add(keytopress);
                     time = 0;
                     event.consume();
@@ -147,7 +150,7 @@ public class EveryCombatFrameScript extends BaseEveryFrameCombatPlugin {
                     int keytopress = KeyEvent.getExtendedKeyCodeForChar(shipsSelectedGroup.get(playingShip).toString().charAt(0));
                     keystounpress.add(keytopress);
                     time = 0;
-                    thislog.debug("Alternating weapon group "+ shipsSelectedGroup.get(playingShip).toString());
+                    log.debug("Alternating weapon group "+ shipsSelectedGroup.get(playingShip).toString());
                     event.consume();
                     T1000.keyPress(keytopress);
                 } else if (key == WeapTogAutofire)
@@ -156,7 +159,7 @@ public class EveryCombatFrameScript extends BaseEveryFrameCombatPlugin {
                     keystounpress.add(17);
                     keystopress.add(keytopress);
                     time = 0;
-                    thislog.debug("Toggling autofire for weapon group "+ shipsSelectedGroup.get(playingShip).toString());
+                    log.debug("Toggling autofire for weapon group "+ shipsSelectedGroup.get(playingShip).toString());
                     event.consume();
                     T1000.keyPress(17);
                 }
