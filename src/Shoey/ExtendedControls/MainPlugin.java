@@ -4,6 +4,7 @@ import com.fs.starfarer.api.BaseModPlugin;
 import com.fs.starfarer.api.campaign.CampaignUIAPI;
 import com.fs.starfarer.api.campaign.InteractionDialogAPI;
 import com.fs.starfarer.api.campaign.SectorAPI;
+import com.fs.starfarer.api.util.Misc;
 import lunalib.lunaSettings.LunaSettings;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
@@ -113,6 +114,7 @@ public class MainPlugin extends BaseModPlugin {
     @Override
     public void onApplicationLoad() throws Exception {
         super.onApplicationLoad();
+
         try {
             T1000 = new Robot();
         } catch (AWTException e) {
