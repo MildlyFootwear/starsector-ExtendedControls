@@ -33,7 +33,7 @@ CampaignHotbarConfirm,Confirm,Keycode,28,,,,,Campaign
 CampaignHotbarFadeEnabled,Indicators Fade After Last Input,Boolean,TRUE,,Indicators will fade if not controlled.,,,Campaign
 CampaignHotbarFadeTimer,Indicators Fade After Seconds,Int,6,,Indicators will fade after this amount of seconds have passed since it was controlled.,1,10,Campaign
 CampaignHotbarFadeReset,Reset Selection After Fade,Boolean,TRUE,,Once the indicator disappears the selection will be reset. The next time the hotbar is scrolled through it will start at 1.,,,Campaign
-CampaignHotbarIndicatorColor,Indicator Color,Color,#FFFFFF,,Color used for the 4 arrows indicating the current selection.,,,Campaign
+CampaignHotbarIndicatorColor,Indicator Color,Color,#e0e000,,Color used for the 4 arrows indicating the current selection.,,,Campaign
 ,,,,,,,,Campaign
 ,,,,,,,,
 ,,,,,,,,
