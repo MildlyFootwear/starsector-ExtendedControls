@@ -4,7 +4,7 @@
 	"author":"Shoey",
     "utility":"true",
     "version": { "major":"0", "minor": "1", "patch": "0" },
-	"description":"Adds several useful control options.",
+	"description":"Adds several new control methods to combat and campaign.",
     "gameVersion": "0.97a-RC11",
   	"jars":["jars/ExtendedControls.jar"],
   	"modPlugin":"Shoey.ExtendedControls.MainPlugin",
@@ -12,11 +12,11 @@
 	[
 		{
 			"id": "lw_lazylib",
-			"name": "LazyLib",
+			"name": "LazyLib"
 		},
 		{
 			"id": "lunalib",
-			"name": "LunaLib",
-		},
+			"name": "LunaLib"
+		}
 	]
 }
