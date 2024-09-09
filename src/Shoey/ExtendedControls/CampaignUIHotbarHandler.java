@@ -21,20 +21,8 @@ public class CampaignUIHotbarHandler implements CampaignUIRenderingListener, Cam
     transient SpriteAPI indic = Global.getSettings().getSprite("ui","sortIcon");
     Logger log;
 
-    @Override
-    public void renderInUICoordsAboveUIAndTooltips(ViewportAPI viewport) {
-
-    }
-
-    @Override
-    public void renderInUICoordsBelowUI(ViewportAPI viewport) {
-
-    }
-
-    @Override
-    public void renderInUICoordsAboveUIBelowTooltips(ViewportAPI viewport) {
-
-
+    void AttemptRender()
+    {
         if (HotbarCancelChecks())
             return;
 
@@ -58,7 +46,23 @@ public class CampaignUIHotbarHandler implements CampaignUIRenderingListener, Cam
             indic.setAngle(225);
             indic.render(x+65, y-65);
         }
+    }
 
+    @Override
+    public void renderInUICoordsAboveUIAndTooltips(ViewportAPI viewport) {
+        if (CampaignHotbarRenderAboveTool)
+            AttemptRender();
+    }
+
+    @Override
+    public void renderInUICoordsBelowUI(ViewportAPI viewport) {
+
+    }
+
+    @Override
+    public void renderInUICoordsAboveUIBelowTooltips(ViewportAPI viewport) {
+        if (!CampaignHotbarRenderAboveTool)
+            AttemptRender();
     }
 
     @Override

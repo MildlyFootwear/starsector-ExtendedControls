@@ -43,6 +43,7 @@ public class MainPlugin extends BaseModPlugin {
     public static boolean CampaignHotbarFadeEnabled;
     public static int CampaignHotbarFadeTimer;
     public static Color CampaignHotbarIndicatorColor;
+    public static boolean CampaignHotbarRenderAboveTool;
     public static int CampaignHotbarOption = 1;
     public static float CampaignHotbarRenderIndicatorTimer = 0;
     public static boolean CampaignHotbarRenderIndicator = true;
@@ -83,6 +84,7 @@ public class MainPlugin extends BaseModPlugin {
         CampaignHotbarFadeTimer = LunaSettings.getInt("ShoeyExtendedControls", "CampaignHotbarFadeTimer");
         CampaignHotbarFadeReset = Boolean.TRUE.equals(LunaSettings.getBoolean("ShoeyExtendedControls", "CampaignHotbarFadeReset"));
         CampaignHotbarIndicatorColor = LunaSettings.getColor("ShoeyExtendedControls", "CampaignHotbarIndicatorColor");
+        CampaignHotbarRenderAboveTool = Boolean.TRUE.equals(LunaSettings.getBoolean("ShoeyExtendedControls", "CampaignHotbarRenderAboveTool"));
 
     }
 

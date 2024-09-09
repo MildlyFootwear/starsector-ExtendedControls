@@ -34,7 +34,7 @@ CampaignHotbarFadeEnabled,Indicators Fade After Last Input,Boolean,TRUE,,Indicat
 CampaignHotbarFadeTimer,Indicators Fade After Seconds,Int,6,,Indicators will fade after this amount of seconds have passed since it was controlled.,1,10,Campaign
 CampaignHotbarFadeReset,Reset Selection After Fade,Boolean,TRUE,,Once the indicator disappears the selection will be reset. The next time the hotbar is scrolled through it will start at 1.,,,Campaign
 CampaignHotbarIndicatorColor,Indicator Color,Color,#FFD200,,Color used for the 4 arrows indicating the current selection.,,,Campaign
-,,,,,,,,Campaign
+CampaignHotbarRenderAboveTool,Render Above Tooltips,Boolean,TRUE,,"If the indicators should be rendered above tooltips. As of v0.97a, the vanilla hotbar is currently bugged and plugins that render below tooltips and above UI render above the hotbar until a menu tab is opened (i.e. Character/Map/Refit/etc), where they will start rendering below it.",,,Campaign
 ,,,,,,,,
 ,,,,,,,,
 ,,,,,,,,
