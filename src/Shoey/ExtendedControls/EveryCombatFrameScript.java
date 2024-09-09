@@ -29,7 +29,7 @@ public class EveryCombatFrameScript extends BaseEveryFrameCombatPlugin {
     ShipAPI lastPlayingShip;
     List<Integer> keystopress = new ArrayList<>();
     List<Integer> keystounpress = new ArrayList<>();
-    int[] breakkeys = {Keyboard.KEY_LSHIFT, Keyboard.KEY_RSHIFT, Keyboard.KEY_LMENU, Keyboard.KEY_RMENU, Keyboard.KEY_LCONTROL, Keyboard.KEY_RCONTROL};
+    int[] breakkeys = {Keyboard.KEY_LMENU, Keyboard.KEY_RMENU, Keyboard.KEY_LCONTROL, Keyboard.KEY_RCONTROL};
 
     public static int WeapForward;
     public static int WeapBackward;
