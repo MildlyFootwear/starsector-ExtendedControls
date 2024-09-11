@@ -50,7 +50,7 @@ public class EveryCombatFrameScript extends BaseEveryFrameCombatPlugin {
             WeapBackward = LunaSettings.getInt("ShoeyExtendedControls","WGUP");
             WeapTogAutofire = LunaSettings.getInt("ShoeyExtendedControls","TogAF");
             WeapAlt = LunaSettings.getInt("ShoeyExtendedControls","ALT");
-            log.info("WeapForward: "+Keyboard.getKeyName(WeapForward)+", WeapBackward: "+Keyboard.getKeyName(WeapBackward) + ", WeapTogAutofire: "+Keyboard.getKeyName(WeapTogAutofire)+", WeapAlt: "+Keyboard.getKeyName(WeapAlt));
+            log.debug("WeapForward: "+Keyboard.getKeyName(WeapForward)+", WeapBackward: "+Keyboard.getKeyName(WeapBackward) + ", WeapTogAutofire: "+Keyboard.getKeyName(WeapTogAutofire)+", WeapAlt: "+Keyboard.getKeyName(WeapAlt));
         }
         time = 0;
     }
@@ -89,9 +89,11 @@ public class EveryCombatFrameScript extends BaseEveryFrameCombatPlugin {
             if (playingShip != lastPlayingShip)
             {
                 lastPlayingShip = playingShip;
-                int keytopress = KeyEvent.getExtendedKeyCodeForChar(shipsSelectedGroup.get(playingShip).toString().charAt(0));
-                T1000.keyPress(keytopress);
-                keystounpress.add(keytopress);
+                if (shipsSelectedGroup.size() != 1) {
+                    int keytopress = KeyEvent.getExtendedKeyCodeForChar(shipsSelectedGroup.get(playingShip).toString().charAt(0));
+                    T1000.keyPress(keytopress);
+                    keystounpress.add(keytopress);
+                }
                 time = 0;
             }
 
