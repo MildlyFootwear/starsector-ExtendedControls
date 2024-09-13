@@ -1,6 +1,7 @@
 package Shoey.ExtendedControls;
 
 import com.fs.starfarer.api.Global;
+import com.fs.starfarer.api.campaign.SectorAPI;
 import com.fs.starfarer.api.campaign.listeners.CampaignInputListener;
 import com.fs.starfarer.api.campaign.listeners.CampaignUIRenderingListener;
 import com.fs.starfarer.api.combat.ViewportAPI;
@@ -21,6 +22,7 @@ public class CampaignUIHotbarHandler implements CampaignUIRenderingListener, Cam
     transient SpriteAPI indic = Global.getSettings().getSprite("ui","sortIcon");
     Logger log;
     boolean init = false;
+    boolean pausedBySelf = false;
 
     void AttemptRender()
     {
@@ -105,6 +107,10 @@ public class CampaignUIHotbarHandler implements CampaignUIRenderingListener, Cam
             CampaignHotbarRenderIndicatorTimer = 0.001f;
         }
 
+        if (pausedBySelf)
+            if (!sector.isPaused())
+                pausedBySelf = false;
+
         boolean logged = false;
         for (InputEventAPI e : events)
         {
@@ -120,21 +126,23 @@ public class CampaignUIHotbarHandler implements CampaignUIRenderingListener, Cam
             if (e.isConsumed() || e.getEventType() != InputEventType.KEY_DOWN)
                 continue;
 
-            if (e.getEventValue() == CampaignHotbarRight) {
+            int pressedKey = e.getEventValue();
+            
+            if (pressedKey == CampaignHotbarRight) {
 
                 if (CampaignHotbarOption < 10 && CampaignHotbarRenderIndicatorTimer != 0)
                     CampaignHotbarOption++;
                 log.debug("Selected hotbar "+ CampaignHotbarOption);
                 e.consume();
 
-            } else if (e.getEventValue() == CampaignHotbarLeft) {
+            } else if (pressedKey == CampaignHotbarLeft) {
 
                 if (CampaignHotbarOption > 1 && CampaignHotbarRenderIndicatorTimer != 0)
                     CampaignHotbarOption--;
                 log.debug("Selected hotbar "+ CampaignHotbarOption);
                 e.consume();
 
-            } else if (e.getEventValue() == CampaignHotbarConfirm && CampaignHotbarRenderIndicatorTimer != 0) {
+            } else if (pressedKey == CampaignHotbarConfirm && CampaignHotbarRenderIndicatorTimer != 0) {
 
                 int key;
                 if (CampaignHotbarOption == 10)
@@ -142,13 +150,26 @@ public class CampaignUIHotbarHandler implements CampaignUIRenderingListener, Cam
                 else
                     key = KeyEvent.getExtendedKeyCodeForChar(Integer.toString(CampaignHotbarOption).charAt(0));
 
+                if (CampaignHotbarUnpauseOnConfirm && pausedBySelf)
+                {
+                    sector.setPaused(false);
+                    pausedBySelf = false;
+                }
+
                 T1000.keyPress(key);
                 T1000.keyRelease(key);
                 log.debug("Confirmed hotbar "+ CampaignHotbarOption);
                 e.consume();
 
             }
-
+            if (e.isConsumed())
+            {
+                if (CampaignHotbarPauseOnControl && !sector.isPaused() && pressedKey != CampaignHotbarConfirm)
+                {
+                    pausedBySelf = true;
+                    sector.setPaused(true);
+                }
+            }
             if (e.isConsumed() && CampaignHotbarFadeEnabled)
             {
                 log.debug("Reset indicator fade timer from "+CampaignHotbarRenderIndicatorTimer);

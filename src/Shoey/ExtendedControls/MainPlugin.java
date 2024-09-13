@@ -40,6 +40,8 @@ public class MainPlugin extends BaseModPlugin {
     public static int CampaignHotbarLeft;
     public static int CampaignHotbarRight;
     public static int CampaignHotbarConfirm;
+    public static boolean CampaignHotbarPauseOnControl;
+    public static boolean CampaignHotbarUnpauseOnConfirm;
     public static boolean CampaignHotbarFadeEnabled;
     public static int CampaignHotbarFadeTimer;
     public static Color CampaignHotbarIndicatorColor;
@@ -80,6 +82,8 @@ public class MainPlugin extends BaseModPlugin {
         CampaignHotbarLeft = putCampaignBind("CampaignHotbarLeft");
         CampaignHotbarRight = putCampaignBind("CampaignHotbarRight");
         CampaignHotbarConfirm = putCampaignBind("CampaignHotbarConfirm");
+        CampaignHotbarPauseOnControl = Boolean.TRUE.equals(LunaSettings.getBoolean("ShoeyExtendedControls", "CampaignHotbarPauseOnControl"));
+        CampaignHotbarUnpauseOnConfirm = Boolean.TRUE.equals(LunaSettings.getBoolean("ShoeyExtendedControls", "CampaignHotbarUnpauseOnConfirm"));
         CampaignHotbarFadeEnabled = Boolean.TRUE.equals(LunaSettings.getBoolean("ShoeyExtendedControls", "CampaignHotbarFadeEnabled"));
         CampaignHotbarFadeTimer = LunaSettings.getInt("ShoeyExtendedControls", "CampaignHotbarFadeTimer");
         CampaignHotbarFadeReset = Boolean.TRUE.equals(LunaSettings.getBoolean("ShoeyExtendedControls", "CampaignHotbarFadeReset"));
