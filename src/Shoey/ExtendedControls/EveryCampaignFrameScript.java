@@ -69,7 +69,7 @@ public class EveryCampaignFrameScript implements EveryFrameScript {
                 log.setLevel(Level.INFO);
 
             if (cUITabName != null && InteractionCancelChecks() && HotbarCancelChecks()) {
-                log.debug("Processing keys with "+cUITabName);
+//                log.debug("Processing keys with "+cUITabName);
                 if (Keyboard.isKeyDown(CampaignCoreUIRight) && !lastKeyState.get(CampaignCoreUIRight))
                 {
                     switch (cUI.getCurrentCoreTab()) {
