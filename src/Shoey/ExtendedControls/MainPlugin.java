@@ -106,10 +106,10 @@ public class MainPlugin extends BaseModPlugin {
 
         if (!cUI.isShowingDialog() || cUI.isShowingMenu()) {
 
-            if (!cUI.isShowingDialog())
-                System.out.println("Interact cancelled due to null cUI");
-            else if (cUI.isShowingMenu())
-                System.out.println("Interact cancelled due to !HandlingInteract");
+//            if (!cUI.isShowingDialog())
+//                System.out.println("Interact cancelled due to null cUI");
+//            else if (cUI.isShowingMenu())
+//                System.out.println("Interact cancelled due to !HandlingInteract");
 
             return true;
         }
