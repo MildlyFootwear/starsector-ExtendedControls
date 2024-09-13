@@ -90,12 +90,29 @@ public class MainPlugin extends BaseModPlugin {
 
     public static boolean InteractionCancelChecks()
     {
-        if (cUI == null || !HandlingInteract || CampaignInteractOptionCount == 0 || CampaignInteractOption == 0)
-            return true;
+        if (cUI == null || !HandlingInteract || CampaignInteractOptionCount == 0 || CampaignInteractOption == 0) {
 
-        if (!cUI.isShowingDialog() || cUI.isShowingMenu())
-            return true;
+//            if (cUI == null)
+//                System.out.println("Interact cancelled due to null cUI");
+//            else if (!HandlingInteract)
+//                System.out.println("Interact cancelled due to !HandlingInteract");
+//            else if (CampaignInteractOptionCount == 0)
+//                System.out.println("Interact cancelled due to 0 CampaignInteractOptionCount");
+//            else if (CampaignInteractOption == 0)
+//                System.out.println("Interact cancelled due to 0 CampaignInteractOption");
 
+            return true;
+        }
+
+        if (!cUI.isShowingDialog() || cUI.isShowingMenu()) {
+
+            if (!cUI.isShowingDialog())
+                System.out.println("Interact cancelled due to null cUI");
+            else if (cUI.isShowingMenu())
+                System.out.println("Interact cancelled due to !HandlingInteract");
+
+            return true;
+        }
         return false;
     }
 
