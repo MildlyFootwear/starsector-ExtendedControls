@@ -154,6 +154,7 @@ public class CampaignUIHotbarHandler implements CampaignUIRenderingListener, Cam
                 if (CampaignHotbarUnpauseOnConfirm && pausedBySelf)
                 {
                     sector.setPaused(false);
+                    cUI.addMessage("ExtendedControls: unpaused.");
                     pausedBySelf = false;
                 }
 
@@ -169,6 +170,7 @@ public class CampaignUIHotbarHandler implements CampaignUIRenderingListener, Cam
                 {
                     pausedBySelf = true;
                     sector.setPaused(true);
+                    cUI.addMessage("ExtendedControls: paused.");
                 }
 
                 log.debug("Reset indicator fade timer from "+ CampaignHotbarTimer);

@@ -52,7 +52,10 @@ public class CampaignUIInteractHandler implements CampaignUIRenderingListener, C
                     CampaignInteractOptionCount = 0;
                     CampaignInteractOption = 1;
                 } else {
+                    LocalRenderToggle = true;
                     log.debug("Updated interaction");
+                    lastX = Global.getSettings().getMouseX();
+                    lastY = Global.getSettings().getMouseY();
                 }
             }
             if (intDialog != null) {
