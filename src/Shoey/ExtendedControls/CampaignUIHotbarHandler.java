@@ -1,7 +1,6 @@
 package Shoey.ExtendedControls;
 
 import com.fs.starfarer.api.Global;
-import com.fs.starfarer.api.campaign.SectorAPI;
 import com.fs.starfarer.api.campaign.listeners.CampaignInputListener;
 import com.fs.starfarer.api.campaign.listeners.CampaignUIRenderingListener;
 import com.fs.starfarer.api.combat.ViewportAPI;
@@ -10,7 +9,6 @@ import com.fs.starfarer.api.input.InputEventAPI;
 import com.fs.starfarer.api.input.InputEventType;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
-import org.lwjgl.input.Keyboard;
 
 import java.awt.event.KeyEvent;
 import java.util.List;
@@ -23,6 +21,7 @@ public class CampaignUIHotbarHandler implements CampaignUIRenderingListener, Cam
     Logger log;
     boolean init = false;
     boolean pausedBySelf = false;
+    boolean localRender = false;
 
     void AttemptRender()
     {
@@ -42,18 +41,25 @@ public class CampaignUIHotbarHandler implements CampaignUIRenderingListener, Cam
             log.debug("Set indincator width to "+indic.getTextureWidth()+"height to "+indic.getTextureHeight());
         }
 
-        if (CampaignHotbarRenderIndicatorTimer > CampaignHotbarFadeTimer) {
-            CampaignHotbarRenderIndicatorTimer = 0;
-            log.debug("Faded hotbar");
-        }
-
-        if (CampaignHotbarRenderIndicatorTimer == 0 && CampaignHotbarFadeEnabled)
-            return;
-
         if (HotbarCancelChecks())
             return;
 
-        if (CampaignHotbarRenderIndicator) {
+        if (CampaignHotbarFadeEnabled && localRender && CampaignHotbarTimer > CampaignHotbarFadeTimer) {
+            localRender = false;
+            log.debug("Fading hotbar indicators");
+
+        } else if (!localRender)
+        {
+
+            if (CampaignHotbarFadeEnabled && CampaignHotbarTimer < CampaignHotbarFadeTimer)
+                localRender = true;
+            else if (!CampaignHotbarFadeEnabled)
+                localRender = true;
+
+            log.debug("Displaying hotbar indicators");
+        }
+
+        if (localRender) {
 
             float x = 277;
             float y = 103;
@@ -99,13 +105,8 @@ public class CampaignUIHotbarHandler implements CampaignUIRenderingListener, Cam
         if (HotbarCancelChecks())
             return;
 
-        if (CampaignHotbarFadeEnabled && CampaignHotbarFadeReset && CampaignHotbarRenderIndicatorTimer == 0)
+        if (CampaignHotbarFadeEnabled && CampaignHotbarFadeReset && CampaignHotbarTimer > CampaignHotbarFadeTimer && CampaignHotbarOption != 1)
             CampaignHotbarOption = 1;
-
-        if (!CampaignHotbarFadeEnabled)
-        {
-            CampaignHotbarRenderIndicatorTimer = 0.001f;
-        }
 
         if (pausedBySelf)
             if (!sector.isPaused())
@@ -130,19 +131,19 @@ public class CampaignUIHotbarHandler implements CampaignUIRenderingListener, Cam
             
             if (pressedKey == CampaignHotbarRight) {
 
-                if (CampaignHotbarOption < 10 && CampaignHotbarRenderIndicatorTimer != 0)
+                if (CampaignHotbarOption < 10 && CampaignHotbarTimer != 0)
                     CampaignHotbarOption++;
                 log.debug("Selected hotbar "+ CampaignHotbarOption);
                 e.consume();
 
             } else if (pressedKey == CampaignHotbarLeft) {
 
-                if (CampaignHotbarOption > 1 && CampaignHotbarRenderIndicatorTimer != 0)
+                if (CampaignHotbarOption > 1 && CampaignHotbarTimer != 0)
                     CampaignHotbarOption--;
                 log.debug("Selected hotbar "+ CampaignHotbarOption);
                 e.consume();
 
-            } else if (pressedKey == CampaignHotbarConfirm && CampaignHotbarRenderIndicatorTimer != 0) {
+            } else if (pressedKey == CampaignHotbarConfirm && CampaignHotbarTimer != 0) {
 
                 int key;
                 if (CampaignHotbarOption == 10)
@@ -164,16 +165,14 @@ public class CampaignUIHotbarHandler implements CampaignUIRenderingListener, Cam
             }
             if (e.isConsumed())
             {
-                if (CampaignHotbarPauseOnControl && !sector.isPaused() && pressedKey != CampaignHotbarConfirm)
+                if (CampaignHotbarPauseOnControl && !sector.isPaused() && pressedKey != CampaignHotbarConfirm && CampaignHotbarTimer < CampaignHotbarConsecutiveTimer)
                 {
                     pausedBySelf = true;
                     sector.setPaused(true);
                 }
-            }
-            if (e.isConsumed() && CampaignHotbarFadeEnabled)
-            {
-                log.debug("Reset indicator fade timer from "+CampaignHotbarRenderIndicatorTimer);
-                CampaignHotbarRenderIndicatorTimer = 0.001f;
+
+                log.debug("Reset indicator fade timer from "+ CampaignHotbarTimer);
+                CampaignHotbarTimer = 0;
             }
 
         }

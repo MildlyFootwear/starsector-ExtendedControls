@@ -23,6 +23,11 @@ public class MainPlugin extends BaseModPlugin {
     public static float uiScale;
     public static boolean debugLogging;
 
+    public static int WeapForward;
+    public static int WeapBackward;
+    public static int WeapTogAutofire;
+    public static int WeapAlt;
+
     public static List<Integer> campaignListeningToKeys = new ArrayList<>();
     public static int CampaignCoreUILeft;
     public static int CampaignCoreUIRight;
@@ -41,14 +46,14 @@ public class MainPlugin extends BaseModPlugin {
     public static int CampaignHotbarRight;
     public static int CampaignHotbarConfirm;
     public static boolean CampaignHotbarPauseOnControl;
+    public static double CampaignHotbarConsecutiveTimer;
     public static boolean CampaignHotbarUnpauseOnConfirm;
     public static boolean CampaignHotbarFadeEnabled;
     public static int CampaignHotbarFadeTimer;
     public static Color CampaignHotbarIndicatorColor;
     public static boolean CampaignHotbarRenderAboveTool;
     public static int CampaignHotbarOption = 1;
-    public static float CampaignHotbarRenderIndicatorTimer = 0;
-    public static boolean CampaignHotbarRenderIndicator = true;
+    public static float CampaignHotbarTimer = 0;
 
     public static SectorAPI sector = null;
     public static CampaignUIAPI cUI = null;
@@ -67,7 +72,14 @@ public class MainPlugin extends BaseModPlugin {
     public static void updateLunaSettings()
     {
         debugLogging = Boolean.TRUE.equals(LunaSettings.getBoolean("ShoeyExtendedControls", "Debugging"));
+
+        WeapForward = LunaSettings.getInt("ShoeyExtendedControls","WGDOWN");
+        WeapBackward = LunaSettings.getInt("ShoeyExtendedControls","WGUP");
+        WeapTogAutofire = LunaSettings.getInt("ShoeyExtendedControls","TogAF");
+        WeapAlt = LunaSettings.getInt("ShoeyExtendedControls","ALT");
+
         campaignListeningToKeys.clear();
+
         CampaignCoreUILeft = putCampaignBind("CampaignUILeft");
         CampaignCoreUIRight = putCampaignBind("CampaignUIRight");
 
@@ -83,6 +95,7 @@ public class MainPlugin extends BaseModPlugin {
         CampaignHotbarRight = putCampaignBind("CampaignHotbarRight");
         CampaignHotbarConfirm = putCampaignBind("CampaignHotbarConfirm");
         CampaignHotbarPauseOnControl = Boolean.TRUE.equals(LunaSettings.getBoolean("ShoeyExtendedControls", "CampaignHotbarPauseOnControl"));
+        CampaignHotbarConsecutiveTimer= LunaSettings.getDouble("ShoeyExtendedControls","CampaignHotbarConsecutiveTimer");
         CampaignHotbarUnpauseOnConfirm = Boolean.TRUE.equals(LunaSettings.getBoolean("ShoeyExtendedControls", "CampaignHotbarUnpauseOnConfirm"));
         CampaignHotbarFadeEnabled = Boolean.TRUE.equals(LunaSettings.getBoolean("ShoeyExtendedControls", "CampaignHotbarFadeEnabled"));
         CampaignHotbarFadeTimer = LunaSettings.getInt("ShoeyExtendedControls", "CampaignHotbarFadeTimer");

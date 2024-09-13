@@ -31,11 +31,6 @@ public class EveryCombatFrameScript extends BaseEveryFrameCombatPlugin {
     List<Integer> keystounpress = new ArrayList<>();
     int[] breakkeys = {Keyboard.KEY_LMENU, Keyboard.KEY_RMENU, Keyboard.KEY_LCONTROL, Keyboard.KEY_RCONTROL};
 
-    public static int WeapForward;
-    public static int WeapBackward;
-    public static int WeapTogAutofire;
-    public static int WeapAlt;
-
     float time = 0;
 
     public void init(CombatEngineAPI engine) {
@@ -46,11 +41,6 @@ public class EveryCombatFrameScript extends BaseEveryFrameCombatPlugin {
             log.setLevel(Level.INFO);
         if (GameState.COMBAT == Global.getCurrentState()) {
             shipsSelectedGroup.clear();
-            WeapForward = LunaSettings.getInt("ShoeyExtendedControls","WGDOWN");
-            WeapBackward = LunaSettings.getInt("ShoeyExtendedControls","WGUP");
-            WeapTogAutofire = LunaSettings.getInt("ShoeyExtendedControls","TogAF");
-            WeapAlt = LunaSettings.getInt("ShoeyExtendedControls","ALT");
-            log.debug("WeapForward: "+Keyboard.getKeyName(WeapForward)+", WeapBackward: "+Keyboard.getKeyName(WeapBackward) + ", WeapTogAutofire: "+Keyboard.getKeyName(WeapTogAutofire)+", WeapAlt: "+Keyboard.getKeyName(WeapAlt));
         }
         time = 0;
     }

@@ -16,7 +16,6 @@ public class EveryCampaignFrameScript implements EveryFrameScript {
 
     Map<Integer, Boolean> lastKeyState = new HashMap<>();
     private Logger log = Global.getLogger(this.getClass());
-    float displayTimer = 0;
 
     @Override
     public boolean isDone() {
@@ -34,11 +33,8 @@ public class EveryCampaignFrameScript implements EveryFrameScript {
         if (Global.getCurrentState() != GameState.CAMPAIGN)
             return;
 
-        if (displayTimer != 0)
-            displayTimer += amount;
-
-        if (CampaignHotbarRenderIndicatorTimer != 0 && CampaignHotbarFadeEnabled)
-            CampaignHotbarRenderIndicatorTimer += amount;
+        if (HandlingHotbar && CampaignHotbarTimer < 30)
+            CampaignHotbarTimer += amount;
 
         for (int key : campaignListeningToKeys)
         {
