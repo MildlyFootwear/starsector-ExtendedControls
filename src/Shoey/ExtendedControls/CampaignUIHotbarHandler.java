@@ -92,8 +92,13 @@ public class CampaignUIHotbarHandler implements CampaignUIRenderingListener, Cam
         if (HotbarCancelChecks())
             return;
 
-        if (CampaignHotbarFadeReset && CampaignHotbarRenderIndicatorTimer == 0)
+        if (CampaignHotbarFadeEnabled && CampaignHotbarFadeReset && CampaignHotbarRenderIndicatorTimer == 0)
             CampaignHotbarOption = 1;
+
+        if (!CampaignHotbarFadeEnabled || !CampaignHotbarFadeReset)
+        {
+            CampaignHotbarRenderIndicatorTimer = 0.001f;
+        }
 
         boolean logged = false;
         for (InputEventAPI e : events)
@@ -139,10 +144,10 @@ public class CampaignUIHotbarHandler implements CampaignUIRenderingListener, Cam
 
             }
 
-            if (e.isConsumed())
+            if (e.isConsumed() && CampaignHotbarFadeEnabled)
             {
                 CampaignHotbarRenderIndicatorTimer = 0.001f;
-                log.debug("Reset indicator timer");
+                log.debug("Reset indicator fade timer");
             }
 
         }
