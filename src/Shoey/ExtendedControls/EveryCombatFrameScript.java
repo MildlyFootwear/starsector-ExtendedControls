@@ -46,7 +46,7 @@ public class EveryCombatFrameScript extends BaseEveryFrameCombatPlugin {
     }
 
     public void advance(float amount, List<InputEventAPI> events) {
-        if (GameState.COMBAT == Global.getCurrentState())
+        if (GameState.TITLE != Global.getCurrentState())
         {
             if (engine.getCombatUI().isShowingCommandUI() || engine.getCombatUI().isShowingDeploymentDialog())
                 return;
