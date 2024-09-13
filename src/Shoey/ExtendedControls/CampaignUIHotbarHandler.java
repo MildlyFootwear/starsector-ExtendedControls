@@ -20,6 +20,7 @@ public class CampaignUIHotbarHandler implements CampaignUIRenderingListener, Cam
 
     transient SpriteAPI indic = Global.getSettings().getSprite("ui","sortIcon");
     Logger log;
+    boolean init = false;
 
     void AttemptRender()
     {
@@ -33,18 +34,33 @@ public class CampaignUIHotbarHandler implements CampaignUIRenderingListener, Cam
             return;
 
         if (CampaignHotbarRenderIndicator) {
-            float x = 270;
+
+            if (!init)
+            {
+                init = true;
+
+                log = Global.getLogger(this.getClass());
+
+                if (debugLogging)
+                    log.setLevel(Level.DEBUG);
+                else
+                    log.setLevel(Level.INFO);
+
+                indic.setSize(indic.getWidth() / 1.5f, indic.getHeight() / 1.5f);
+                log.debug("Set indincator width to "+indic.getTextureWidth()+"height to "+indic.getTextureHeight());
+            }
+            float x = 277;
             float y = 103;
             indic.setAngle(45);
             indic.setColor(CampaignHotbarIndicatorColor);
             x += (CampaignHotbarOption - 1) * 59;
             indic.render(x, y);
             indic.setAngle(-45);
-            indic.render(x+65, y);
+            indic.render(x+58, y);
             indic.setAngle(135);
-            indic.render(x, y-65);
+            indic.render(x, y-58);
             indic.setAngle(225);
-            indic.render(x+65, y-65);
+            indic.render(x+58, y-58);
         }
     }
 
@@ -75,13 +91,6 @@ public class CampaignUIHotbarHandler implements CampaignUIRenderingListener, Cam
 
         if (HotbarCancelChecks())
             return;
-
-        log = Global.getLogger(this.getClass());
-
-        if (debugLogging)
-            log.setLevel(Level.DEBUG);
-        else
-            log.setLevel(Level.INFO);
 
         if (CampaignHotbarFadeReset && CampaignHotbarRenderIndicatorTimer == 0)
             CampaignHotbarOption = 1;
