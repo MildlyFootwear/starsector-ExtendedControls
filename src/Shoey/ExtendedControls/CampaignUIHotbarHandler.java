@@ -102,9 +102,9 @@ public class CampaignUIHotbarHandler implements CampaignUIRenderingListener, Cam
             if (!logged)
             {
                 logged = true;
-                for (int k : campaignListeningToKeys)
-                    if (Keyboard.isKeyDown(k))
-                        log.debug(Keyboard.getKeyName(k)+" is pressed");
+//                for (int k : campaignListeningToKeys)
+//                    if (Keyboard.isKeyDown(k))
+//                        log.debug(Keyboard.getKeyName(k)+" is pressed");
             }
 
             if (e.isConsumed() || e.getEventType() != InputEventType.KEY_DOWN)
