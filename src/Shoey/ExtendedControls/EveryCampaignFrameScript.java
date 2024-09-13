@@ -49,24 +49,7 @@ public class EveryCampaignFrameScript implements EveryFrameScript {
 
         sector = Global.getSector();
         cUI = sector.getCampaignUI();
-        if (HandlingInteract) {
-            if (intDialog != cUI.getCurrentInteractionDialog()) {
-                intDialog = cUI.getCurrentInteractionDialog();
-                if (intDialog == null) {
-                    if (debugLogging)
-                        log.setLevel(Level.DEBUG);
-                    else
-                        log.setLevel(Level.INFO);
-                    log.debug("Cleared interaction");
-                    CampaignInteractOptionCount = 0;
-                    CampaignInteractOption = 1;
-                } else {
-                    log.debug("Updated interaction");
-                }
-            }
-            if (intDialog != null)
-                CampaignInteractOptionCount = intDialog.getOptionPanel().getSavedOptionList().size();
-        }
+
 
         boolean aKeyPressed = false;
 
