@@ -23,8 +23,41 @@ public class CampaignUIInteractHandler implements CampaignUIRenderingListener, C
     transient SpriteAPI indic = Global.getSettings().getSprite("ui","sortIcon");
     Logger log;
     boolean LocalRenderToggle = false;
+    int lastX = 0;
+    int lastY = 0;
+    boolean init = false;
     @Override
     public void renderInUICoordsAboveUIAndTooltips(ViewportAPI viewport) {
+
+        if (!init)
+        {
+            init = true;
+            log = Global.getLogger(this.getClass());
+
+            if (debugLogging)
+                log.setLevel(Level.DEBUG);
+            else
+                log.setLevel(Level.INFO);
+        }
+
+        if (HandlingInteract) {
+            if (intDialog != cUI.getCurrentInteractionDialog()) {
+                intDialog = cUI.getCurrentInteractionDialog();
+                if (intDialog == null) {
+                    if (debugLogging)
+                        log.setLevel(Level.DEBUG);
+                    else
+                        log.setLevel(Level.INFO);
+                    log.debug("Cleared interaction");
+                    CampaignInteractOptionCount = 0;
+                    CampaignInteractOption = 1;
+                } else {
+                    log.debug("Updated interaction");
+                }
+            }
+            if (intDialog != null)
+                CampaignInteractOptionCount = intDialog.getOptionPanel().getSavedOptionList().size();
+        }
 
         if (InteractionCancelChecks())
             return;
@@ -32,13 +65,22 @@ public class CampaignUIInteractHandler implements CampaignUIRenderingListener, C
         if (CampaignInteractOption > CampaignInteractOptionCount)
             CampaignInteractOption = CampaignInteractOptionCount;
 
-        indic.setColor(CampaignInteractUIIndicatorColor);
-        indic.setAngle(90);
-        float x = winWidth / 2 - (465);
-        float y = winHeight / 2 - (178);
-        y -= (CampaignInteractOption - 1) * 29;
-        if (CampaignInteractUIRenderIndicator && LocalRenderToggle)
+        if (Global.getSettings().getMouseX() - lastX > 20 || Global.getSettings().getMouseX() - lastX < -20 || Global.getSettings().getMouseY() - lastY > 20 || Global.getSettings().getMouseY() - lastY < -20)
+        {
+            lastX = Global.getSettings().getMouseX();
+            lastY = Global.getSettings().getMouseY();
+            LocalRenderToggle = false;
+        }
+
+        if (CampaignInteractUIRenderIndicator && LocalRenderToggle) {
+
+            indic.setColor(CampaignInteractUIIndicatorColor);
+            indic.setAngle(90);
+            float x = winWidth / 2 - (465);
+            float y = winHeight / 2 - (178);
+            y -= (CampaignInteractOption - 1) * 29;
             indic.render(x, y);
+        }
 
     }
 
@@ -65,13 +107,6 @@ public class CampaignUIInteractHandler implements CampaignUIRenderingListener, C
         if (InteractionCancelChecks())
             return;
 
-        log = Global.getLogger(this.getClass());
-
-        if (debugLogging)
-            log.setLevel(Level.DEBUG);
-        else
-            log.setLevel(Level.INFO);
-
         boolean logged = false;
 
 
@@ -89,9 +124,6 @@ public class CampaignUIInteractHandler implements CampaignUIRenderingListener, C
 
             if (e.isConsumed())
                 continue;
-
-            if (e.isMouseDownEvent())
-                LocalRenderToggle = false;
 
             if (e.getEventType() != InputEventType.KEY_DOWN)
                 continue;
