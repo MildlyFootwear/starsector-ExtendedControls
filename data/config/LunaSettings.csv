@@ -30,8 +30,8 @@ HandlingHotbar,Enabled,Boolean,TRUE,,"If enabled, the following settings will be
 CampaignHotbarLeft,Navigate Left,Keycode,203,,,,,Campaign
 CampaignHotbarRight,Navigate Right,Keycode,205,,,,,Campaign
 CampaignHotbarConfirm,Confirm,Keycode,28,,,,,Campaign
-CampaignHotbarPauseOnControl,Pause on Control,Boolean,TRUE,,Pauses campaign when you scroll press controls consecutively.,,,Campaign
-CampaignHotbarConsecutiveTimer,Consecutive Timer,Double,0.2,,"If at least two controls are pressed within this span of seconds, it'll count as consecutive.",0,1,Campaign
+CampaignHotbarPauseOnControl,Pause on Control,Boolean,TRUE,,Pauses campaign when controls are inputted in rapid succession.,,,Campaign
+CampaignHotbarConsecutiveTimer,Consecutive Timer,Double,0.2,,"If at least two controls are pressed within this span of seconds, it'll count as consecutive. Setting to 1 will pause on left or right input.",0,1,Campaign
 CampaignHotbarUnpauseOnConfirm,Unpause on Confirm,Boolean,TRUE,,"Unpauses campaign when the hotbar selection is confirmed, but only when paused by being controlled.",,,Campaign
 CampaignHotbarFadeEnabled,Indicators Fade After Last Input,Boolean,TRUE,,Indicators will fade if not controlled.,,,Campaign
 CampaignHotbarFadeTimer,Indicators Fade After Seconds,Int,6,,Indicators will fade after this amount of seconds have passed since it was controlled.,1,10,Campaign

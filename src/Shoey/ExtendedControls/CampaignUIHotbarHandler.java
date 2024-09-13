@@ -166,11 +166,12 @@ public class CampaignUIHotbarHandler implements CampaignUIRenderingListener, Cam
             }
             if (e.isConsumed())
             {
-                if (CampaignHotbarPauseOnControl && !sector.isPaused() && pressedKey != CampaignHotbarConfirm && CampaignHotbarTimer < CampaignHotbarConsecutiveTimer)
-                {
-                    pausedBySelf = true;
-                    sector.setPaused(true);
-                    cUI.addMessage("ExtendedControls: paused.");
+                if (CampaignHotbarPauseOnControl && !sector.isPaused() && pressedKey != CampaignHotbarConfirm) {
+                    if (CampaignHotbarTimer < CampaignHotbarConsecutiveTimer || CampaignHotbarConsecutiveTimer > 0.99) {
+                        pausedBySelf = true;
+                        sector.setPaused(true);
+                        cUI.addMessage("ExtendedControls: paused.");
+                    }
                 }
 
                 log.debug("Reset indicator fade timer from "+ CampaignHotbarTimer);
