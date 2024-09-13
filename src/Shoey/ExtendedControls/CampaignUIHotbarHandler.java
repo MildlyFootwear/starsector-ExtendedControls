@@ -24,31 +24,35 @@ public class CampaignUIHotbarHandler implements CampaignUIRenderingListener, Cam
 
     void AttemptRender()
     {
-        if (HotbarCancelChecks())
-            return;
 
-        if (CampaignHotbarRenderIndicatorTimer > CampaignHotbarFadeTimer)
+        if (!init)
+        {
+            init = true;
+
+            log = Global.getLogger(this.getClass());
+
+            if (debugLogging)
+                log.setLevel(Level.DEBUG);
+            else
+                log.setLevel(Level.INFO);
+
+            indic.setSize(indic.getWidth() / 1.5f, indic.getHeight() / 1.5f);
+            log.debug("Set indincator width to "+indic.getTextureWidth()+"height to "+indic.getTextureHeight());
+        }
+
+        if (CampaignHotbarRenderIndicatorTimer > CampaignHotbarFadeTimer) {
             CampaignHotbarRenderIndicatorTimer = 0;
+            log.debug("Faded hotbar");
+        }
 
         if (CampaignHotbarRenderIndicatorTimer == 0 && CampaignHotbarFadeEnabled)
             return;
 
+        if (HotbarCancelChecks())
+            return;
+
         if (CampaignHotbarRenderIndicator) {
 
-            if (!init)
-            {
-                init = true;
-
-                log = Global.getLogger(this.getClass());
-
-                if (debugLogging)
-                    log.setLevel(Level.DEBUG);
-                else
-                    log.setLevel(Level.INFO);
-
-                indic.setSize(indic.getWidth() / 1.5f, indic.getHeight() / 1.5f);
-                log.debug("Set indincator width to "+indic.getTextureWidth()+"height to "+indic.getTextureHeight());
-            }
             float x = 277;
             float y = 103;
             indic.setAngle(45);
@@ -62,6 +66,7 @@ public class CampaignUIHotbarHandler implements CampaignUIRenderingListener, Cam
             indic.setAngle(225);
             indic.render(x+58, y-58);
         }
+
     }
 
     @Override
@@ -95,7 +100,7 @@ public class CampaignUIHotbarHandler implements CampaignUIRenderingListener, Cam
         if (CampaignHotbarFadeEnabled && CampaignHotbarFadeReset && CampaignHotbarRenderIndicatorTimer == 0)
             CampaignHotbarOption = 1;
 
-        if (!CampaignHotbarFadeEnabled || !CampaignHotbarFadeReset)
+        if (!CampaignHotbarFadeEnabled)
         {
             CampaignHotbarRenderIndicatorTimer = 0.001f;
         }
@@ -146,8 +151,8 @@ public class CampaignUIHotbarHandler implements CampaignUIRenderingListener, Cam
 
             if (e.isConsumed() && CampaignHotbarFadeEnabled)
             {
+                log.debug("Reset indicator fade timer from "+CampaignHotbarRenderIndicatorTimer);
                 CampaignHotbarRenderIndicatorTimer = 0.001f;
-                log.debug("Reset indicator fade timer");
             }
 
         }
