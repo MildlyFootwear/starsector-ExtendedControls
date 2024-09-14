@@ -9,8 +9,6 @@ import static Shoey.ExtendedControls.MainPlugin.*;
 
 public class LunaListener implements LunaSettingsListener {
 
-    private Logger thislog = Global.getLogger(this.getClass());
-
     @Override
     public void settingsChanged(String s) {
         if (s.equals("ShoeyExtendedControls"))
