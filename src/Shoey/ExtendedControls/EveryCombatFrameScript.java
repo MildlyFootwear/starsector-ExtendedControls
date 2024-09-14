@@ -39,9 +39,9 @@ public class EveryCombatFrameScript extends BaseEveryFrameCombatPlugin {
             log.setLevel(Level.DEBUG);
         else
             log.setLevel(Level.INFO);
-        if (GameState.COMBAT == Global.getCurrentState()) {
-            shipsSelectedGroup.clear();
-        }
+
+        shipsSelectedGroup.clear();
+        intDialog = null;
         time = 0;
     }
 
