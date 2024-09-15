@@ -121,7 +121,7 @@ public class MainPlugin extends BaseModPlugin {
             return true;
         }
 
-        if (!cUI.isShowingDialog() || cUI.isShowingMenu()) {
+        if (!cUI.isShowingDialog() || cUI.isShowingMenu() || cUI.isHideUI()) {
 
 //            if (!cUI.isShowingDialog())
 //                System.out.println("Interact cancelled due to null cUI");
@@ -138,7 +138,7 @@ public class MainPlugin extends BaseModPlugin {
         if (cUI == null || !HandlingHotbar)
             return true;
 
-        if (cUI.isShowingDialog() || cUI.isShowingMenu())
+        if (cUI.isShowingDialog() || cUI.isShowingMenu() || cUI.isHideUI())
             return true;
 
         return false;
