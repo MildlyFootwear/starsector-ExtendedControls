@@ -182,6 +182,8 @@ public class MainPlugin extends BaseModPlugin {
         sector.addTransientScript(new EveryCampaignFrameScript());
         sector.getListenerManager().addListener(new CampaignUIInteractHandler(), true);
         sector.getListenerManager().addListener(new CampaignUIHotbarHandler(), true);
-
+        intDialog = null;
+        CampaignInteractOption = 1;
+        CampaignInteractOptionCount = 0;
     }
 }

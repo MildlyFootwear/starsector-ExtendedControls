@@ -42,6 +42,8 @@ public class EveryCombatFrameScript extends BaseEveryFrameCombatPlugin {
 
         shipsSelectedGroup.clear();
         intDialog = null;
+        CampaignInteractOption = 1;
+        CampaignInteractOptionCount = 0;
         time = 0;
     }
 
