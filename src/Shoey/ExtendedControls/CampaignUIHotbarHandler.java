@@ -133,6 +133,9 @@ public class CampaignUIHotbarHandler implements CampaignUIRenderingListener, Cam
 
                 if (CampaignHotbarOption < 10 && CampaignHotbarTimer != 0)
                     CampaignHotbarOption++;
+                else if (CampaignHotbarWrap && CampaignHotbarTimer != 0) {
+                    CampaignHotbarOption = 1;
+                }
                 log.debug("Selected hotbar "+ CampaignHotbarOption);
                 e.consume();
 
@@ -140,6 +143,9 @@ public class CampaignUIHotbarHandler implements CampaignUIRenderingListener, Cam
 
                 if (CampaignHotbarOption > 1 && CampaignHotbarTimer != 0)
                     CampaignHotbarOption--;
+                else if (CampaignHotbarWrap && CampaignHotbarTimer != 0) {
+                    CampaignHotbarOption = 10;
+                }
                 log.debug("Selected hotbar "+ CampaignHotbarOption);
                 e.consume();
 

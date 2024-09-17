@@ -18,8 +18,8 @@ CampaignInteractUIUp,Navigate Up,Keycode,200,,,,,Campaign
 CampaignInteractUIDown,Navigate Down,Keycode,208,,,,,Campaign
 CampaignInteractUIConfirm,Confirm,Keycode,28,,,,,Campaign
 CampaignInteractUIToggleIndicator,Toggle Indicator,Keycode,29,,"If the interact option indicator is being shown when it shouldn't, this key can be used to temporarily disable it.",,,Campaign
+CampaignInteractUIWrap,Wrap Around,Boolean,TRUE,,If the indicator will wrap around to the other side at the beginning or end.,,,Campaign
 CampaignInteractUIIndicatorColor,Indicator Color,Color,#FFD200,,Color used for the arrow indicating the current selection.,,,Campaign
-,,,,,,,,
 ,,,,,,,,
 ,,,,,,,,
 ,,,,,,,,
@@ -30,6 +30,7 @@ HandlingHotbar,Enabled,Boolean,TRUE,,"If enabled, the following settings will be
 CampaignHotbarLeft,Navigate Left,Keycode,203,,,,,Campaign
 CampaignHotbarRight,Navigate Right,Keycode,205,,,,,Campaign
 CampaignHotbarConfirm,Confirm,Keycode,28,,,,,Campaign
+CampaignHotbarWrap,Wrap Around,Boolean,TRUE,,If the selection will wrap around to the other side at the beginning or end.,,,Campaign
 CampaignHotbarPauseOnControl,Pause on Control,Boolean,TRUE,,Pauses campaign when controls are inputted in rapid succession.,,,Campaign
 CampaignHotbarConsecutiveTimer,Consecutive Timer,Double,0.2,,"If at least two controls are pressed within this span of seconds, it'll count as consecutive. Setting to 1 will pause on left or right input.",0,1,Campaign
 CampaignHotbarUnpauseOnConfirm,Unpause on Confirm,Boolean,TRUE,,"Unpauses campaign when the hotbar selection is confirmed, but only when paused by being controlled.",,,Campaign
@@ -38,7 +39,6 @@ CampaignHotbarFadeTimer,Indicators Fade After Seconds,Int,6,,Indicators will fad
 CampaignHotbarFadeReset,Reset Selection After Fade,Boolean,TRUE,,Once the indicator disappears the selection will be reset. The next time the hotbar is scrolled through it will start at 1.,,,Campaign
 CampaignHotbarIndicatorColor,Indicator Color,Color,#FFD200,,Color used for the 4 arrows indicating the current selection.,,,Campaign
 CampaignHotbarRenderAboveTool,Render Above Tooltips,Boolean,TRUE,,"If the indicators should be rendered above tooltips. As of v0.97a, the vanilla hotbar is currently bugged and plugins that render below tooltips and above UI render above the hotbar until a menu tab is opened (i.e. Character/Map/Refit/etc), where they will start rendering below it.",,,Campaign
-,,,,,,,,
 ,,,,,,,,
 ,,,,,,,,
 ,,,,,,,,

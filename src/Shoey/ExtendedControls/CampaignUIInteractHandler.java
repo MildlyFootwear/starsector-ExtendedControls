@@ -147,11 +147,17 @@ public class CampaignUIInteractHandler implements CampaignUIRenderingListener, C
             } else if (e.getEventValue() == CampaignInteractUIDown) {
                 if (CampaignInteractOption < CampaignInteractOptionCount && LocalRenderToggle)
                     CampaignInteractOption++;
+                else if (CampaignInteractUIWrap && LocalRenderToggle) {
+                    CampaignInteractOption = 1;
+                }
                 log.debug("Selected option "+ CampaignInteractOption);
                 e.consume();
             } else if (e.getEventValue() == CampaignInteractUIUp) {
                 if (CampaignInteractOption > 1 && LocalRenderToggle)
                     CampaignInteractOption--;
+                else if (CampaignInteractUIWrap && LocalRenderToggle) {
+                    CampaignInteractOption = CampaignInteractOptionCount;
+                }
                 log.debug("Selected option "+ CampaignInteractOption);
                 e.consume();
             } else if (e.getEventValue() == CampaignInteractUIConfirm) {

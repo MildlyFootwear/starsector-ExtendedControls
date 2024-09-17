@@ -37,14 +37,17 @@ public class MainPlugin extends BaseModPlugin {
     public static int CampaignInteractUIDown;
     public static int CampaignInteractUIConfirm;
     public static int CampaignInteractUIToggleIndicator;
+    public static boolean CampaignInteractUIWrap;
     public static Color CampaignInteractUIIndicatorColor;
     public static boolean CampaignInteractUIRenderIndicator = true;
+
 
     public static boolean HandlingHotbar;
     public static boolean CampaignHotbarFadeReset;
     public static int CampaignHotbarLeft;
     public static int CampaignHotbarRight;
     public static int CampaignHotbarConfirm;
+    public static boolean CampaignHotbarWrap;
     public static boolean CampaignHotbarPauseOnControl;
     public static double CampaignHotbarConsecutiveTimer;
     public static boolean CampaignHotbarUnpauseOnConfirm;
@@ -88,12 +91,14 @@ public class MainPlugin extends BaseModPlugin {
         CampaignInteractUIDown = putCampaignBind("CampaignInteractUIDown");
         CampaignInteractUIConfirm = putCampaignBind("CampaignInteractUIConfirm");
         CampaignInteractUIToggleIndicator = putCampaignBind("CampaignInteractUIToggleIndicator");
+        CampaignInteractUIWrap = Boolean.TRUE.equals(LunaSettings.getBoolean("ShoeyExtendedControls", "CampaignInteractUIWrap"));
         CampaignInteractUIIndicatorColor = LunaSettings.getColor("ShoeyExtendedControls", "CampaignInteractUIIndicatorColor");
 
         HandlingHotbar = Boolean.TRUE.equals(LunaSettings.getBoolean("ShoeyExtendedControls", "HandlingHotbar"));
         CampaignHotbarLeft = putCampaignBind("CampaignHotbarLeft");
         CampaignHotbarRight = putCampaignBind("CampaignHotbarRight");
         CampaignHotbarConfirm = putCampaignBind("CampaignHotbarConfirm");
+        CampaignHotbarWrap = Boolean.TRUE.equals(LunaSettings.getBoolean("ShoeyExtendedControls", "CampaignHotbarWrap"));
         CampaignHotbarPauseOnControl = Boolean.TRUE.equals(LunaSettings.getBoolean("ShoeyExtendedControls", "CampaignHotbarPauseOnControl"));
         CampaignHotbarConsecutiveTimer= LunaSettings.getDouble("ShoeyExtendedControls","CampaignHotbarConsecutiveTimer");
         CampaignHotbarUnpauseOnConfirm = Boolean.TRUE.equals(LunaSettings.getBoolean("ShoeyExtendedControls", "CampaignHotbarUnpauseOnConfirm"));
