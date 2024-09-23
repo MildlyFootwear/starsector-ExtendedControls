@@ -184,9 +184,10 @@ public class MainPlugin extends BaseModPlugin {
         log.info("Setting up campaign");
         sector = Global.getSector();
         cUI = sector.getCampaignUI();
-        sector.addTransientScript(new EveryCampaignFrameScript());
+        sector.addTransientScript(new CampaignCore());
         sector.getListenerManager().addListener(new CampaignUIInteractHandler(), true);
         sector.getListenerManager().addListener(new CampaignUIHotbarHandler(), true);
+        sector.getListenerManager().addListener(new CampaignUICoreHandler(), true);
         intDialog = null;
         CampaignInteractOption = 1;
         CampaignInteractOptionCount = 0;

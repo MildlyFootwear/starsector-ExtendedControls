@@ -26,6 +26,7 @@ public class CampaignUIInteractHandler implements CampaignUIRenderingListener, C
     int lastX = 0;
     int lastY = 0;
     boolean init = false;
+
     @Override
     public void renderInUICoordsAboveUIAndTooltips(ViewportAPI viewport) {
 
