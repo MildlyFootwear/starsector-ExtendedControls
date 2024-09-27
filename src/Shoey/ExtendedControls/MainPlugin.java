@@ -28,9 +28,9 @@ public class MainPlugin extends BaseModPlugin {
     public static int WeapTogAutofire;
     public static int WeapAlt;
 
-    public static List<Integer> campaignListeningToKeys = new ArrayList<>();
     public static int CampaignCoreUILeft;
     public static int CampaignCoreUIRight;
+    public static int CampaignCoreSubTab = 0;
 
     public static boolean HandlingInteract;
     public static int CampaignInteractUIUp;
@@ -68,7 +68,6 @@ public class MainPlugin extends BaseModPlugin {
     static int putCampaignBind(String s)
     {
         int i = LunaSettings.getInt("ShoeyExtendedControls", s);
-        campaignListeningToKeys.add(i);
         return i;
     }
     
@@ -80,8 +79,6 @@ public class MainPlugin extends BaseModPlugin {
         WeapBackward = LunaSettings.getInt("ShoeyExtendedControls","WGUP");
         WeapTogAutofire = LunaSettings.getInt("ShoeyExtendedControls","TogAF");
         WeapAlt = LunaSettings.getInt("ShoeyExtendedControls","ALT");
-
-        campaignListeningToKeys.clear();
 
         CampaignCoreUILeft = putCampaignBind("CampaignUILeft");
         CampaignCoreUIRight = putCampaignBind("CampaignUIRight");
