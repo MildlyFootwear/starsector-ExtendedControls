@@ -7,10 +7,9 @@ import com.fs.starfarer.api.campaign.SectorAPI;
 import lunalib.lunaSettings.LunaSettings;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
+import org.lwjgl.input.Keyboard;
 
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.List;
 
 
 public class MainPlugin extends BaseModPlugin {
@@ -30,7 +29,9 @@ public class MainPlugin extends BaseModPlugin {
 
     public static int CampaignCoreUILeft;
     public static int CampaignCoreUIRight;
-    public static int CampaignCoreSubTab = 0;
+    public static int CampaignSubCoreUILeft = Keyboard.KEY_UP;
+    public static int CampaignSubCoreUIRight = Keyboard.KEY_DOWN;
+    public static int CampaignSubCoreUITab = 0;
 
     public static boolean HandlingInteract;
     public static int CampaignInteractUIUp;
