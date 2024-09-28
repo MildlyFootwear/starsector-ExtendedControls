@@ -5,12 +5,10 @@ import com.fs.starfarer.api.campaign.CoreUITabId;
 import com.fs.starfarer.api.campaign.listeners.CampaignInputListener;
 import com.fs.starfarer.api.campaign.listeners.CampaignUIRenderingListener;
 import com.fs.starfarer.api.combat.ViewportAPI;
-import com.fs.starfarer.api.graphics.SpriteAPI;
 import com.fs.starfarer.api.input.InputEventAPI;
 import com.fs.starfarer.api.input.InputEventType;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
-import org.lwjgl.input.Keyboard;
 
 import java.awt.event.KeyEvent;
 import java.util.List;
@@ -52,25 +50,25 @@ public class CampaignUICoreHandler implements CampaignUIRenderingListener, Campa
                     switch (cUI.getCurrentCoreTab()) {
                         case CHARACTER:
                             cUI.showCoreUITab(CoreUITabId.FLEET);
-                            return;
+                            break;
                         case FLEET:
                             cUI.showCoreUITab(CoreUITabId.REFIT);
-                            return;
+                            break;
                         case REFIT:
                             cUI.showCoreUITab(CoreUITabId.CARGO);
-                            return;
+                            break;
                         case CARGO:
                             cUI.showCoreUITab(CoreUITabId.MAP);
-                            return;
+                            break;
                         case MAP:
                             cUI.showCoreUITab(CoreUITabId.INTEL);
-                            return;
+                            break;
                         case INTEL:
                             cUI.showCoreUITab(CoreUITabId.OUTPOSTS);
-                            return;
+                            break;
                         case OUTPOSTS:
                             cUI.showCoreUITab(CoreUITabId.CHARACTER);
-                            return;
+                            break;
                     }
                 } else if (e.getEventValue() == (CampaignCoreUILeft)) {
                     log.debug("Processing core input on tab "+cUITabName);
@@ -78,28 +76,65 @@ public class CampaignUICoreHandler implements CampaignUIRenderingListener, Campa
                     switch (cUI.getCurrentCoreTab()) {
                         case CHARACTER:
                             cUI.showCoreUITab(CoreUITabId.OUTPOSTS);
-                            return;
+                            break;
                         case FLEET:
                             cUI.showCoreUITab(CoreUITabId.CHARACTER);
-                            return;
+                            break;
                         case REFIT:
                             cUI.showCoreUITab(CoreUITabId.FLEET);
-                            return;
+                            break;
                         case CARGO:
                             cUI.showCoreUITab(CoreUITabId.REFIT);
-                            return;
+                            break;
                         case MAP:
                             cUI.showCoreUITab(CoreUITabId.CARGO);
-                            return;
+                            break;
                         case INTEL:
                             cUI.showCoreUITab(CoreUITabId.MAP);
-                            return;
+                            break;
                         case OUTPOSTS:
                             cUI.showCoreUITab(CoreUITabId.INTEL);
-                            return;
+                            break;
+                    }
+                } else if (e.getEventValue() == CampaignSubCoreUIRight) {
+                    if (cUI.getCurrentCoreTab() == CoreUITabId.CARGO || cUI.getCurrentCoreTab() == CoreUITabId.INTEL || cUI.getCurrentCoreTab() == CoreUITabId.OUTPOSTS) {
+
+                        int maxTab = 0;
+                        switch (cUI.getCurrentCoreTab()) {
+                            case CARGO:
+                                maxTab = 4;
+                                break;
+                            case INTEL:
+                                maxTab = 3;
+                                break;
+                            case OUTPOSTS:
+                                maxTab = 5;
+                                break;
+                        }
+                        if (CampaignSubCoreUITab < maxTab)
+                            CampaignSubCoreUITab++;
+
+                        Integer temp = CampaignSubCoreUITab;
+                        char key = temp.toString().charAt(0);
+                        int keytopress = KeyEvent.getExtendedKeyCodeForChar(key);
+                        T1000.keyPress(keytopress);
+                        T1000.keyRelease(keytopress);
+                    }
+                } else if (e.getEventValue() == CampaignSubCoreUILeft) {
+                    if (cUI.getCurrentCoreTab() == CoreUITabId.CARGO || cUI.getCurrentCoreTab() == CoreUITabId.INTEL || cUI.getCurrentCoreTab() == CoreUITabId.OUTPOSTS) {
+                        if (CampaignSubCoreUITab > 1)
+                            CampaignSubCoreUITab--;
+                        else
+                            CampaignSubCoreUITab = 1;
+                        Integer temp = CampaignSubCoreUITab;
+                        char key = temp.toString().charAt(0);
+                        int keytopress = KeyEvent.getExtendedKeyCodeForChar(key);
+                        T1000.keyPress(keytopress);
+                        T1000.keyRelease(keytopress);
                     }
                 }
-            }
+
+        }
         }
 
     }
