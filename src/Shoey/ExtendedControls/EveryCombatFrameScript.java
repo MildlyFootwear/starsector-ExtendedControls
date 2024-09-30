@@ -106,14 +106,36 @@ public class EveryCombatFrameScript extends BaseEveryFrameCombatPlugin {
                 int key = event.getEventValue();
                 if (key == WeapForward)
                 {
+                    log.debug("Navigating down list.");
                     java.util.List<WeaponGroupAPI> temp = playingShip.getWeaponGroupsCopy();
                     int current = shipsSelectedGroup.get(playingShip);
+                    int previous = current;
                     if (current == temp.size()){
                         event.consume();
                         continue;
                     } else {
                         current++;
+                        if (SkipEmpty) {
+                            for (int i; current < temp.size(); current++) {
+                                int ammocount = 0;
+                                for (WeaponAPI w : temp.get(current - 1).getWeaponsCopy()) {
+                                    if (w.usesAmmo()) {
+                                        ammocount += w.getAmmo();
+                                    } else {
+                                        ammocount++;
+                                    }
+                                    if (ammocount > 0) {
+                                        log.debug(w.getDisplayName() + " can fire, selecting group " + current);
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+
+                        if (current > temp.size())
+                            current = temp.size();
                     }
+
                     log.debug("Pressing "+current+" for "+playingShip.getName());
                     shipsSelectedGroup.put(playingShip, current);
                     log.debug("Setting group "+current+" for "+playingShip.getName());
@@ -124,13 +146,38 @@ public class EveryCombatFrameScript extends BaseEveryFrameCombatPlugin {
                     T1000.keyPress(keytopress);
                 } else if (key == WeapBackward)
                 {
+                    log.debug("Navigating up list.");
+                    java.util.List<WeaponGroupAPI> temp = playingShip.getWeaponGroupsCopy();
                     int current = shipsSelectedGroup.get(playingShip);
-                    if (current == 1) {
+                    int previous = current;
+                    if (current == 1){
                         event.consume();
                         continue;
                     } else {
                         current--;
+                        if (SkipEmpty) {
+                            for (int i; current > 1; current--) {
+                                int ammocount = 0;
+                                for (WeaponAPI w : temp.get(current - 1).getWeaponsCopy()) {
+                                    if (w.usesAmmo()) {
+                                        ammocount += w.getAmmo();
+                                    } else {
+                                        ammocount++;
+                                    }
+                                    if (ammocount > 0) {
+                                        log.debug(w.getDisplayName() + " can fire.");
+                                        break;
+                                    }
+                                }
+                                if (ammocount > 0) {
+                                    break;
+                                }
+                            }
+                        }
+                        if (current < 1)
+                            current = 1;
                     }
+
                     shipsSelectedGroup.put(playingShip, current);
                     log.debug("Setting group "+current+" for "+playingShip.getName());
                     int keytopress = KeyEvent.getExtendedKeyCodeForChar(Integer.toString(current).charAt(0));

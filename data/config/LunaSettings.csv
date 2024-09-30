@@ -3,6 +3,8 @@ WGDOWN,Cycle Weapon Group Forward,Keycode,208,,,,,Combat
 WGUP,Cycle Weapon Group Backward,Keycode,200,,,,,Combat
 TogAF,Toggle Autofire,Keycode,205,,,,,Combat
 ALT,Alternate Weapon,Keycode,203,,,,,Combat
+SkipEmpty,Skip Empty Ammo,Boolean,TRUE,,Skips weapon groups that are currently out of ammo.,,,Combat
+,,,,,,,,
 ,,,,,,,,
 CoreHeader,Core UI,Header,Core UI,,,,,Campaign
 CampaignCoreUILeft,Navigate Tab Left,Keycode,203,,"Navigate left in the core campaign menu; open the Character tab from Fleet, open Cargo from Map.",,,Campaign

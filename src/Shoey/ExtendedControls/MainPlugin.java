@@ -32,6 +32,7 @@ public class MainPlugin extends BaseModPlugin {
     public static int WeapBackward;
     public static int WeapTogAutofire;
     public static int WeapAlt;
+    public static boolean SkipEmpty;
 
     public static int CampaignCoreUILeft;
     public static int CampaignCoreUIRight;
@@ -87,6 +88,7 @@ public class MainPlugin extends BaseModPlugin {
         WeapBackward = LunaSettings.getInt("ShoeyExtendedControls","WGUP");
         WeapTogAutofire = LunaSettings.getInt("ShoeyExtendedControls","TogAF");
         WeapAlt = LunaSettings.getInt("ShoeyExtendedControls","ALT");
+        SkipEmpty = Boolean.TRUE.equals(LunaSettings.getBoolean("ShoeyExtendedControls", "SkipEmpty"));
 
         CampaignCoreUILeft = putCampaignBind("CampaignUILeft");
         CampaignCoreUIRight = putCampaignBind("CampaignUIRight");
