@@ -161,7 +161,7 @@ public class CampaignUIHotbarHandler implements CampaignUIRenderingListener, Cam
                 if (CampaignHotbarUnpauseOnConfirm && pausedBySelf)
                 {
                     sector.setPaused(false);
-                    cUI.addMessage("ExtendedControls: unpaused.");
+                    cUI.getMessageDisplay().addMessage("ExtendedControls: unpaused.");
                     cUI.getMessageDisplay().removeMessage("ExtendedControls: paused.");
                     pausedBySelf = false;
                 }
@@ -178,7 +178,7 @@ public class CampaignUIHotbarHandler implements CampaignUIRenderingListener, Cam
                     if (CampaignHotbarTimer < CampaignHotbarConsecutiveTimer || CampaignHotbarConsecutiveTimer > 0.99) {
                         pausedBySelf = true;
                         sector.setPaused(true);
-                        cUI.addMessage("ExtendedControls: paused.");
+                        cUI.getMessageDisplay().addMessage("ExtendedControls: paused.");
                         cUI.getMessageDisplay().removeMessage("ExtendedControls: unpaused.");
                     }
                 }
