@@ -1,4 +1,8 @@
 package Shoey.ExtendedControls;
+import Shoey.ExtendedControls.Campaign.CampaignCore;
+import Shoey.ExtendedControls.Campaign.CampaignUICoreHandler;
+import Shoey.ExtendedControls.Campaign.CampaignUIHotbarHandler;
+import Shoey.ExtendedControls.Campaign.CampaignUIInteractHandler;
 import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.BaseModPlugin;
 import com.fs.starfarer.api.campaign.CampaignUIAPI;

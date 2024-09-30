@@ -1,4 +1,4 @@
-package Shoey.ExtendedControls;
+package Shoey.ExtendedControls.Campaign;
 
 import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.campaign.CoreUITabId;

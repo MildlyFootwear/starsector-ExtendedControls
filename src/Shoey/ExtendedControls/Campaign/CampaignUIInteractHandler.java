@@ -1,7 +1,6 @@
-package Shoey.ExtendedControls;
+package Shoey.ExtendedControls.Campaign;
 
 import com.fs.starfarer.api.Global;
-import com.fs.starfarer.api.campaign.InteractionDialogAPI;
 import com.fs.starfarer.api.campaign.listeners.CampaignInputListener;
 import com.fs.starfarer.api.campaign.listeners.CampaignUIRenderingListener;
 import com.fs.starfarer.api.combat.ViewportAPI;
@@ -10,9 +9,7 @@ import com.fs.starfarer.api.input.InputEventAPI;
 import com.fs.starfarer.api.input.InputEventType;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
-import org.lwjgl.input.Keyboard;
 
-import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.util.List;
 
