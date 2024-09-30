@@ -5,10 +5,10 @@ TogAF,Toggle Autofire,Keycode,205,,,,,Combat
 ALT,Alternate Weapon,Keycode,203,,,,,Combat
 ,,,,,,,,
 CoreHeader,Core UI,Header,Core UI,,,,,Campaign
-CampaignUILeft,Navigate Left in Campaign Menu,Keycode,203,,"Navigate left in the core campaign menu; open the Character tab from Fleet, open Cargo from Map.",,,Campaign
-CampaignUIRight,Navigate Right in Campaign Menu,Keycode,205,,"Navigate right in the core campaign menu; open the Refit tab from fleet, open Intel from Map.",,,Campaign
-,,,,,,,,
-,,,,,,,,
+CampaignCoreUILeft,Navigate Tab Left,Keycode,203,,"Navigate left in the core campaign menu; open the Character tab from Fleet, open Cargo from Map.",,,Campaign
+CampaignCoreUIRight,Navigate Tab Right,Keycode,205,,"Navigate right in the core campaign menu; open the Refit tab from fleet, open Intel from Map.",,,Campaign
+CampaignCoreUISubTabLeft,Navigate Sub Tab Left,Keycode,200,,"Navigate the sub tabs in Cargo, Intel, and Planets.",,,
+CampaignCoreUISubTabRight,Navigate Sub Tab Right,Keycode,208,,"Navigate the sub tabs in Cargo, Intel, and Planets.",,,
 ,,,,,,,,
 ,,,,,,,,
 ,,,,,,,,

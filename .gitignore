@@ -193,3 +193,9 @@ nbdist/
 
 .idea/csv-editor.xml
 /data/config/.~lock.LunaSettings.csv#
+/.vs/ExtendedControls/v17/.wsuo
+/.vs/ExtendedControls/FileContentIndex/5c57e994-6730-4172-8a84-589a5fbdf90e.vsidx
+/.vs/ExtendedControls/v17/DocumentLayout.json
+/.vs/ProjectSettings.json
+/.vs/slnx.sqlite
+/.vs/VSWorkspaceState.json

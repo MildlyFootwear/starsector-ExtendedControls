@@ -19,6 +19,34 @@ public class CampaignUICoreHandler implements CampaignUIRenderingListener, Campa
 
     private Logger log = Global.getLogger(this.getClass());
     boolean init = false;
+    int maxTab = 0;
+    CoreUITabId lastTab;
+
+    void setMaxTab() {
+        switch (cUI.getCurrentCoreTab()) {
+            case CARGO:
+                maxTab = 4;
+                if (lastTab != CoreUITabId.CARGO)
+                    CampaignCoreUISubTabCurrent = 1;
+                break;
+            case INTEL:
+                maxTab = 3;
+                if (lastTab != CoreUITabId.INTEL)
+                    if (CampaignCoreUISubTabMap.containsKey(CoreUITabId.INTEL))
+                        CampaignCoreUISubTabCurrent = CampaignCoreUISubTabMap.get(CoreUITabId.INTEL);
+                    else
+                        CampaignCoreUISubTabMap.put(CoreUITabId.INTEL, 1);
+                break;
+            case OUTPOSTS:
+                maxTab = 5;
+                if (lastTab != CoreUITabId.OUTPOSTS)
+                    if (CampaignCoreUISubTabMap.containsKey(CoreUITabId.OUTPOSTS))
+                        CampaignCoreUISubTabCurrent = CampaignCoreUISubTabMap.get(CoreUITabId.OUTPOSTS);
+                    else
+                        CampaignCoreUISubTabMap.put(CoreUITabId.OUTPOSTS, 1);
+                break;
+        }
+    }
 
     @Override
     public int getListenerInputPriority() {
@@ -96,37 +124,33 @@ public class CampaignUICoreHandler implements CampaignUIRenderingListener, Campa
                             cUI.showCoreUITab(CoreUITabId.INTEL);
                             break;
                     }
-                } else if (e.getEventValue() == CampaignSubCoreUIRight) {
+                } else if (e.getEventValue() == CampaignCoreUISubTabRight) {
                     if (cUI.getCurrentCoreTab() == CoreUITabId.CARGO || cUI.getCurrentCoreTab() == CoreUITabId.INTEL || cUI.getCurrentCoreTab() == CoreUITabId.OUTPOSTS) {
 
-                        int maxTab = 0;
-                        switch (cUI.getCurrentCoreTab()) {
-                            case CARGO:
-                                maxTab = 4;
-                                break;
-                            case INTEL:
-                                maxTab = 3;
-                                break;
-                            case OUTPOSTS:
-                                maxTab = 5;
-                                break;
-                        }
-                        if (CampaignSubCoreUITab < maxTab)
-                            CampaignSubCoreUITab++;
+                        setMaxTab();
 
-                        Integer temp = CampaignSubCoreUITab;
+                        if (CampaignCoreUISubTabCurrent < maxTab)
+                            CampaignCoreUISubTabCurrent++;
+                        else
+                            CampaignCoreUISubTabCurrent = 1;
+
+                        Integer temp = CampaignCoreUISubTabCurrent;
                         char key = temp.toString().charAt(0);
                         int keytopress = KeyEvent.getExtendedKeyCodeForChar(key);
                         T1000.keyPress(keytopress);
                         T1000.keyRelease(keytopress);
                     }
-                } else if (e.getEventValue() == CampaignSubCoreUILeft) {
+                } else if (e.getEventValue() == CampaignCoreUISubTabLeft) {
                     if (cUI.getCurrentCoreTab() == CoreUITabId.CARGO || cUI.getCurrentCoreTab() == CoreUITabId.INTEL || cUI.getCurrentCoreTab() == CoreUITabId.OUTPOSTS) {
-                        if (CampaignSubCoreUITab > 1)
-                            CampaignSubCoreUITab--;
+
+                        setMaxTab();
+
+                        if (CampaignCoreUISubTabCurrent > 1)
+                            CampaignCoreUISubTabCurrent--;
                         else
-                            CampaignSubCoreUITab = 1;
-                        Integer temp = CampaignSubCoreUITab;
+                            CampaignCoreUISubTabCurrent = maxTab;
+
+                        Integer temp = CampaignCoreUISubTabCurrent;
                         char key = temp.toString().charAt(0);
                         int keytopress = KeyEvent.getExtendedKeyCodeForChar(key);
                         T1000.keyPress(keytopress);

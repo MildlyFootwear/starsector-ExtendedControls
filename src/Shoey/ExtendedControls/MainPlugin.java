@@ -2,6 +2,7 @@ package Shoey.ExtendedControls;
 import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.BaseModPlugin;
 import com.fs.starfarer.api.campaign.CampaignUIAPI;
+import com.fs.starfarer.api.campaign.CoreUITabId;
 import com.fs.starfarer.api.campaign.InteractionDialogAPI;
 import com.fs.starfarer.api.campaign.SectorAPI;
 import lunalib.lunaSettings.LunaSettings;
@@ -10,6 +11,7 @@ import org.apache.log4j.Logger;
 import org.lwjgl.input.Keyboard;
 
 import java.awt.*;
+import java.util.HashMap;
 
 
 public class MainPlugin extends BaseModPlugin {
@@ -29,9 +31,10 @@ public class MainPlugin extends BaseModPlugin {
 
     public static int CampaignCoreUILeft;
     public static int CampaignCoreUIRight;
-    public static int CampaignSubCoreUILeft = Keyboard.KEY_UP;
-    public static int CampaignSubCoreUIRight = Keyboard.KEY_DOWN;
-    public static int CampaignSubCoreUITab = 0;
+    public static int CampaignCoreUISubTabLeft = Keyboard.KEY_UP;
+    public static int CampaignCoreUISubTabRight = Keyboard.KEY_DOWN;
+    public static HashMap<CoreUITabId, Integer> CampaignCoreUISubTabMap = new HashMap<>();
+    public static int CampaignCoreUISubTabCurrent = 0;
 
     public static boolean HandlingInteract;
     public static int CampaignInteractUIUp;
