@@ -5,11 +5,13 @@ import com.fs.starfarer.api.campaign.listeners.CampaignInputListener;
 import com.fs.starfarer.api.campaign.listeners.CampaignUIRenderingListener;
 import com.fs.starfarer.api.combat.ViewportAPI;
 import com.fs.starfarer.api.graphics.SpriteAPI;
+import com.fs.starfarer.api.impl.campaign.intel.BaseIntelPlugin;
 import com.fs.starfarer.api.input.InputEventAPI;
 import com.fs.starfarer.api.input.InputEventType;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 
+import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.util.List;
 
@@ -23,7 +25,7 @@ public class CampaignUIHotbarHandler implements CampaignUIRenderingListener, Cam
     boolean pausedBySelf = false;
     boolean localRender = false;
 
-    void AttemptRender()
+    void AttemptRender(ViewportAPI viewport)
     {
 
         if (!init)
@@ -80,7 +82,7 @@ public class CampaignUIHotbarHandler implements CampaignUIRenderingListener, Cam
     @Override
     public void renderInUICoordsAboveUIAndTooltips(ViewportAPI viewport) {
         if (CampaignHotbarRenderAboveTool)
-            AttemptRender();
+            AttemptRender(viewport);
     }
 
     @Override
@@ -91,7 +93,7 @@ public class CampaignUIHotbarHandler implements CampaignUIRenderingListener, Cam
     @Override
     public void renderInUICoordsAboveUIBelowTooltips(ViewportAPI viewport) {
         if (!CampaignHotbarRenderAboveTool)
-            AttemptRender();
+            AttemptRender(viewport);
     }
 
     @Override
@@ -111,7 +113,6 @@ public class CampaignUIHotbarHandler implements CampaignUIRenderingListener, Cam
         if (pausedBySelf)
             if (!sector.isPaused()) {
                 pausedBySelf = false;
-                cUI.getMessageDisplay().removeMessage("ExtendedControls: paused.");
             }
         boolean logged = false;
         for (InputEventAPI e : events)
@@ -161,8 +162,9 @@ public class CampaignUIHotbarHandler implements CampaignUIRenderingListener, Cam
                 if (CampaignHotbarUnpauseOnConfirm && pausedBySelf)
                 {
                     sector.setPaused(false);
-                    cUI.getMessageDisplay().addMessage("ExtendedControls: unpaused.");
-                    cUI.getMessageDisplay().removeMessage("ExtendedControls: paused.");
+                    sector.getPlayerFleet().addFloatingText("", Color.WHITE, 2);
+                    sector.getPlayerFleet().clearFloatingText();
+                    sector.getPlayerFleet().addFloatingText("ExtendedControls: unpaused.", Color.WHITE, 2);
                     pausedBySelf = false;
                 }
 
@@ -178,8 +180,9 @@ public class CampaignUIHotbarHandler implements CampaignUIRenderingListener, Cam
                     if (CampaignHotbarTimer < CampaignHotbarConsecutiveTimer || CampaignHotbarConsecutiveTimer > 0.99) {
                         pausedBySelf = true;
                         sector.setPaused(true);
-                        cUI.getMessageDisplay().addMessage("ExtendedControls: paused.");
-                        cUI.getMessageDisplay().removeMessage("ExtendedControls: unpaused.");
+                        sector.getPlayerFleet().addFloatingText("", Color.WHITE, 2);
+                        sector.getPlayerFleet().clearFloatingText();
+                        sector.getPlayerFleet().addFloatingText("ExtendedControls: paused.", Color.WHITE, 2);
                     }
                 }
 

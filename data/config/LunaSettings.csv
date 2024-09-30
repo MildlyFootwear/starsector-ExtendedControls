@@ -7,8 +7,8 @@ ALT,Alternate Weapon,Keycode,203,,,,,Combat
 CoreHeader,Core UI,Header,Core UI,,,,,Campaign
 CampaignCoreUILeft,Navigate Tab Left,Keycode,203,,"Navigate left in the core campaign menu; open the Character tab from Fleet, open Cargo from Map.",,,Campaign
 CampaignCoreUIRight,Navigate Tab Right,Keycode,205,,"Navigate right in the core campaign menu; open the Refit tab from fleet, open Intel from Map.",,,Campaign
-CampaignCoreUISubTabLeft,Navigate Sub Tab Left,Keycode,200,,"Navigate the sub tabs in Cargo, Intel, and Planets.",,,
-CampaignCoreUISubTabRight,Navigate Sub Tab Right,Keycode,208,,"Navigate the sub tabs in Cargo, Intel, and Planets.",,,
+CampaignCoreUISubTabLeft,Navigate Sub Tab Left,Keycode,200,,"Navigate the sub tabs in Cargo, Intel, and Planets.",,,Campaign
+CampaignCoreUISubTabRight,Navigate Sub Tab Right,Keycode,208,,"Navigate the sub tabs in Cargo, Intel, and Planets.",,,Campaign
 ,,,,,,,,
 ,,,,,,,,
 ,,,,,,,,
@@ -38,7 +38,7 @@ CampaignHotbarFadeEnabled,Indicators Fade After Last Input,Boolean,TRUE,,Indicat
 CampaignHotbarFadeTimer,Indicators Fade After Seconds,Int,6,,Indicators will fade after this amount of seconds have passed since it was controlled.,1,10,Campaign
 CampaignHotbarFadeReset,Reset Selection After Fade,Boolean,TRUE,,Once the indicator disappears the selection will be reset. The next time the hotbar is scrolled through it will start at 1.,,,Campaign
 CampaignHotbarIndicatorColor,Indicator Color,Color,#FFD200,,Color used for the 4 arrows indicating the current selection.,,,Campaign
-CampaignHotbarRenderAboveTool,Render Above Tooltips,Boolean,TRUE,,"If the indicators should be rendered above tooltips. As of v0.97a, the vanilla hotbar is currently bugged and plugins that render below tooltips and above UI render above the hotbar until a menu tab is opened (i.e. Character/Map/Refit/etc), where they will start rendering below it.",,,Campaign
+CampaignHotbarRenderAboveTool,Render Above Tooltips,Boolean,TRUE,,"If the indicators should be rendered above tooltips. As of v0.97a, the vanilla ""below tooltips above UI"" only renders correctly until a menu tab is opened (i.e. Character/Map/Refit/etc).",,,Campaign
 ,,,,,,,,
 ,,,,,,,,
 ,,,,,,,,
