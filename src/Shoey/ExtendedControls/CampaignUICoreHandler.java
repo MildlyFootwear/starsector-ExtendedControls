@@ -26,24 +26,38 @@ public class CampaignUICoreHandler implements CampaignUIRenderingListener, Campa
         switch (cUI.getCurrentCoreTab()) {
             case CARGO:
                 maxTab = 4;
-                if (lastTab != CoreUITabId.CARGO)
+                if (lastTab != CoreUITabId.CARGO) {
                     CampaignCoreUISubTabCurrent = 1;
+                    lastTab = CoreUITabId.CARGO;
+                }
                 break;
             case INTEL:
                 maxTab = 3;
-                if (lastTab != CoreUITabId.INTEL)
+                if (lastTab != CoreUITabId.INTEL) {
+                    lastTab = CoreUITabId.INTEL;
                     if (CampaignCoreUISubTabMap.containsKey(CoreUITabId.INTEL))
                         CampaignCoreUISubTabCurrent = CampaignCoreUISubTabMap.get(CoreUITabId.INTEL);
-                    else
+                    else {
                         CampaignCoreUISubTabMap.put(CoreUITabId.INTEL, 1);
+                        CampaignCoreUISubTabCurrent = 1;
+
+                    }
+                }
+
                 break;
             case OUTPOSTS:
                 maxTab = 5;
-                if (lastTab != CoreUITabId.OUTPOSTS)
+                if (lastTab != CoreUITabId.OUTPOSTS) {
+                    lastTab = CoreUITabId.OUTPOSTS;
                     if (CampaignCoreUISubTabMap.containsKey(CoreUITabId.OUTPOSTS))
                         CampaignCoreUISubTabCurrent = CampaignCoreUISubTabMap.get(CoreUITabId.OUTPOSTS);
-                    else
+                    else {
                         CampaignCoreUISubTabMap.put(CoreUITabId.OUTPOSTS, 1);
+                        CampaignCoreUISubTabCurrent = 1;
+
+                    }
+                }
+
                 break;
         }
     }
@@ -134,6 +148,8 @@ public class CampaignUICoreHandler implements CampaignUIRenderingListener, Campa
                         else
                             CampaignCoreUISubTabCurrent = 1;
 
+                        CampaignCoreUISubTabMap.put(cUI.getCurrentCoreTab(), CampaignCoreUISubTabCurrent);
+
                         Integer temp = CampaignCoreUISubTabCurrent;
                         char key = temp.toString().charAt(0);
                         int keytopress = KeyEvent.getExtendedKeyCodeForChar(key);
@@ -149,6 +165,8 @@ public class CampaignUICoreHandler implements CampaignUIRenderingListener, Campa
                             CampaignCoreUISubTabCurrent--;
                         else
                             CampaignCoreUISubTabCurrent = maxTab;
+
+                        CampaignCoreUISubTabMap.put(cUI.getCurrentCoreTab(), CampaignCoreUISubTabCurrent);
 
                         Integer temp = CampaignCoreUISubTabCurrent;
                         char key = temp.toString().charAt(0);
