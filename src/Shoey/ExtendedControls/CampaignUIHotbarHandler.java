@@ -109,9 +109,10 @@ public class CampaignUIHotbarHandler implements CampaignUIRenderingListener, Cam
             CampaignHotbarOption = 1;
 
         if (pausedBySelf)
-            if (!sector.isPaused())
+            if (!sector.isPaused()) {
                 pausedBySelf = false;
-
+                cUI.getMessageDisplay().removeMessage("ExtendedControls: paused.");
+            }
         boolean logged = false;
         for (InputEventAPI e : events)
         {
@@ -161,6 +162,7 @@ public class CampaignUIHotbarHandler implements CampaignUIRenderingListener, Cam
                 {
                     sector.setPaused(false);
                     cUI.addMessage("ExtendedControls: unpaused.");
+                    cUI.getMessageDisplay().removeMessage("ExtendedControls: paused.");
                     pausedBySelf = false;
                 }
 
@@ -177,6 +179,7 @@ public class CampaignUIHotbarHandler implements CampaignUIRenderingListener, Cam
                         pausedBySelf = true;
                         sector.setPaused(true);
                         cUI.addMessage("ExtendedControls: paused.");
+                        cUI.getMessageDisplay().removeMessage("ExtendedControls: unpaused.");
                     }
                 }
 
