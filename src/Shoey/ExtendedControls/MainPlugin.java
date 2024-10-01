@@ -36,8 +36,8 @@ public class MainPlugin extends BaseModPlugin {
 
     public static int CampaignCoreUILeft;
     public static int CampaignCoreUIRight;
-    public static int CampaignCoreUISubTabLeft = Keyboard.KEY_UP;
-    public static int CampaignCoreUISubTabRight = Keyboard.KEY_DOWN;
+    public static int CampaignCoreUISubTabLeft;
+    public static int CampaignCoreUISubTabRight;
     public static HashMap<CoreUITabId, Integer> CampaignCoreUISubTabMap = new HashMap<>();
     public static int CampaignCoreUISubTabCurrent = 0;
 
@@ -92,6 +92,8 @@ public class MainPlugin extends BaseModPlugin {
 
         CampaignCoreUILeft = putCampaignBind("CampaignUILeft");
         CampaignCoreUIRight = putCampaignBind("CampaignUIRight");
+        CampaignCoreUISubTabLeft = putCampaignBind("CampaignCoreUISubTabLeft");
+        CampaignCoreUISubTabRight = putCampaignBind("CampaignCoreUISubTabRight");
 
         HandlingInteract = Boolean.TRUE.equals(LunaSettings.getBoolean("ShoeyExtendedControls", "HandlingInteract"));
         CampaignInteractUIUp = putCampaignBind("CampaignInteractUIUp");

@@ -20,6 +20,7 @@ public class CampaignUICoreHandler implements CampaignUIRenderingListener, Campa
     private Logger log = Global.getLogger(this.getClass());
     boolean init = false;
     int maxTab = 0;
+    boolean needMapReset = false;
     CoreUITabId lastTab;
 
     void setMaxTab() {
@@ -62,6 +63,23 @@ public class CampaignUICoreHandler implements CampaignUIRenderingListener, Campa
         }
     }
 
+    void togMapTab()
+    {
+        int keytopress;
+        if (needMapReset)
+        {
+            needMapReset = false;
+            keytopress = KeyEvent.VK_W;
+
+        } else {
+            needMapReset = true;
+            keytopress = KeyEvent.VK_Q;
+        }
+
+        T1000.keyPress(keytopress);
+        T1000.keyRelease(keytopress);
+    }
+
     @Override
     public int getListenerInputPriority() {
         return 0;
@@ -70,19 +88,19 @@ public class CampaignUICoreHandler implements CampaignUIRenderingListener, Campa
     @Override
     public void processCampaignInputPreCore(List<InputEventAPI> events) {
 
-        if (!(InteractionCancelChecks() && HotbarCancelChecks()))
-            return;
-
         String cUITabName = null;
         try {cUITabName = cUI.getCurrentCoreTab().name();} catch (Exception e) { }
+
+        if (cUITabName == null && needMapReset)
+            needMapReset = false;
+
+        if (!(InteractionCancelChecks() && HotbarCancelChecks()))
+            return;
 
         for (InputEventAPI e : events)
         {
 
-            if (e.isConsumed())
-                continue;
-
-            if (e.getEventType() != InputEventType.KEY_DOWN)
+            if (e.isConsumed() || e.getEventType() != InputEventType.KEY_DOWN)
                 continue;
 
             if (cUITabName != null) {
@@ -155,6 +173,14 @@ public class CampaignUICoreHandler implements CampaignUIRenderingListener, Campa
                         int keytopress = KeyEvent.getExtendedKeyCodeForChar(key);
                         T1000.keyPress(keytopress);
                         T1000.keyRelease(keytopress);
+
+                        e.consume();
+
+                    } else if (cUI.getCurrentCoreTab() == CoreUITabId.MAP && !sector.getPlayerFleet().isInHyperspace()) {
+
+                        togMapTab();
+                        e.consume();
+
                     }
                 } else if (e.getEventValue() == CampaignCoreUISubTabLeft) {
                     if (cUI.getCurrentCoreTab() == CoreUITabId.CARGO || cUI.getCurrentCoreTab() == CoreUITabId.INTEL || cUI.getCurrentCoreTab() == CoreUITabId.OUTPOSTS) {
@@ -173,6 +199,14 @@ public class CampaignUICoreHandler implements CampaignUIRenderingListener, Campa
                         int keytopress = KeyEvent.getExtendedKeyCodeForChar(key);
                         T1000.keyPress(keytopress);
                         T1000.keyRelease(keytopress);
+
+                        e.consume();
+
+                    } else if (cUI.getCurrentCoreTab() == CoreUITabId.MAP && !sector.getPlayerFleet().isInHyperspace()) {
+
+                        togMapTab();
+                        e.consume();
+
                     }
                 }
 
