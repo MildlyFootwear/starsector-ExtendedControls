@@ -107,11 +107,10 @@ public class EveryCombatFrameScript extends BaseEveryFrameCombatPlugin {
                 if (key == WeapForward)
                 {
                     log.debug("Navigating down list.");
+                    event.consume();
                     java.util.List<WeaponGroupAPI> temp = playingShip.getWeaponGroupsCopy();
                     int current = shipsSelectedGroup.get(playingShip);
-                    int previous = current;
                     if (current == temp.size()){
-                        event.consume();
                         continue;
                     } else {
                         current++;
@@ -129,6 +128,9 @@ public class EveryCombatFrameScript extends BaseEveryFrameCombatPlugin {
                                         break;
                                     }
                                 }
+                                if (ammocount > 0) {
+                                    break;
+                                }
                             }
                         }
 
@@ -140,18 +142,16 @@ public class EveryCombatFrameScript extends BaseEveryFrameCombatPlugin {
                     shipsSelectedGroup.put(playingShip, current);
                     log.debug("Setting group "+current+" for "+playingShip.getName());
                     int keytopress = KeyEvent.getExtendedKeyCodeForChar(Integer.toString(current).charAt(0));
-                    keystounpress.add(keytopress);
                     time = 0;
-                    event.consume();
                     T1000.keyPress(keytopress);
+                    T1000.keyRelease(keytopress);
                 } else if (key == WeapBackward)
                 {
                     log.debug("Navigating up list.");
+                    event.consume();
                     java.util.List<WeaponGroupAPI> temp = playingShip.getWeaponGroupsCopy();
                     int current = shipsSelectedGroup.get(playingShip);
-                    int previous = current;
                     if (current == 1){
-                        event.consume();
                         continue;
                     } else {
                         current--;
@@ -184,8 +184,8 @@ public class EveryCombatFrameScript extends BaseEveryFrameCombatPlugin {
                     log.debug("Pressing "+keytopress+" for "+playingShip.getName());
                     keystounpress.add(keytopress);
                     time = 0;
-                    event.consume();
                     T1000.keyPress(keytopress);
+                    T1000.keyRelease(keytopress);
                 } else if (key == WeapAlt)
                 {
                     int keytopress = KeyEvent.getExtendedKeyCodeForChar(shipsSelectedGroup.get(playingShip).toString().charAt(0));
