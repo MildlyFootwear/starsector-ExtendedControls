@@ -80,8 +80,7 @@ public class MainPlugin extends BaseModPlugin {
 
     static int putCampaignBind(String s)
     {
-        int i = LunaSettings.getInt("ShoeyExtendedControls", s);
-        return i;
+        return LunaSettings.getInt("ShoeyExtendedControls", s);
     }
 
     public static void updateLunaSettings()
