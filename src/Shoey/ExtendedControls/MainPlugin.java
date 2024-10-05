@@ -83,7 +83,7 @@ public class MainPlugin extends BaseModPlugin {
         int i = LunaSettings.getInt("ShoeyExtendedControls", s);
         return i;
     }
-    
+
     public static void updateLunaSettings()
     {
         debugLogging = Boolean.TRUE.equals(LunaSettings.getBoolean("ShoeyExtendedControls", "Debugging"));
