@@ -194,9 +194,14 @@ public class MainPlugin extends BaseModPlugin {
         sector = Global.getSector();
         cUI = sector.getCampaignUI();
         sector.addTransientScript(new CampaignCore());
-        sector.getListenerManager().addListener(new CampaignUIInteractHandler(), true);
-        sector.getListenerManager().addListener(new CampaignUIHotbarHandler(), true);
-        sector.getListenerManager().addListener(new CampaignUICoreHandler(), true);
+
+        CampaignUIInteractHandler cUIIH = new CampaignUIInteractHandler();
+        CampaignUIHotbarHandler cUIHH = new CampaignUIHotbarHandler();
+        CampaignUICoreHandler cUICH = new CampaignUICoreHandler();
+
+        sector.getListenerManager().addListener(cUIIH, true);
+        sector.getListenerManager().addListener(cUIHH, true);
+        sector.getListenerManager().addListener(cUICH, true);
         intDialog = null;
         CampaignInteractOption = 1;
         CampaignInteractOptionCount = 0;
