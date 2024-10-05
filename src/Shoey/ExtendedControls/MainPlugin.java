@@ -1,10 +1,11 @@
 package Shoey.ExtendedControls;
+
 import Shoey.ExtendedControls.Campaign.CampaignCore;
 import Shoey.ExtendedControls.Campaign.CampaignUICoreHandler;
 import Shoey.ExtendedControls.Campaign.CampaignUIHotbarHandler;
 import Shoey.ExtendedControls.Campaign.CampaignUIInteractHandler;
-import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.BaseModPlugin;
+import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.campaign.CampaignUIAPI;
 import com.fs.starfarer.api.campaign.CoreUITabId;
 import com.fs.starfarer.api.campaign.InteractionDialogAPI;
@@ -12,7 +13,6 @@ import com.fs.starfarer.api.campaign.SectorAPI;
 import lunalib.lunaSettings.LunaSettings;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
-import org.lwjgl.input.Keyboard;
 
 import java.awt.*;
 import java.util.HashMap;
@@ -78,11 +78,12 @@ public class MainPlugin extends BaseModPlugin {
     public static CampaignUICoreHandler cUICH;
 
 
+    @SuppressWarnings("DataFlowIssue")
     static int putCampaignBind(String s)
     {
         return LunaSettings.getInt("ShoeyExtendedControls", s);
     }
-
+    @SuppressWarnings("DataFlowIssue")
     public static void updateLunaSettings()
     {
         debugLogging = Boolean.TRUE.equals(LunaSettings.getBoolean("ShoeyExtendedControls", "Debugging"));
