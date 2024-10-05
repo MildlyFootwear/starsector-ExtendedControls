@@ -78,6 +78,31 @@ public class CampaignUIHotbarHandler implements CampaignUIRenderingListener, Cam
 
     }
 
+    public void moveLeft()
+    {
+        if (HotbarCancelChecks())
+            return;
+        if (CampaignHotbarOption > 1 && CampaignHotbarTimer != 0)
+            CampaignHotbarOption--;
+        else if (CampaignHotbarWrap && CampaignHotbarTimer != 0) {
+            CampaignHotbarOption = 10;
+        }
+        log.debug("Selected hotbar "+ CampaignHotbarOption);
+    }
+    public void moveRight()
+    {
+
+        if (HotbarCancelChecks())
+            return;
+        if (CampaignHotbarOption < 10 && CampaignHotbarTimer != 0)
+            CampaignHotbarOption++;
+        else if (CampaignHotbarWrap && CampaignHotbarTimer != 0) {
+            CampaignHotbarOption = 1;
+        }
+        log.debug("Selected hotbar "+ CampaignHotbarOption);
+
+    }
+
     @Override
     public void renderInUICoordsAboveUIAndTooltips(ViewportAPI viewport) {
         if (CampaignHotbarRenderAboveTool)
@@ -132,22 +157,15 @@ public class CampaignUIHotbarHandler implements CampaignUIRenderingListener, Cam
             
             if (pressedKey == CampaignHotbarRight) {
 
-                if (CampaignHotbarOption < 10 && CampaignHotbarTimer != 0)
-                    CampaignHotbarOption++;
-                else if (CampaignHotbarWrap && CampaignHotbarTimer != 0) {
-                    CampaignHotbarOption = 1;
-                }
-                log.debug("Selected hotbar "+ CampaignHotbarOption);
+                moveRight();
+                sector.addTransientScript(new CampaignUIHotbarHeld());
                 e.consume();
 
             } else if (pressedKey == CampaignHotbarLeft) {
 
-                if (CampaignHotbarOption > 1 && CampaignHotbarTimer != 0)
-                    CampaignHotbarOption--;
-                else if (CampaignHotbarWrap && CampaignHotbarTimer != 0) {
-                    CampaignHotbarOption = 10;
-                }
-                log.debug("Selected hotbar "+ CampaignHotbarOption);
+
+                moveLeft();
+                sector.addTransientScript(new CampaignUIHotbarHeld());
                 e.consume();
 
             } else if (pressedKey == CampaignHotbarConfirm && CampaignHotbarTimer != 0) {
