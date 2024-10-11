@@ -1,9 +1,11 @@
 package Shoey.ExtendedControls.Campaign;
 
 import com.fs.starfarer.api.Global;
+import com.fs.starfarer.api.campaign.CoreInteractionListener;
 import com.fs.starfarer.api.campaign.CoreUITabId;
 import com.fs.starfarer.api.campaign.listeners.CampaignInputListener;
 import com.fs.starfarer.api.campaign.listeners.CampaignUIRenderingListener;
+import com.fs.starfarer.api.campaign.listeners.CoreUITabListener;
 import com.fs.starfarer.api.combat.ViewportAPI;
 import com.fs.starfarer.api.input.InputEventAPI;
 import com.fs.starfarer.api.input.InputEventType;
@@ -80,14 +82,8 @@ public class CampaignUICoreHandler implements CampaignUIRenderingListener, Campa
         T1000.keyRelease(keytopress);
     }
 
-    @Override
-    public int getListenerInputPriority() {
-        return 0;
-    }
-
-    @Override
-    public void processCampaignInputPreCore(List<InputEventAPI> events) {
-
+    public void processInput (List<InputEventAPI> events)
+    {
         String cUITabName = null;
         try {cUITabName = cUI.getCurrentCoreTab().name();} catch (Exception e) { }
 
@@ -210,9 +206,19 @@ public class CampaignUICoreHandler implements CampaignUIRenderingListener, Campa
                     }
                 }
 
-        }
+            }
         }
 
+    }
+
+    @Override
+    public int getListenerInputPriority() {
+        return 0;
+    }
+
+    @Override
+    public void processCampaignInputPreCore(List<InputEventAPI> events) {
+        processInput(events);
     }
 
     @Override
@@ -222,6 +228,7 @@ public class CampaignUICoreHandler implements CampaignUIRenderingListener, Campa
 
     @Override
     public void processCampaignInputPostCore(List<InputEventAPI> events) {
+
 
     }
 

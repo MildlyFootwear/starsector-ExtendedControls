@@ -1,8 +1,11 @@
 package Shoey.ExtendedControls.Campaign;
 
 import com.fs.starfarer.api.Global;
+import com.fs.starfarer.api.campaign.CoreInteractionListener;
+import com.fs.starfarer.api.campaign.CoreUITabId;
 import com.fs.starfarer.api.campaign.listeners.CampaignInputListener;
 import com.fs.starfarer.api.campaign.listeners.CampaignUIRenderingListener;
+import com.fs.starfarer.api.campaign.listeners.CoreUITabListener;
 import com.fs.starfarer.api.combat.ViewportAPI;
 import com.fs.starfarer.api.graphics.SpriteAPI;
 import com.fs.starfarer.api.input.InputEventAPI;
@@ -112,8 +115,6 @@ public class CampaignUIInteractHandler implements CampaignUIRenderingListener, C
 
         if (InteractionCancelChecks())
             return;
-
-        boolean logged = false;
 
         for (InputEventAPI e : events)
         {
