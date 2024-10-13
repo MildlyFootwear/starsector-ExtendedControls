@@ -34,6 +34,8 @@ public class MainPlugin extends BaseModPlugin {
     public static int WeapAlt;
     public static boolean SkipEmpty;
 
+    public static boolean UseReflection = true;
+
     public static int CampaignCoreUILeft;
     public static int CampaignCoreUIRight;
     public static int CampaignCoreUISubTabLeft;
@@ -83,6 +85,7 @@ public class MainPlugin extends BaseModPlugin {
     {
         return LunaSettings.getInt("ShoeyExtendedControls", s);
     }
+
     @SuppressWarnings("DataFlowIssue")
     public static void updateLunaSettings()
     {
@@ -93,6 +96,8 @@ public class MainPlugin extends BaseModPlugin {
         WeapTogAutofire = LunaSettings.getInt("ShoeyExtendedControls","TogAF");
         WeapAlt = LunaSettings.getInt("ShoeyExtendedControls","ALT");
         SkipEmpty = Boolean.TRUE.equals(LunaSettings.getBoolean("ShoeyExtendedControls", "SkipEmpty"));
+
+
 
         CampaignCoreUILeft = putCampaignBind("CampaignUILeft");
         CampaignCoreUIRight = putCampaignBind("CampaignUIRight");
@@ -106,6 +111,9 @@ public class MainPlugin extends BaseModPlugin {
         CampaignInteractUIToggleIndicator = putCampaignBind("CampaignInteractUIToggleIndicator");
         CampaignInteractUIWrap = Boolean.TRUE.equals(LunaSettings.getBoolean("ShoeyExtendedControls", "CampaignInteractUIWrap"));
         CampaignInteractUIIndicatorColor = LunaSettings.getColor("ShoeyExtendedControls", "CampaignInteractUIIndicatorColor");
+
+        if (cUIHH != null)
+            cUIHH.setColors();
 
         HandlingHotbar = Boolean.TRUE.equals(LunaSettings.getBoolean("ShoeyExtendedControls", "HandlingHotbar"));
         CampaignHotbarLeft = putCampaignBind("CampaignHotbarLeft");

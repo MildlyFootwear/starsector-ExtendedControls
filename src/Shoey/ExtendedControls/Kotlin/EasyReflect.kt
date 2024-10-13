@@ -1,6 +1,7 @@
 package Shoey.ExtendedControls.Kotlin
 
 import com.fs.starfarer.api.Global
+import com.fs.starfarer.api.ui.UIComponentAPI
 import java.lang.invoke.MethodHandles
 import java.lang.invoke.MethodType
 
@@ -24,8 +25,8 @@ class EasyReflect {
         }
     }
 
-    fun getChildrenCopyFromHook(instance: Any): List<Any?> {
-        return invokeMethod("getChildrenCopy", instance) as List<Any?>
+    fun getChildrenCopy(instance: Any): List<UIComponentAPI?> {
+        return invokeMethod("getChildrenCopy", instance) as List<UIComponentAPI?>
     }
 
     //Used to be able to find specific files without having to reference their obfuscated class name.

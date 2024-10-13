@@ -18,11 +18,22 @@ import static Shoey.ExtendedControls.MainPlugin.*;
 
 public class CampaignUIHotbarHandler implements CampaignUIRenderingListener, CampaignInputListener {
 
-    transient SpriteAPI indic = Global.getSettings().getSprite("ui","sortIcon");
+    transient SpriteAPI indicTL = Global.getSettings().getSprite("ui","sortIcon");
+    transient SpriteAPI indicTR = Global.getSettings().getSprite("ui","sortIcon");
+    transient SpriteAPI indicBL = Global.getSettings().getSprite("ui","sortIcon");
+    transient SpriteAPI indicBR = Global.getSettings().getSprite("ui","sortIcon");
     Logger log;
     boolean init = false;
     boolean pausedBySelf = false;
     boolean localRender = false;
+
+    public void setColors()
+    {
+        indicTL.setColor(CampaignHotbarIndicatorColor);
+        indicTR.setColor(CampaignHotbarIndicatorColor);
+        indicBL.setColor(CampaignHotbarIndicatorColor);
+        indicBR.setColor(CampaignHotbarIndicatorColor);
+    }
 
     void AttemptRender(ViewportAPI viewport)
     {
@@ -38,8 +49,15 @@ public class CampaignUIHotbarHandler implements CampaignUIRenderingListener, Cam
             else
                 log.setLevel(Level.INFO);
 
-            indic.setSize(indic.getWidth() / 1.5f, indic.getHeight() / 1.5f);
-            log.debug("Set indincator width to "+indic.getTextureWidth()+"height to "+indic.getTextureHeight());
+            indicTL.setSize(indicTL.getWidth() / 1.5f, indicTL.getHeight() / 1.5f);
+            indicTR.setSize(indicTL.getWidth(), indicTL.getHeight());
+            indicBL.setSize(indicTL.getWidth(), indicTL.getHeight());
+            indicBR.setSize(indicTL.getWidth(), indicTL.getHeight());
+            setColors();
+            indicTL.setAngle(45);
+            indicTR.setAngle(-45);
+            indicBL.setAngle(135);
+            indicBR.setAngle(225);
         }
 
         if (HotbarCancelChecks())
@@ -64,16 +82,11 @@ public class CampaignUIHotbarHandler implements CampaignUIRenderingListener, Cam
 
             float x = 277;
             float y = 103;
-            indic.setAngle(45);
-            indic.setColor(CampaignHotbarIndicatorColor);
             x += (CampaignHotbarOption - 1) * 59;
-            indic.render(x, y);
-            indic.setAngle(-45);
-            indic.render(x+58, y);
-            indic.setAngle(135);
-            indic.render(x, y-58);
-            indic.setAngle(225);
-            indic.render(x+58, y-58);
+            indicTL.render(x, y);
+            indicTR.render(x+58, y);
+            indicBL.render(x, y-58);
+            indicBR.render(x+58, y-58);
         }
 
     }
