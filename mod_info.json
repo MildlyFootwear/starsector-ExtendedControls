@@ -3,7 +3,7 @@
 	"name":"ExtendedControls",
 	"author":"Shoey",
     "utility":"true",
-    "version": { "major":"0", "minor": "3", "patch": "1" },
+    "version": { "major":"0", "minor": "3", "patch": "2" },
 	"description":"Adds several new control methods to combat and campaign.",
     "gameVersion": "0.97a-RC11",
   	"jars":["jars/ExtendedControls.jar"],

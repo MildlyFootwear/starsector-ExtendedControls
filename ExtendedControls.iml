@@ -8,6 +8,7 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="starfarer.api" level="project" />
+    <orderEntry type="library" name="jetbrains.kotlin.stdlib.jdk7" level="project" />
     <orderEntry type="library" name="KotlinJavaRuntime" level="project" />
   </component>
 </module>
