@@ -4,12 +4,14 @@ import Shoey.ExtendedControls.Campaign.CampaignCore;
 import Shoey.ExtendedControls.Campaign.CampaignUICoreHandler;
 import Shoey.ExtendedControls.Campaign.CampaignUIHotbarHandler;
 import Shoey.ExtendedControls.Campaign.CampaignUIInteractHandler;
+import Shoey.ExtendedControls.Kotlin.EasyReflect;
 import com.fs.starfarer.api.BaseModPlugin;
 import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.campaign.CampaignUIAPI;
 import com.fs.starfarer.api.campaign.CoreUITabId;
 import com.fs.starfarer.api.campaign.InteractionDialogAPI;
 import com.fs.starfarer.api.campaign.SectorAPI;
+import com.fs.starfarer.api.ui.UIPanelAPI;
 import lunalib.lunaSettings.LunaSettings;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
@@ -35,11 +37,15 @@ public class MainPlugin extends BaseModPlugin {
     public static boolean SkipEmpty;
 
     public static boolean UseReflection = true;
+//    public static EasyReflect Reflect = new EasyReflect();
 
     public static int CampaignCoreUILeft;
     public static int CampaignCoreUIRight;
     public static int CampaignCoreUISubTabLeft;
     public static int CampaignCoreUISubTabRight;
+    public static int CampaignCoreUIMaxTabCARGO;
+    public static int CampaignCoreUIMaxTabINTEL;
+    public static int CampaignCoreUIMaxTabOUTPOSTS;
     public static HashMap<CoreUITabId, Integer> CampaignCoreUISubTabMap = new HashMap<>();
     public static int CampaignCoreUISubTabCurrent = 0;
 
@@ -69,6 +75,8 @@ public class MainPlugin extends BaseModPlugin {
     public static int CampaignHotbarOption = 1;
     public static float CampaignHotbarTimer = 0;
 
+    public static UIPanelAPI coreUI;
+    public static UIPanelAPI dialogUI;
     public static SectorAPI sector = null;
     public static CampaignUIAPI cUI = null;
     public static InteractionDialogAPI intDialog = null;
@@ -81,7 +89,7 @@ public class MainPlugin extends BaseModPlugin {
 
 
     @SuppressWarnings("DataFlowIssue")
-    static int putCampaignBind(String s)
+    public static int getInt(String s)
     {
         return LunaSettings.getInt("ShoeyExtendedControls", s);
     }
@@ -99,16 +107,19 @@ public class MainPlugin extends BaseModPlugin {
 
 
 
-        CampaignCoreUILeft = putCampaignBind("CampaignUILeft");
-        CampaignCoreUIRight = putCampaignBind("CampaignUIRight");
-        CampaignCoreUISubTabLeft = putCampaignBind("CampaignCoreUISubTabLeft");
-        CampaignCoreUISubTabRight = putCampaignBind("CampaignCoreUISubTabRight");
+        CampaignCoreUILeft = getInt("CampaignUILeft");
+        CampaignCoreUIRight = getInt("CampaignUIRight");
+        CampaignCoreUISubTabLeft = getInt("CampaignCoreUISubTabLeft");
+        CampaignCoreUISubTabRight = getInt("CampaignCoreUISubTabRight");
+        CampaignCoreUIMaxTabCARGO = getInt("CampaignCoreUIMaxTabCARGO");
+        CampaignCoreUIMaxTabINTEL = getInt("CampaignCoreUIMaxTabINTEL");
+        CampaignCoreUIMaxTabOUTPOSTS = getInt("CampaignCoreUIMaxTabOUTPOSTS");
 
         HandlingInteract = Boolean.TRUE.equals(LunaSettings.getBoolean("ShoeyExtendedControls", "HandlingInteract"));
-        CampaignInteractUIUp = putCampaignBind("CampaignInteractUIUp");
-        CampaignInteractUIDown = putCampaignBind("CampaignInteractUIDown");
-        CampaignInteractUIConfirm = putCampaignBind("CampaignInteractUIConfirm");
-        CampaignInteractUIToggleIndicator = putCampaignBind("CampaignInteractUIToggleIndicator");
+        CampaignInteractUIUp = getInt("CampaignInteractUIUp");
+        CampaignInteractUIDown = getInt("CampaignInteractUIDown");
+        CampaignInteractUIConfirm = getInt("CampaignInteractUIConfirm");
+        CampaignInteractUIToggleIndicator = getInt("CampaignInteractUIToggleIndicator");
         CampaignInteractUIWrap = Boolean.TRUE.equals(LunaSettings.getBoolean("ShoeyExtendedControls", "CampaignInteractUIWrap"));
         CampaignInteractUIIndicatorColor = LunaSettings.getColor("ShoeyExtendedControls", "CampaignInteractUIIndicatorColor");
 
@@ -116,9 +127,9 @@ public class MainPlugin extends BaseModPlugin {
             cUIHH.setColors();
 
         HandlingHotbar = Boolean.TRUE.equals(LunaSettings.getBoolean("ShoeyExtendedControls", "HandlingHotbar"));
-        CampaignHotbarLeft = putCampaignBind("CampaignHotbarLeft");
-        CampaignHotbarRight = putCampaignBind("CampaignHotbarRight");
-        CampaignHotbarConfirm = putCampaignBind("CampaignHotbarConfirm");
+        CampaignHotbarLeft = getInt("CampaignHotbarLeft");
+        CampaignHotbarRight = getInt("CampaignHotbarRight");
+        CampaignHotbarConfirm = getInt("CampaignHotbarConfirm");
         CampaignHotbarWrap = Boolean.TRUE.equals(LunaSettings.getBoolean("ShoeyExtendedControls", "CampaignHotbarWrap"));
         CampaignHotbarPauseOnControl = Boolean.TRUE.equals(LunaSettings.getBoolean("ShoeyExtendedControls", "CampaignHotbarPauseOnControl"));
         CampaignHotbarConsecutiveTimer= LunaSettings.getDouble("ShoeyExtendedControls","CampaignHotbarConsecutiveTimer");

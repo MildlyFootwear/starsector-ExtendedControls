@@ -28,14 +28,14 @@ public class CampaignUICoreHandler implements CampaignUIRenderingListener, Campa
     void setMaxTab() {
         switch (cUI.getCurrentCoreTab()) {
             case CARGO:
-                maxTab = 4;
+                maxTab = CampaignCoreUIMaxTabCARGO;
                 if (lastTab != CoreUITabId.CARGO) {
                     CampaignCoreUISubTabCurrent = 1;
                     lastTab = CoreUITabId.CARGO;
                 }
                 break;
             case INTEL:
-                maxTab = 3;
+                maxTab = CampaignCoreUIMaxTabINTEL;
                 if (lastTab != CoreUITabId.INTEL) {
                     lastTab = CoreUITabId.INTEL;
                     if (CampaignCoreUISubTabMap.containsKey(CoreUITabId.INTEL))
@@ -49,7 +49,7 @@ public class CampaignUICoreHandler implements CampaignUIRenderingListener, Campa
 
                 break;
             case OUTPOSTS:
-                maxTab = 5;
+                maxTab = CampaignCoreUIMaxTabOUTPOSTS;
                 if (lastTab != CoreUITabId.OUTPOSTS) {
                     lastTab = CoreUITabId.OUTPOSTS;
                     if (CampaignCoreUISubTabMap.containsKey(CoreUITabId.OUTPOSTS))
