@@ -60,10 +60,16 @@ public class CampaignUIInteractHandler implements CampaignUIRenderingListener, C
                 }
             }
             if (intDialog != null) {
-                if (intDialog.getOptionPanel().getSavedOptionList().size() != CampaignInteractOptionCount)
+                int curSize = intDialog.getOptionPanel().getSavedOptionList().size();
+                if (curSize > 9 && CampaignInteractOptionCount != 9)
                 {
-                    log.debug("New size is "+intDialog.getOptionPanel().getSavedOptionList().size());
-                    CampaignInteractOptionCount = intDialog.getOptionPanel().getSavedOptionList().size();
+                    curSize = 9;
+                    log.info("Interaction count is too high, capping at 9");
+                }
+                if (curSize != CampaignInteractOptionCount)
+                {
+                    CampaignInteractOptionCount = curSize;
+                    log.debug("New size is "+CampaignInteractOptionCount);
                 }
             }
         }
