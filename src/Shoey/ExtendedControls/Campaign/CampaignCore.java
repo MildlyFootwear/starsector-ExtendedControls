@@ -26,6 +26,8 @@ public class CampaignCore implements EveryFrameScript {
         if (HandlingHotbar && CampaignHotbarTimer < 30)
             CampaignHotbarTimer += amount;
 
+//        Reflect.hookCore();
+
         sector = Global.getSector();
         cUI = sector.getCampaignUI();
 
