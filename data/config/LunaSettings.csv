@@ -47,3 +47,7 @@ CampaignHotbarRenderAboveTool,Render Above Tooltips,Boolean,TRUE,,"If the indica
 ,,,,,,,,
 ,,,,,,,,
 Debugging,Debug,Boolean,FALSE,,Debug logging.,,,Debug
+CampaignCoreUIMaxTabHeader,Core UI Tab Count,Header,,,,,,Debug
+CampaignCoreUIMaxTabCARGO,Cargo Tab Count,Int,4,,,1,9,Debug
+CampaignCoreUIMaxTabINTEL,Intel Tab Count,Int,3,,,1,9,Debug
+CampaignCoreUIMaxTabOUTPOSTS,Outposts Tab Count,Int,5,,,1,9,Debug
