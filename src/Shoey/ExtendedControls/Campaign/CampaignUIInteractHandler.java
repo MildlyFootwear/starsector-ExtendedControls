@@ -125,14 +125,6 @@ public class CampaignUIInteractHandler implements CampaignUIRenderingListener, C
         for (InputEventAPI e : events)
         {
 
-//            if (!logged)
-//            {
-//                logged = true;
-//                for (int k : campaignListeningToKeys)
-//                    if (Keyboard.isKeyDown(k))
-//                        log.debug(Keyboard.getKeyName(k)+" is pressed");
-//            }
-
             if (e.isConsumed())
                 continue;
 
