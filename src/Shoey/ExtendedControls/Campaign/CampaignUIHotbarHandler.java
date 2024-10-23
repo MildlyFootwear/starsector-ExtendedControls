@@ -69,7 +69,6 @@ public class CampaignUIHotbarHandler implements CampaignUIRenderingListener, Cam
 
         } else if (!localRender)
         {
-
             if (CampaignHotbarFadeEnabled && CampaignHotbarTimer < CampaignHotbarFadeTimer)
                 localRender = true;
             else if (!CampaignHotbarFadeEnabled)

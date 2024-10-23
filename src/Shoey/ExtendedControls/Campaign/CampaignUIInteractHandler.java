@@ -1,11 +1,8 @@
 package Shoey.ExtendedControls.Campaign;
 
 import com.fs.starfarer.api.Global;
-import com.fs.starfarer.api.campaign.CoreInteractionListener;
-import com.fs.starfarer.api.campaign.CoreUITabId;
 import com.fs.starfarer.api.campaign.listeners.CampaignInputListener;
 import com.fs.starfarer.api.campaign.listeners.CampaignUIRenderingListener;
-import com.fs.starfarer.api.campaign.listeners.CoreUITabListener;
 import com.fs.starfarer.api.combat.ViewportAPI;
 import com.fs.starfarer.api.graphics.SpriteAPI;
 import com.fs.starfarer.api.input.InputEventAPI;
@@ -26,6 +23,63 @@ public class CampaignUIInteractHandler implements CampaignUIRenderingListener, C
     int lastX = 0;
     int lastY = 0;
     boolean init = false;
+
+    public void processInput(List<InputEventAPI> events)
+    {
+        for (InputEventAPI e : events)
+        {
+
+            if (e.isConsumed())
+                continue;
+
+            if (e.getEventType() != InputEventType.KEY_DOWN)
+                continue;
+
+            if (!CampaignInteractUIRenderIndicator)
+            {
+                if (e.getEventValue() == CampaignInteractUIToggleIndicator)
+                {
+                    CampaignInteractUIRenderIndicator = true;
+                    log.debug("Indicator on");
+                    e.consume();
+                    LocalRenderToggle = true;
+                    return;
+                }
+            } else if (e.getEventValue() == CampaignInteractUIDown) {
+                if (CampaignInteractOption < CampaignInteractOptionCount && LocalRenderToggle)
+                    CampaignInteractOption++;
+                else if (CampaignInteractUIWrap && LocalRenderToggle) {
+                    CampaignInteractOption = 1;
+                }
+                log.debug("Selected option "+ CampaignInteractOption);
+                e.consume();
+            } else if (e.getEventValue() == CampaignInteractUIUp) {
+                if (CampaignInteractOption > 1 && LocalRenderToggle)
+                    CampaignInteractOption--;
+                else if (CampaignInteractUIWrap && LocalRenderToggle) {
+                    CampaignInteractOption = CampaignInteractOptionCount;
+                }
+                log.debug("Selected option "+ CampaignInteractOption);
+                e.consume();
+            } else if (e.getEventValue() == CampaignInteractUIConfirm) {
+                if (LocalRenderToggle)
+                {
+                    T1000.keyPress(KeyEvent.getExtendedKeyCodeForChar(Integer.toString(CampaignInteractOption).charAt(0)));
+                    T1000.keyRelease(KeyEvent.getExtendedKeyCodeForChar(Integer.toString(CampaignInteractOption).charAt(0)));
+                    log.debug("Confirmed option " + CampaignInteractOption);
+                } else
+                    log.debug("Selected option " + CampaignInteractOption);
+                e.consume();
+            } else if (e.getEventValue() == CampaignInteractUIToggleIndicator)
+            {
+                CampaignInteractUIRenderIndicator = false;
+                log.debug("Indicator off");
+                e.consume();
+            }
+            if (e.isConsumed())
+                LocalRenderToggle = true;
+        }
+    }
 
     @Override
     public void renderInUICoordsAboveUIAndTooltips(ViewportAPI viewport) {
@@ -80,7 +134,7 @@ public class CampaignUIInteractHandler implements CampaignUIRenderingListener, C
         if (CampaignInteractOption > CampaignInteractOptionCount)
             CampaignInteractOption = CampaignInteractOptionCount;
 
-        if (Global.getSettings().getMouseX() - lastX > 20 || Global.getSettings().getMouseX() - lastX < -20 || Global.getSettings().getMouseY() - lastY > 20 || Global.getSettings().getMouseY() - lastY < -20)
+        if (Global.getSettings().getMouseX() - lastX > 10 || Global.getSettings().getMouseX() - lastX < -10 || Global.getSettings().getMouseY() - lastY > 10 || Global.getSettings().getMouseY() - lastY < -10)
         {
             lastX = Global.getSettings().getMouseX();
             lastY = Global.getSettings().getMouseY();
@@ -95,6 +149,7 @@ public class CampaignUIInteractHandler implements CampaignUIRenderingListener, C
             float y = winHeight / 2 - (178);
             y -= (CampaignInteractOption - 1) * 29;
             indic.render(x, y);
+
         }
 
     }
@@ -122,60 +177,7 @@ public class CampaignUIInteractHandler implements CampaignUIRenderingListener, C
         if (InteractionCancelChecks())
             return;
 
-        for (InputEventAPI e : events)
-        {
-
-            if (e.isConsumed())
-                continue;
-
-            if (e.getEventType() != InputEventType.KEY_DOWN)
-                continue;
-
-            if (!CampaignInteractUIRenderIndicator)
-            {
-                if (e.getEventValue() == CampaignInteractUIToggleIndicator)
-                {
-                    CampaignInteractUIRenderIndicator = true;
-                    log.debug("Indicator on");
-                    e.consume();
-                    LocalRenderToggle = true;
-                    return;
-                }
-            } else if (e.getEventValue() == CampaignInteractUIDown) {
-                if (CampaignInteractOption < CampaignInteractOptionCount && LocalRenderToggle)
-                    CampaignInteractOption++;
-                else if (CampaignInteractUIWrap && LocalRenderToggle) {
-                    CampaignInteractOption = 1;
-                }
-                log.debug("Selected option "+ CampaignInteractOption);
-                e.consume();
-            } else if (e.getEventValue() == CampaignInteractUIUp) {
-                if (CampaignInteractOption > 1 && LocalRenderToggle)
-                    CampaignInteractOption--;
-                else if (CampaignInteractUIWrap && LocalRenderToggle) {
-                    CampaignInteractOption = CampaignInteractOptionCount;
-                }
-                log.debug("Selected option "+ CampaignInteractOption);
-                e.consume();
-            } else if (e.getEventValue() == CampaignInteractUIConfirm) {
-                if (LocalRenderToggle)
-                {
-                    T1000.keyPress(KeyEvent.getExtendedKeyCodeForChar(Integer.toString(CampaignInteractOption).charAt(0)));
-                    T1000.keyRelease(KeyEvent.getExtendedKeyCodeForChar(Integer.toString(CampaignInteractOption).charAt(0)));
-                    log.debug("Confirmed option " + CampaignInteractOption);
-                } else
-                    log.debug("Selected option " + CampaignInteractOption);
-                e.consume();
-            } else if (e.getEventValue() == CampaignInteractUIToggleIndicator)
-            {
-                CampaignInteractUIRenderIndicator = false;
-                log.debug("Indicator off");
-                e.consume();
-            }
-            if (e.isConsumed())
-                LocalRenderToggle = true;
-        }
-
+        processInput(events);
     }
 
     @Override

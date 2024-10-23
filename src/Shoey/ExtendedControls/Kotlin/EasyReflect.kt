@@ -1,7 +1,6 @@
 package Shoey.ExtendedControls.Kotlin
 
-import Shoey.ExtendedControls.MainPlugin.coreUI
-import Shoey.ExtendedControls.MainPlugin.dialogUI
+import Shoey.ExtendedControls.MainPlugin.*
 import com.fs.starfarer.api.Global
 import com.fs.starfarer.api.ui.UIComponentAPI
 import com.fs.starfarer.api.ui.UIPanelAPI

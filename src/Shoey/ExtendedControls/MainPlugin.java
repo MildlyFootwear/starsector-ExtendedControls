@@ -1,10 +1,6 @@
 package Shoey.ExtendedControls;
 
-import Shoey.ExtendedControls.Campaign.CampaignCore;
-import Shoey.ExtendedControls.Campaign.CampaignUICoreHandler;
-import Shoey.ExtendedControls.Campaign.CampaignUIHotbarHandler;
-import Shoey.ExtendedControls.Campaign.CampaignUIInteractHandler;
-import Shoey.ExtendedControls.Kotlin.EasyReflect;
+import Shoey.ExtendedControls.Campaign.*;
 import com.fs.starfarer.api.BaseModPlugin;
 import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.campaign.CampaignUIAPI;
@@ -16,13 +12,14 @@ import lunalib.lunaSettings.LunaSettings;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 
+import javax.swing.text.GlyphView;
 import java.awt.*;
 import java.util.HashMap;
 
 
 public class MainPlugin extends BaseModPlugin {
 
-    private Logger log = Global.getLogger(this.getClass());
+    public static Logger log = Global.getLogger(MainPlugin.class);
     public static Robot T1000;
 
     public static float winWidth;

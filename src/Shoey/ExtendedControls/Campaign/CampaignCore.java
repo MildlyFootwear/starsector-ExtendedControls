@@ -2,13 +2,16 @@ package Shoey.ExtendedControls.Campaign;
 
 import com.fs.starfarer.api.EveryFrameScript;
 import com.fs.starfarer.api.Global;
+import com.fs.starfarer.api.campaign.*;
+import com.fs.starfarer.api.campaign.econ.MarketAPI;
+import com.fs.starfarer.api.characters.AbilityPlugin;
+import com.fs.starfarer.api.characters.PersonAPI;
+import com.fs.starfarer.api.combat.EngagementResultAPI;
 import org.apache.log4j.Logger;
 
 import static Shoey.ExtendedControls.MainPlugin.*;
 
 public class CampaignCore implements EveryFrameScript {
-
-    private Logger log = Global.getLogger(this.getClass());
 
     @Override
     public boolean isDone() {
@@ -32,4 +35,5 @@ public class CampaignCore implements EveryFrameScript {
         cUI = sector.getCampaignUI();
 
     }
+
 }
