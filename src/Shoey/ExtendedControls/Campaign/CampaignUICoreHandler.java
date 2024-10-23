@@ -105,25 +105,39 @@ public class CampaignUICoreHandler implements CampaignUIRenderingListener, Campa
                     e.consume();
                     switch (cUI.getCurrentCoreTab()) {
                         case CHARACTER:
-                            cUI.showCoreUITab(CoreUITabId.FLEET);
+                            T1000.keyPress(KeyEvent.VK_F);
+                            T1000.keyRelease(KeyEvent.VK_F);
+//                            cUI.showCoreUITab(CoreUITabId.FLEET);
                             break;
                         case FLEET:
-                            cUI.showCoreUITab(CoreUITabId.REFIT);
+                            T1000.keyPress(KeyEvent.VK_R);
+                            T1000.keyRelease(KeyEvent.VK_R);
+//                            cUI.showCoreUITab(CoreUITabId.REFIT);
                             break;
                         case REFIT:
-                            cUI.showCoreUITab(CoreUITabId.CARGO);
+                            T1000.keyPress(KeyEvent.VK_I);
+                            T1000.keyRelease(KeyEvent.VK_I);
+//                            cUI.showCoreUITab(CoreUITabId.CARGO);
                             break;
                         case CARGO:
-                            cUI.showCoreUITab(CoreUITabId.MAP);
+                            T1000.keyPress(KeyEvent.VK_TAB);
+                            T1000.keyRelease(KeyEvent.VK_TAB);
+//                            cUI.showCoreUITab(CoreUITabId.MAP);
                             break;
                         case MAP:
-                            cUI.showCoreUITab(CoreUITabId.INTEL);
+                            T1000.keyPress(KeyEvent.VK_E);
+                            T1000.keyRelease(KeyEvent.VK_E);
+//                            cUI.showCoreUITab(CoreUITabId.INTEL);
                             break;
                         case INTEL:
-                            cUI.showCoreUITab(CoreUITabId.OUTPOSTS);
+                            T1000.keyPress(KeyEvent.VK_D);
+                            T1000.keyRelease(KeyEvent.VK_D);
+//                            cUI.showCoreUITab(CoreUITabId.OUTPOSTS);
                             break;
                         case OUTPOSTS:
-                            cUI.showCoreUITab(CoreUITabId.CHARACTER);
+                            T1000.keyPress(KeyEvent.VK_C);
+                            T1000.keyRelease(KeyEvent.VK_C);
+//                            cUI.showCoreUITab(CoreUITabId.CHARACTER);
                             break;
                     }
                 } else if (e.getEventValue() == (CampaignCoreUILeft)) {
@@ -131,25 +145,39 @@ public class CampaignUICoreHandler implements CampaignUIRenderingListener, Campa
                     e.consume();
                     switch (cUI.getCurrentCoreTab()) {
                         case CHARACTER:
-                            cUI.showCoreUITab(CoreUITabId.OUTPOSTS);
+                            T1000.keyPress(KeyEvent.VK_D);
+                            T1000.keyRelease(KeyEvent.VK_D);
+//                            cUI.showCoreUITab(CoreUITabId.OUTPOSTS);
                             break;
                         case FLEET:
-                            cUI.showCoreUITab(CoreUITabId.CHARACTER);
+                            T1000.keyPress(KeyEvent.VK_C);
+                            T1000.keyRelease(KeyEvent.VK_C);
+//                            cUI.showCoreUITab(CoreUITabId.CHARACTER);
                             break;
                         case REFIT:
-                            cUI.showCoreUITab(CoreUITabId.FLEET);
+                            T1000.keyPress(KeyEvent.VK_F);
+                            T1000.keyRelease(KeyEvent.VK_F);
+//                            cUI.showCoreUITab(CoreUITabId.FLEET);
                             break;
                         case CARGO:
-                            cUI.showCoreUITab(CoreUITabId.REFIT);
+                            T1000.keyPress(KeyEvent.VK_R);
+                            T1000.keyRelease(KeyEvent.VK_R);
+//                            cUI.showCoreUITab(CoreUITabId.REFIT);
                             break;
                         case MAP:
-                            cUI.showCoreUITab(CoreUITabId.CARGO);
+                            T1000.keyPress(KeyEvent.VK_I);
+                            T1000.keyRelease(KeyEvent.VK_I);
+//                            cUI.showCoreUITab(CoreUITabId.CARGO);
                             break;
                         case INTEL:
-                            cUI.showCoreUITab(CoreUITabId.MAP);
+                            T1000.keyPress(KeyEvent.VK_TAB);
+                            T1000.keyRelease(KeyEvent.VK_TAB);
+//                            cUI.showCoreUITab(CoreUITabId.MAP);
                             break;
                         case OUTPOSTS:
-                            cUI.showCoreUITab(CoreUITabId.INTEL);
+                            T1000.keyPress(KeyEvent.VK_E);
+                            T1000.keyRelease(KeyEvent.VK_E);
+//                            cUI.showCoreUITab(CoreUITabId.INTEL);
                             break;
                     }
                 } else if (e.getEventValue() == CampaignCoreUISubTabRight) {
@@ -213,7 +241,7 @@ public class CampaignUICoreHandler implements CampaignUIRenderingListener, Campa
 
     @Override
     public int getListenerInputPriority() {
-        return 0;
+        return -1;
     }
 
     @Override
