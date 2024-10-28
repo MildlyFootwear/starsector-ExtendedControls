@@ -25,6 +25,12 @@ public class CampaignUICoreHandler implements CampaignUIRenderingListener, Campa
     boolean needMapReset = false;
     CoreUITabId lastTab;
 
+
+    void logKey(char key)
+    {
+        log.debug("Pressed key "+key+" on "+lastTab.name());
+    }
+
     void setMaxTab() {
         switch (cUI.getCurrentCoreTab()) {
             case CARGO:
@@ -61,6 +67,14 @@ public class CampaignUICoreHandler implements CampaignUIRenderingListener, Campa
                     }
                 }
 
+                break;
+
+            case FLEET:
+                maxTab = 2;
+                if (lastTab != CoreUITabId.FLEET) {
+                    lastTab = CoreUITabId.FLEET;
+                    CampaignCoreUISubTabCurrent = 1;
+                }
                 break;
         }
     }
@@ -192,12 +206,12 @@ public class CampaignUICoreHandler implements CampaignUIRenderingListener, Campa
 
                         CampaignCoreUISubTabMap.put(cUI.getCurrentCoreTab(), CampaignCoreUISubTabCurrent);
 
-                        Integer temp = CampaignCoreUISubTabCurrent;
-                        char key = temp.toString().charAt(0);
+                        int temp = CampaignCoreUISubTabCurrent;
+                        char key = Integer.toString(temp).charAt(0);
                         int keytopress = KeyEvent.getExtendedKeyCodeForChar(key);
                         T1000.keyPress(keytopress);
                         T1000.keyRelease(keytopress);
-
+                        logKey(key);
                         e.consume();
 
                     } else if (cUI.getCurrentCoreTab() == CoreUITabId.MAP && !sector.getPlayerFleet().isInHyperspace()) {
@@ -205,6 +219,20 @@ public class CampaignUICoreHandler implements CampaignUIRenderingListener, Campa
                         togMapTab();
                         e.consume();
 
+                    } else if (cUI.getCurrentCoreTab() == CoreUITabId.FLEET)
+                    {
+                        setMaxTab();
+                        if (CampaignCoreUISubTabCurrent < maxTab)
+                            CampaignCoreUISubTabCurrent++;
+                        else
+                            CampaignCoreUISubTabCurrent = 1;
+                        int temp = CampaignCoreUISubTabCurrent;
+                        char key = Integer.toString(temp).charAt(0);
+                        int keytopress = KeyEvent.getExtendedKeyCodeForChar(key);
+                        T1000.keyPress(keytopress);
+                        T1000.keyRelease(keytopress);
+                        e.consume();
+                        logKey(key);
                     }
                 } else if (e.getEventValue() == CampaignCoreUISubTabLeft) {
                     if (cUI.getCurrentCoreTab() == CoreUITabId.CARGO || cUI.getCurrentCoreTab() == CoreUITabId.INTEL || cUI.getCurrentCoreTab() == CoreUITabId.OUTPOSTS) {
@@ -218,19 +246,33 @@ public class CampaignUICoreHandler implements CampaignUIRenderingListener, Campa
 
                         CampaignCoreUISubTabMap.put(cUI.getCurrentCoreTab(), CampaignCoreUISubTabCurrent);
 
-                        Integer temp = CampaignCoreUISubTabCurrent;
-                        char key = temp.toString().charAt(0);
+                        int temp = CampaignCoreUISubTabCurrent;
+                        char key = Integer.toString(temp).charAt(0);
                         int keytopress = KeyEvent.getExtendedKeyCodeForChar(key);
                         T1000.keyPress(keytopress);
                         T1000.keyRelease(keytopress);
-
                         e.consume();
+                        logKey(key);
 
                     } else if (cUI.getCurrentCoreTab() == CoreUITabId.MAP && !sector.getPlayerFleet().isInHyperspace()) {
 
                         togMapTab();
                         e.consume();
 
+                    } else if (cUI.getCurrentCoreTab() == CoreUITabId.FLEET)
+                    {
+                        setMaxTab();
+                        if (CampaignCoreUISubTabCurrent > 1)
+                            CampaignCoreUISubTabCurrent--;
+                        else
+                            CampaignCoreUISubTabCurrent = maxTab;
+                        int temp = CampaignCoreUISubTabCurrent;
+                        char key = Integer.toString(temp).charAt(0);
+                        int keytopress = KeyEvent.getExtendedKeyCodeForChar(key);
+                        T1000.keyPress(keytopress);
+                        T1000.keyRelease(keytopress);
+                        e.consume();
+                        logKey(key);
                     }
                 }
 

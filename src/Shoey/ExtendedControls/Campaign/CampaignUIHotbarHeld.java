@@ -28,7 +28,7 @@ public class CampaignUIHotbarHeld implements EveryFrameScript {
                 heldLong = true;
             }
         } else {
-            if (time > 0.1)
+            if (time > 0.25)
             {
                 time = 0;
                 if (Keyboard.isKeyDown(CampaignHotbarLeft))
