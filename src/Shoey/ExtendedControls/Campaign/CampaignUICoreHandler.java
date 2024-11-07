@@ -214,7 +214,7 @@ public class CampaignUICoreHandler implements CampaignUIRenderingListener, Campa
                         logKey(key);
                         e.consume();
 
-                    } else if (cUI.getCurrentCoreTab() == CoreUITabId.MAP && !sector.getPlayerFleet().isInHyperspace()) {
+                    } else if (cUI.getCurrentCoreTab() == CoreUITabId.MAP) {
 
                         togMapTab();
                         e.consume();
@@ -254,7 +254,7 @@ public class CampaignUICoreHandler implements CampaignUIRenderingListener, Campa
                         e.consume();
                         logKey(key);
 
-                    } else if (cUI.getCurrentCoreTab() == CoreUITabId.MAP && !sector.getPlayerFleet().isInHyperspace()) {
+                    } else if (cUI.getCurrentCoreTab() == CoreUITabId.MAP) {
 
                         togMapTab();
                         e.consume();
