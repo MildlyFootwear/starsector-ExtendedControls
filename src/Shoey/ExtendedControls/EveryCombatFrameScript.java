@@ -27,6 +27,7 @@ public class EveryCombatFrameScript extends BaseEveryFrameCombatPlugin {
     Map<ShipAPI, Integer> shipsSelectedGroup = new HashMap<>();
     ShipAPI playingShip;
     ShipAPI lastPlayingShip;
+    boolean wasAutopilot = false;
     List<Integer> keystopress = new ArrayList<>();
     List<Integer> keystounpress = new ArrayList<>();
     int[] breakkeys = {Keyboard.KEY_LMENU, Keyboard.KEY_RMENU, Keyboard.KEY_LCONTROL, Keyboard.KEY_RCONTROL};
@@ -116,19 +117,19 @@ public class EveryCombatFrameScript extends BaseEveryFrameCombatPlugin {
                         c++;
                         if (SkipEmpty) {
                             for (int i; c < temp.size(); c++) {
-                                int ammocount = 0;
+                                boolean canFire = false;
                                 for (WeaponAPI w : temp.get(c - 1).getWeaponsCopy()) {
-                                    if (w.usesAmmo()) {
-                                        ammocount += w.getAmmo();
-                                    } else {
-                                        ammocount++;
+                                    if (w.usesAmmo() && (w.getAmmo() > 0 || w.getAmmoPerSecond() != 0)) {
+                                        canFire = true;
+                                    } else if (!w.usesAmmo()) {
+                                        canFire = true;
                                     }
-                                    if (ammocount > 0) {
+                                    if (canFire) {
                                         log.debug(w.getDisplayName() + " can fire, selecting group " + c);
                                         break;
                                     }
                                 }
-                                if (ammocount > 0) {
+                                if (canFire) {
                                     break;
                                 }
                             }
@@ -157,19 +158,19 @@ public class EveryCombatFrameScript extends BaseEveryFrameCombatPlugin {
                         c--;
                         if (SkipEmpty) {
                             for (int i; c > 1; c--) {
-                                int ammocount = 0;
+                                boolean canFire = false;
                                 for (WeaponAPI w : temp.get(c - 1).getWeaponsCopy()) {
-                                    if (w.usesAmmo()) {
-                                        ammocount += w.getAmmo();
-                                    } else {
-                                        ammocount++;
+                                    if (w.usesAmmo() && (w.getAmmo() > 0 || w.getAmmoPerSecond() != 0)) {
+                                        canFire = true;
+                                    } else if (!w.usesAmmo()) {
+                                        canFire = true;
                                     }
-                                    if (ammocount > 0) {
-                                        log.debug(w.getDisplayName() + " can fire.");
+                                    if (canFire) {
+                                        log.debug(w.getDisplayName() + " can fire, selecting group " + c);
                                         break;
                                     }
                                 }
-                                if (ammocount > 0) {
+                                if (canFire) {
                                     break;
                                 }
                             }
