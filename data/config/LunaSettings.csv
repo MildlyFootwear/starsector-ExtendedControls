@@ -7,18 +7,18 @@ SkipEmpty,Skip Empty Ammo,Boolean,TRUE,,Skips weapon groups that are currently o
 ,,,,,,,,
 ,,,,,,,,
 CoreHeader,Core UI,Header,Core UI,,,,,Campaign
-CampaignCoreUILeft,Navigate Tab Left,Keycode,203,,"Scroll left through the core campaign menu; open the Character tab from Fleet, open Cargo from Map.",,,Campaign
-CampaignCoreUIRight,Navigate Tab Right,Keycode,205,,"Scroll right through the core campaign menu; open the Refit tab from Fleet, open Intel from Map.",,,Campaign
+CampaignCoreUILeft,Navigate Left,Keycode,203,,Scroll left through the core campaign menu.,,,Campaign
+CampaignCoreUIRight,Navigate Right,Keycode,205,,Scroll right through the core campaign menu.,,,Campaign
+CampaignCoreUIConfirm,Confirm Selection,Keycode,28,,,,,Campaign
 CampaignCoreUISubTabLeft,Navigate Sub Tab Left,Keycode,200,,"Scroll left through the sub-tabs in Cargo, Map, Intel, and Planets.",,,Campaign
 CampaignCoreUISubTabRight,Navigate Sub Tab Right,Keycode,208,,"Scroll right through the sub-tabs in Cargo, Map, Intel, and Planets.",,,Campaign
-,,,,,,,,
 ,,,,,,,,
 ,,,,,,,,
 InteractHeader,Interaction,Header,Interaction,,,,,Campaign
 HandlingInteract,Enabled,Boolean,TRUE,,"If enabled, the following settings will be used to add additional controls when interacting with planets, stations, fleets, and the like.",,,Campaign
 CampaignInteractUIUp,Navigate Up,Keycode,200,,,,,Campaign
 CampaignInteractUIDown,Navigate Down,Keycode,208,,,,,Campaign
-CampaignInteractUIConfirm,Confirm,Keycode,28,,,,,Campaign
+CampaignInteractUIConfirm,Confirm Selection,Keycode,28,,,,,Campaign
 CampaignInteractUIToggleIndicator,Toggle Indicator,Keycode,29,,"If the interact option indicator is being shown when it shouldn't, this key can be used to temporarily disable it.",,,Campaign
 CampaignInteractUIWrap,Wrap Around,Boolean,TRUE,,If the indicator will wrap around to the other side at the beginning or end.,,,Campaign
 CampaignInteractUIIndicatorColor,Indicator Color,Color,#FFD200,,Color used for the arrow indicating the current selection.,,,Campaign

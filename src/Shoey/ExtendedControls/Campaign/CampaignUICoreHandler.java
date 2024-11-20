@@ -7,6 +7,7 @@ import com.fs.starfarer.api.campaign.listeners.CampaignInputListener;
 import com.fs.starfarer.api.campaign.listeners.CampaignUIRenderingListener;
 import com.fs.starfarer.api.campaign.listeners.CoreUITabListener;
 import com.fs.starfarer.api.combat.ViewportAPI;
+import com.fs.starfarer.api.graphics.SpriteAPI;
 import com.fs.starfarer.api.input.InputEventAPI;
 import com.fs.starfarer.api.input.InputEventType;
 import org.apache.log4j.Level;
@@ -17,13 +18,16 @@ import java.util.List;
 
 import static Shoey.ExtendedControls.MainPlugin.*;
 
-public class CampaignUICoreHandler implements CampaignUIRenderingListener, CampaignInputListener {
+public class CampaignUICoreHandler implements CampaignUIRenderingListener, CampaignInputListener, CoreUITabListener {
 
-    private Logger log = Global.getLogger(this.getClass());
+    public Logger log = Global.getLogger(this.getClass());
     boolean init = false;
     int maxTab = 0;
-    boolean needMapReset = false;
-    CoreUITabId lastTab;
+    int CoreUISelection = 0;
+    boolean needMapReset = false, indicToggle = false;
+
+    CoreUITabId lastTab = null;
+    transient SpriteAPI indic = Global.getSettings().getSprite("ui","sortIcon");
 
 
     void logKey(char key)
@@ -96,6 +100,67 @@ public class CampaignUICoreHandler implements CampaignUIRenderingListener, Campa
         T1000.keyRelease(keytopress);
     }
 
+    void switchCore()
+    {
+        switch (CoreUISelection) {
+            case 1:
+                T1000.keyPress(KeyEvent.VK_C);
+                T1000.keyRelease(KeyEvent.VK_C);
+//                            cUI.showCoreUITab(CoreUITabId.CHARACTER);
+                break;
+            case 2:
+                T1000.keyPress(KeyEvent.VK_F);
+                T1000.keyRelease(KeyEvent.VK_F);
+//                            cUI.showCoreUITab(CoreUITabId.FLEET);
+                break;
+            case 3:
+                T1000.keyPress(KeyEvent.VK_R);
+                T1000.keyRelease(KeyEvent.VK_R);
+//                            cUI.showCoreUITab(CoreUITabId.REFIT);
+                break;
+            case 4:
+                T1000.keyPress(KeyEvent.VK_I);
+                T1000.keyRelease(KeyEvent.VK_I);
+//                            cUI.showCoreUITab(CoreUITabId.CARGO);
+                break;
+            case 5:
+                T1000.keyPress(KeyEvent.VK_TAB);
+                T1000.keyRelease(KeyEvent.VK_TAB);
+//                            cUI.showCoreUITab(CoreUITabId.MAP);
+                break;
+            case 6:
+                T1000.keyPress(KeyEvent.VK_E);
+                T1000.keyRelease(KeyEvent.VK_E);
+//                            cUI.showCoreUITab(CoreUITabId.INTEL);
+                break;
+            case 7:
+                T1000.keyPress(KeyEvent.VK_D);
+                T1000.keyRelease(KeyEvent.VK_D);
+//                            cUI.showCoreUITab(CoreUITabId.OUTPOSTS);
+                break;
+
+        }
+    }
+
+    public void setColors()
+    {
+        indic.setColor(CampaignHotbarIndicatorColor);
+    }
+
+    public void renderIndic()
+    {
+        if (!(InteractionCancelChecks() && HotbarCancelChecks()))
+            return;
+
+        if (indicToggle) {
+            float x = 65;
+            float y = 25;
+            x += 128 * (CoreUISelection - 1);
+            indic.render(x, y);
+        }
+    }
+
+
     public void processInput (List<InputEventAPI> events)
     {
         String cUITabName = null;
@@ -115,85 +180,34 @@ public class CampaignUICoreHandler implements CampaignUIRenderingListener, Campa
 
             if (cUITabName != null) {
                 if (e.getEventValue() == (CampaignCoreUIRight)) {
-                    log.debug("Processing core input on tab "+cUITabName);
                     e.consume();
-                    switch (cUI.getCurrentCoreTab()) {
-                        case CHARACTER:
-                            T1000.keyPress(KeyEvent.VK_F);
-                            T1000.keyRelease(KeyEvent.VK_F);
-//                            cUI.showCoreUITab(CoreUITabId.FLEET);
-                            break;
-                        case FLEET:
-                            T1000.keyPress(KeyEvent.VK_R);
-                            T1000.keyRelease(KeyEvent.VK_R);
-//                            cUI.showCoreUITab(CoreUITabId.REFIT);
-                            break;
-                        case REFIT:
-                            T1000.keyPress(KeyEvent.VK_I);
-                            T1000.keyRelease(KeyEvent.VK_I);
-//                            cUI.showCoreUITab(CoreUITabId.CARGO);
-                            break;
-                        case CARGO:
-                            T1000.keyPress(KeyEvent.VK_TAB);
-                            T1000.keyRelease(KeyEvent.VK_TAB);
-//                            cUI.showCoreUITab(CoreUITabId.MAP);
-                            break;
-                        case MAP:
-                            T1000.keyPress(KeyEvent.VK_E);
-                            T1000.keyRelease(KeyEvent.VK_E);
-//                            cUI.showCoreUITab(CoreUITabId.INTEL);
-                            break;
-                        case INTEL:
-                            T1000.keyPress(KeyEvent.VK_D);
-                            T1000.keyRelease(KeyEvent.VK_D);
-//                            cUI.showCoreUITab(CoreUITabId.OUTPOSTS);
-                            break;
-                        case OUTPOSTS:
-                            T1000.keyPress(KeyEvent.VK_C);
-                            T1000.keyRelease(KeyEvent.VK_C);
-//                            cUI.showCoreUITab(CoreUITabId.CHARACTER);
-                            break;
+                    if (indicToggle)
+                    {
+                        CoreUISelection++;
+                        if (CoreUISelection > 7) {
+                            CoreUISelection = 1;
+                        }
+                        log.debug("Selection "+CoreUISelection);
+                    } else {
+                        indicToggle = true;
                     }
                 } else if (e.getEventValue() == (CampaignCoreUILeft)) {
-                    log.debug("Processing core input on tab "+cUITabName);
                     e.consume();
-                    switch (cUI.getCurrentCoreTab()) {
-                        case CHARACTER:
-                            T1000.keyPress(KeyEvent.VK_D);
-                            T1000.keyRelease(KeyEvent.VK_D);
-//                            cUI.showCoreUITab(CoreUITabId.OUTPOSTS);
-                            break;
-                        case FLEET:
-                            T1000.keyPress(KeyEvent.VK_C);
-                            T1000.keyRelease(KeyEvent.VK_C);
-//                            cUI.showCoreUITab(CoreUITabId.CHARACTER);
-                            break;
-                        case REFIT:
-                            T1000.keyPress(KeyEvent.VK_F);
-                            T1000.keyRelease(KeyEvent.VK_F);
-//                            cUI.showCoreUITab(CoreUITabId.FLEET);
-                            break;
-                        case CARGO:
-                            T1000.keyPress(KeyEvent.VK_R);
-                            T1000.keyRelease(KeyEvent.VK_R);
-//                            cUI.showCoreUITab(CoreUITabId.REFIT);
-                            break;
-                        case MAP:
-                            T1000.keyPress(KeyEvent.VK_I);
-                            T1000.keyRelease(KeyEvent.VK_I);
-//                            cUI.showCoreUITab(CoreUITabId.CARGO);
-                            break;
-                        case INTEL:
-                            T1000.keyPress(KeyEvent.VK_TAB);
-                            T1000.keyRelease(KeyEvent.VK_TAB);
-//                            cUI.showCoreUITab(CoreUITabId.MAP);
-                            break;
-                        case OUTPOSTS:
-                            T1000.keyPress(KeyEvent.VK_E);
-                            T1000.keyRelease(KeyEvent.VK_E);
-//                            cUI.showCoreUITab(CoreUITabId.INTEL);
-                            break;
+                    if (indicToggle)
+                    {
+                        CoreUISelection--;
+                        if (CoreUISelection < 1) {
+                            CoreUISelection = 7;
+                        }
+                        log.debug("Selection "+CoreUISelection);
+                    } else {
+                        indicToggle = true;
                     }
+                } else if (e.getEventValue() == CampaignCoreUIConfirm) {
+                    log.debug("Confirming selection "+CoreUISelection);
+                    e.consume();
+                    switchCore();
+                    indicToggle = false;
                 } else if (e.getEventValue() == CampaignCoreUISubTabRight) {
                     if (cUI.getCurrentCoreTab() == CoreUITabId.CARGO || cUI.getCurrentCoreTab() == CoreUITabId.INTEL || cUI.getCurrentCoreTab() == CoreUITabId.OUTPOSTS) {
 
@@ -309,7 +323,6 @@ public class CampaignUICoreHandler implements CampaignUIRenderingListener, Campa
 
     @Override
     public void renderInUICoordsAboveUIBelowTooltips(ViewportAPI viewport) {
-
     }
 
     @Override
@@ -319,12 +332,42 @@ public class CampaignUICoreHandler implements CampaignUIRenderingListener, Campa
         {
             init = true;
             log = Global.getLogger(this.getClass());
+            setColors();
 
             if (debugLogging)
                 log.setLevel(Level.DEBUG);
             else
                 log.setLevel(Level.INFO);
         }
+        renderIndic();
 
+
+    }
+
+    @Override
+    public void reportAboutToOpenCoreTab(CoreUITabId tab, Object param) {
+        switch (tab) {
+            case CHARACTER:
+                CoreUISelection = 1;
+                break;
+            case FLEET:
+                CoreUISelection = 2;
+                break;
+            case REFIT:
+                CoreUISelection = 3;
+                break;
+            case CARGO:
+                CoreUISelection = 4;
+                break;
+            case MAP:
+                CoreUISelection = 5;
+                break;
+            case INTEL:
+                CoreUISelection = 6;
+                break;
+            case OUTPOSTS:
+                CoreUISelection = 7;
+                break;
+        }
     }
 }

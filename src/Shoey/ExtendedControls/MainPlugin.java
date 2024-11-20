@@ -38,6 +38,7 @@ public class MainPlugin extends BaseModPlugin {
 
     public static int CampaignCoreUILeft;
     public static int CampaignCoreUIRight;
+    public static int CampaignCoreUIConfirm;
     public static int CampaignCoreUISubTabLeft;
     public static int CampaignCoreUISubTabRight;
     public static int CampaignCoreUIMaxTabCARGO;
@@ -106,6 +107,7 @@ public class MainPlugin extends BaseModPlugin {
 
         CampaignCoreUILeft = getInt("CampaignUILeft");
         CampaignCoreUIRight = getInt("CampaignUIRight");
+        CampaignCoreUIConfirm = getInt("CampaignCoreUIConfirm");
         CampaignCoreUISubTabLeft = getInt("CampaignCoreUISubTabLeft");
         CampaignCoreUISubTabRight = getInt("CampaignCoreUISubTabRight");
         CampaignCoreUIMaxTabCARGO = getInt("CampaignCoreUIMaxTabCARGO");
