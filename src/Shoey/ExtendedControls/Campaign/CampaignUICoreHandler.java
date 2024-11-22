@@ -53,7 +53,6 @@ public class CampaignUICoreHandler implements CampaignUIRenderingListener, Campa
                     else {
                         CampaignCoreUISubTabMap.put(CoreUITabId.INTEL, 1);
                         CampaignCoreUISubTabCurrent = 1;
-
                     }
                 }
 
@@ -67,7 +66,6 @@ public class CampaignUICoreHandler implements CampaignUIRenderingListener, Campa
                     else {
                         CampaignCoreUISubTabMap.put(CoreUITabId.OUTPOSTS, 1);
                         CampaignCoreUISubTabCurrent = 1;
-
                     }
                 }
 
@@ -90,7 +88,6 @@ public class CampaignUICoreHandler implements CampaignUIRenderingListener, Campa
         {
             needMapReset = false;
             keytopress = KeyEvent.VK_W;
-
         } else {
             needMapReset = true;
             keytopress = KeyEvent.VK_Q;
@@ -164,7 +161,7 @@ public class CampaignUICoreHandler implements CampaignUIRenderingListener, Campa
     public void processInput (List<InputEventAPI> events)
     {
         String cUITabName = null;
-        try {cUITabName = cUI.getCurrentCoreTab().name();} catch (Exception e) { }
+        try {cUITabName = cUI.getCurrentCoreTab().name();} catch (Exception ignored) { }
 
         if (cUITabName == null && needMapReset)
             needMapReset = false;
@@ -179,30 +176,22 @@ public class CampaignUICoreHandler implements CampaignUIRenderingListener, Campa
                 continue;
 
             if (cUITabName != null) {
-                if (e.getEventValue() == (CampaignCoreUIRight)) {
+                if (e.getEventValue() == CampaignCoreUIRight) {
                     e.consume();
-                    if (indicToggle)
-                    {
-                        CoreUISelection++;
-                        if (CoreUISelection > 7) {
-                            CoreUISelection = 1;
-                        }
-                        log.debug("Selection "+CoreUISelection);
-                    } else {
-                        indicToggle = true;
+                    CoreUISelection++;
+                    if (CoreUISelection > 7) {
+                        CoreUISelection = 1;
                     }
+                    log.debug("Selection "+CoreUISelection);
+                    indicToggle = true;
                 } else if (e.getEventValue() == (CampaignCoreUILeft)) {
                     e.consume();
-                    if (indicToggle)
-                    {
-                        CoreUISelection--;
-                        if (CoreUISelection < 1) {
-                            CoreUISelection = 7;
-                        }
-                        log.debug("Selection "+CoreUISelection);
-                    } else {
-                        indicToggle = true;
+                    CoreUISelection--;
+                    if (CoreUISelection < 1) {
+                        CoreUISelection = 7;
                     }
+                    log.debug("Selection " + CoreUISelection);
+                    indicToggle = true;
                 } else if (e.getEventValue() == CampaignCoreUIConfirm) {
                     log.debug("Confirming selection "+CoreUISelection);
                     e.consume();
