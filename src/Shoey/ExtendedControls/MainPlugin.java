@@ -217,6 +217,7 @@ public class MainPlugin extends BaseModPlugin {
         cUI = sector.getCampaignUI();
         sector.addTransientScript(new CampaignCore());
 
+
         cUIIH = new CampaignUIInteractHandler();
         cUIHH = new CampaignUIHotbarHandler();
         cUICH = new CampaignUICoreHandler();

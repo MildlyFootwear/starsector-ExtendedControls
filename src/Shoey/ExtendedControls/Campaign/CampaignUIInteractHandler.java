@@ -46,7 +46,7 @@ public class CampaignUIInteractHandler implements CampaignUIRenderingListener, C
                     return;
                 }
             } else if (e.getEventValue() == CampaignInteractUIDown) {
-                if (CampaignInteractOption < CampaignInteractOptionCount && LocalRenderToggle)
+                if (CampaignInteractOption < CampaignInteractOptionCount && LocalRenderToggle && CampaignInteractOption != 9)
                     CampaignInteractOption++;
                 else if (CampaignInteractUIWrap && LocalRenderToggle) {
                     CampaignInteractOption = 1;
@@ -58,6 +58,10 @@ public class CampaignUIInteractHandler implements CampaignUIRenderingListener, C
                     CampaignInteractOption--;
                 else if (CampaignInteractUIWrap && LocalRenderToggle) {
                     CampaignInteractOption = CampaignInteractOptionCount;
+                    if (CampaignInteractOption > 9)
+                    {
+                        CampaignInteractOption = 9;
+                    }
                 }
                 log.debug("Selected option "+ CampaignInteractOption);
                 e.consume();
@@ -67,8 +71,9 @@ public class CampaignUIInteractHandler implements CampaignUIRenderingListener, C
                     T1000.keyPress(KeyEvent.getExtendedKeyCodeForChar(Integer.toString(CampaignInteractOption).charAt(0)));
                     T1000.keyRelease(KeyEvent.getExtendedKeyCodeForChar(Integer.toString(CampaignInteractOption).charAt(0)));
                     log.debug("Confirmed option " + CampaignInteractOption);
-                } else
+                } else {
                     log.debug("Selected option " + CampaignInteractOption);
+                }
                 e.consume();
             } else if (e.getEventValue() == CampaignInteractUIToggleIndicator)
             {
@@ -76,8 +81,9 @@ public class CampaignUIInteractHandler implements CampaignUIRenderingListener, C
                 log.debug("Indicator off");
                 e.consume();
             }
-            if (e.isConsumed())
+            if (e.isConsumed()) {
                 LocalRenderToggle = true;
+            }
         }
     }
 
@@ -115,11 +121,6 @@ public class CampaignUIInteractHandler implements CampaignUIRenderingListener, C
             }
             if (intDialog != null) {
                 int curSize = intDialog.getOptionPanel().getSavedOptionList().size();
-                if (curSize > 9 && CampaignInteractOptionCount != 9)
-                {
-                    curSize = 9;
-                    log.info("Interaction count is too high, capping at 9");
-                }
                 if (curSize != CampaignInteractOptionCount)
                 {
                     CampaignInteractOptionCount = curSize;
