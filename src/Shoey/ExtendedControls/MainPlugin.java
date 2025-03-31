@@ -12,7 +12,6 @@ import lunalib.lunaSettings.LunaSettings;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 
-import javax.swing.text.GlyphView;
 import java.awt.*;
 import java.util.HashMap;
 
@@ -105,8 +104,8 @@ public class MainPlugin extends BaseModPlugin {
 
 
 
-        CampaignCoreUILeft = getInt("CampaignUILeft");
-        CampaignCoreUIRight = getInt("CampaignUIRight");
+        CampaignCoreUILeft = getInt("CampaignCoreUILeft");
+        CampaignCoreUIRight = getInt("CampaignCoreUIRight");
         CampaignCoreUIConfirm = getInt("CampaignCoreUIConfirm");
         CampaignCoreUISubTabLeft = getInt("CampaignCoreUISubTabLeft");
         CampaignCoreUISubTabRight = getInt("CampaignCoreUISubTabRight");
@@ -121,9 +120,6 @@ public class MainPlugin extends BaseModPlugin {
         CampaignInteractUIToggleIndicator = getInt("CampaignInteractUIToggleIndicator");
         CampaignInteractUIWrap = Boolean.TRUE.equals(LunaSettings.getBoolean("ShoeyExtendedControls", "CampaignInteractUIWrap"));
         CampaignInteractUIIndicatorColor = LunaSettings.getColor("ShoeyExtendedControls", "CampaignInteractUIIndicatorColor");
-
-        if (cUIHH != null)
-            cUIHH.setColors();
 
         HandlingHotbar = Boolean.TRUE.equals(LunaSettings.getBoolean("ShoeyExtendedControls", "HandlingHotbar"));
         CampaignHotbarLeft = getInt("CampaignHotbarLeft");

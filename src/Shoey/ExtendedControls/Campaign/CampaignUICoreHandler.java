@@ -99,6 +99,9 @@ public class CampaignUICoreHandler implements CampaignUIRenderingListener, Campa
 
     void switchCore()
     {
+        if (!indicToggle)
+            return;
+
         switch (CoreUISelection) {
             case 1:
                 T1000.keyPress(KeyEvent.VK_C);
