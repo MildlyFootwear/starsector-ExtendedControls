@@ -53,7 +53,6 @@ public class CampaignUIHotbarHandler implements CampaignUIRenderingListener, Cam
             indicTR.setSize(indicTL.getWidth(), indicTL.getHeight());
             indicBL.setSize(indicTL.getWidth(), indicTL.getHeight());
             indicBR.setSize(indicTL.getWidth(), indicTL.getHeight());
-            setColors();
             indicTL.setAngle(45);
             indicTR.setAngle(-45);
             indicBL.setAngle(135);
@@ -82,6 +81,7 @@ public class CampaignUIHotbarHandler implements CampaignUIRenderingListener, Cam
             float x = 277;
             float y = 103;
             x += (CampaignHotbarOption - 1) * 59;
+            setColors();
             indicTL.render(x, y);
             indicTR.render(x+58, y);
             indicBL.render(x, y-58);
